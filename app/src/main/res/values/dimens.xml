@@ -3,4 +3,11 @@
 <resources>
     <dimen name="photo_size">64dp</dimen>
     <dimen name="default_margin">8dp</dimen>
+
+    <!-- TOOLBAR -->
+    <dimen name="toolbar_title_size">16sp</dimen>
+
+    <!-- MENU -->
+    <dimen name="menu_header_text_size">18sp</dimen>
+
 </resources>

@@ -15,4 +15,12 @@
         <item name="actionMenuTextColor">@android:color/white</item>
     </style>
 
+    <style name="ToolBarTextStyle">
+        <item name="android:fontFamily">@font/formula_bold</item>
+        <item name="android:textSize">@dimen/toolbar_title_size</item>
+    </style>
+
+    <style name="NavigationDrawerStyle">
+        <item name="android:fontFamily">@font/formula_bold</item>
+    </style>
 </resources>

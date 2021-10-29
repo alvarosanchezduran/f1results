@@ -7,4 +7,10 @@
         android:name="com.android.f1.results.ui.home.HomeFragment"
         android:label="HomeFragment" >
     </fragment>
+
+    <fragment
+        android:id="@+id/currentSeasonFragment"
+        android:name="com.android.f1.results.ui.currentseason.CurrentSeasonFragment"
+        android:label="CurrentSeasonFragment" >
+    </fragment>
 </navigation>

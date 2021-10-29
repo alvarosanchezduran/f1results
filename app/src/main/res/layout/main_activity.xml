@@ -9,51 +9,55 @@
             type="com.android.f1.results.ui.common.RetryCallback" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        tools:ignore="MergeRootFrame"
+    <androidx.drawerlayout.widget.DrawerLayout
+        android:id="@+id/drawer_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
+        tools:openDrawer="start">
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:background="@color/colorPrimary"
-            app:theme="@style/ToolBarStyle"
-            android:translationZ="99999dp">
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    android:text="F1 Results"
-                    android:textColor="#ffffff"
-                    android:fontFamily="@font/formula_bold"
-                    android:textSize="18sp"/>
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-
-        </androidx.appcompat.widget.Toolbar>
-
-        <fragment
-            android:name="androidx.navigation.fragment.NavHostFragment"
-            app:navGraph="@navigation/main"
-            app:defaultNavHost="true"
-            android:id="@+id/container"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            tools:ignore="MergeRootFrame"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            android:layout_height="match_parent">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:gravity="center"
+                android:background="@color/colorPrimary"
+                app:theme="@style/ToolBarStyle"
+                app:titleTextAppearance="@style/ToolBarTextStyle"
+                android:translationZ="99999dp">
+
+            </androidx.appcompat.widget.Toolbar>
+
+            <androidx.fragment.app.FragmentContainerView
+                android:name="androidx.navigation.fragment.NavHostFragment"
+                app:navGraph="@navigation/main"
+                app:defaultNavHost="true"
+                android:id="@+id/container"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <com.google.android.material.navigation.NavigationView
+            android:id="@+id/navigation_view"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            android:background="@color/white"
+            android:fitsSystemWindows="true"
+            app:headerLayout="@layout/menu_header"
+            android:theme="@style/NavigationDrawerStyle"
+            app:itemBackground="@color/white"
+            app:menu="@menu/menu"/>
+
+    </androidx.drawerlayout.widget.DrawerLayout>
 
 </layout>

@@ -1,4 +1,4 @@
-package com.android.f1.results.ui.currentseason
+package com.android.f1.results.ui.clasification
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -14,25 +14,21 @@ import com.android.f1.results.MainActivity
 import com.android.f1.results.R
 import com.android.f1.results.binding.FragmentDataBindingComponent
 import com.android.f1.results.databinding.CurrentSeasonFragmentBinding
+import com.android.f1.results.databinding.DriversClasificationFragmentBinding
 import com.android.f1.results.databinding.HomeFragmentBinding
 import com.android.f1.results.di.Injectable
 import com.android.f1.results.ui.common.RetryCallback
 import com.android.f1.results.ui.home.HomeViewModel
-import com.android.f1.results.util.F1PagerAdapter
 import com.android.f1.results.util.autoCleared
 import javax.inject.Inject
-import com.google.android.material.tabs.TabLayout
-import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
-import com.google.android.material.tabs.TabLayout.TabLayoutOnPageChangeListener
 
-
-class CurrentSeasonFragment : Fragment(), Injectable {
+class DriversClasificationFragment : Fragment(), Injectable {
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
     @Inject
     lateinit var appExecutors: AppExecutors
 
-    var binding by autoCleared<CurrentSeasonFragmentBinding>()
+    var binding by autoCleared<DriversClasificationFragmentBinding>()
     var dataBindingComponent: DataBindingComponent = FragmentDataBindingComponent(this)
 
     private val homeViewModel: HomeViewModel by viewModels {
@@ -43,9 +39,9 @@ class CurrentSeasonFragment : Fragment(), Injectable {
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
-        val dataBinding = DataBindingUtil.inflate<com.android.f1.results.databinding.CurrentSeasonFragmentBinding>(
+        val dataBinding = DataBindingUtil.inflate<DriversClasificationFragmentBinding>(
                 inflater,
-                R.layout.current_season_fragment,
+                R.layout.drivers_clasification_fragment,
                 container,
                 false,
                 dataBindingComponent
@@ -58,24 +54,5 @@ class CurrentSeasonFragment : Fragment(), Injectable {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding.lifecycleOwner = viewLifecycleOwner
-        (activity as MainActivity).setToolbarTitle(getString(R.string.current_season_title))
-        binding.tabs.addTab(binding.tabs.newTab().setText(R.string.drivers))
-        binding.tabs.addTab(binding.tabs.newTab().setText(R.string.constructors))
-        activity?.let {
-            val adapter = F1PagerAdapter(it, it.supportFragmentManager, binding.tabs.getTabCount())
-            binding.pager.setAdapter(adapter)
-
-            binding.pager.addOnPageChangeListener(TabLayoutOnPageChangeListener(binding.tabs))
-
-            binding.tabs.addOnTabSelectedListener(object : OnTabSelectedListener {
-                override fun onTabSelected(tab: TabLayout.Tab) {
-                    binding.pager.setCurrentItem(tab.position)
-                }
-
-                override fun onTabUnselected(tab: TabLayout.Tab) {}
-                override fun onTabReselected(tab: TabLayout.Tab) {}
-            })
-        }
-
     }
 }

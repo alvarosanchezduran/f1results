@@ -25,7 +25,6 @@ class MainActivity : AppCompatActivity(), HasSupportFragmentInjector, SupportAct
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setUpDatabinding()
-        setUpToolbar()
         setUpMenu()
     }
 
@@ -39,19 +38,19 @@ class MainActivity : AppCompatActivity(), HasSupportFragmentInjector, SupportAct
         return true
     }
 
+    override fun onPostCreate(savedInstanceState: Bundle?) {
+        super.onPostCreate(savedInstanceState)
+        val toggle = ActionBarDrawerToggle(
+                this, binding.drawerLayout, binding.toolbar, R.string.app_name, R.string.app_name)
+        binding.drawerLayout.addDrawerListener(toggle)
+        toggle.syncState()
+    }
+
     private fun setUpDatabinding() {
         binding = DataBindingUtil.setContentView<MainActivityBinding>(this, R.layout.main_activity)
                 .apply {
                     lifecycleOwner = this@MainActivity
                 }
-    }
-
-    private fun setUpToolbar() {
-        setSupportActionBar(binding.toolbar)
-        val toggle = ActionBarDrawerToggle(
-                this, binding.drawerLayout, binding.toolbar, R.string.app_name, R.string.app_name)
-        binding.drawerLayout.addDrawerListener(toggle)
-        toggle.syncState()
     }
 
     private fun setUpMenu() {

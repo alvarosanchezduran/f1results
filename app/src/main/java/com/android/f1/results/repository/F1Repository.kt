@@ -2,7 +2,7 @@ package com.android.f1.results.repository
 
 import androidx.lifecycle.LiveData
 import com.android.f1.results.AppExecutors
-import com.android.f1.results.api.F1Results
+import com.android.f1.results.api.F1ResultsServiceApi
 import com.android.f1.results.testing.OpenForTesting
 import com.android.f1.results.vo.Resource
 import javax.inject.Inject
@@ -19,7 +19,7 @@ import javax.inject.Singleton
 @OpenForTesting
 class F1Repository @Inject constructor(
     private val appExecutors: AppExecutors,
-    private val f1Results: F1Results
+    private val f1ResultsServiceApi: F1ResultsServiceApi
 ) {
     fun example(): LiveData<Resource<Any>> {
         return object : NetworkBoundResource<Any, Any>(appExecutors) {
@@ -31,7 +31,7 @@ class F1Repository @Inject constructor(
 
             override fun loadFromDb() = null
 
-            override fun createCall() = f1Results.getUser()
+            override fun createCall() = f1ResultsServiceApi.getUser()
 
             override fun onFetchFailed() { }
         }.asLiveData()

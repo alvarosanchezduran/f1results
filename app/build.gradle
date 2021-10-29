@@ -68,6 +68,8 @@ dependencies {
     implementation deps.constraint_layout
     implementation deps.kotlin.stdlib
 
+    implementation deps.others.tablayout
+
     implementation deps.timber
 
     kapt deps.dagger.android_support_compiler

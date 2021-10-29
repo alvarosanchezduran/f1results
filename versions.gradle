@@ -201,6 +201,10 @@ work.firebase = "androidx.work:work-firebase:$versions.work"
 work.runtime_ktx = "androidx.work:work-runtime-ktx:$versions.work"
 deps.work = work
 
+def others = [:]
+others.tablayout = "com.android.support:design:26.1.0"
+deps.others = others
+
 ext.deps = deps
 
 def addRepos(RepositoryHandler handler) {

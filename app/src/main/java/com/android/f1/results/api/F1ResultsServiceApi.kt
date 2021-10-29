@@ -6,7 +6,7 @@ import retrofit2.http.GET
 /**
  * REST API access points
  */
-interface F1Results {
+interface F1ResultsServiceApi {
     @GET("ejemplo")
     fun getUser(): LiveData<ApiResponse<Any>>
 }

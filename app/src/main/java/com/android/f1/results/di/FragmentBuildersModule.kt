@@ -1,5 +1,7 @@
 package com.android.f1.results.di
 
+import com.android.f1.results.ui.clasification.ConstructorsClasificationFragment
+import com.android.f1.results.ui.clasification.DriversClasificationFragment
 import com.android.f1.results.ui.currentseason.CurrentSeasonFragment
 import com.android.f1.results.ui.home.HomeFragment
 
@@ -13,5 +15,11 @@ abstract class FragmentBuildersModule {
     abstract fun contributeHomeFragment(): HomeFragment
 
     @ContributesAndroidInjector
-    abstract fun contributeCurrentUserFragment(): CurrentSeasonFragment
+    abstract fun contributeCurrentFragment(): CurrentSeasonFragment
+
+    @ContributesAndroidInjector
+    abstract fun contributeDriversClasificationFragment(): DriversClasificationFragment
+
+    @ContributesAndroidInjector
+    abstract fun contributeConstructorsClasificationFragment(): ConstructorsClasificationFragment
 }

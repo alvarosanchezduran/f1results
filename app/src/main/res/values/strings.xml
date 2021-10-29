@@ -7,4 +7,7 @@
     <string name="constructors_title">Constructors</string>
     <string name="circuits_title">Circuits</string>
 
+    <string name="drivers">Drivers</string>
+    <string name="constructors">Constructors</string>
+
 </resources>

@@ -2,6 +2,7 @@ package com.android.f1.results.di
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.android.f1.results.BuildConfig
 import com.android.f1.results.api.F1ResultsServiceApi
 import com.android.f1.results.ui.home.HomeViewModel
 import com.android.f1.results.util.LiveDataCallAdapterFactory
@@ -27,11 +28,11 @@ class RetrofitModule {
 
     private fun getRetrofitAdapter(): Retrofit {
         val client = OkHttpClient.Builder()
-                .callTimeout(10000, TimeUnit.MILLISECONDS)
-                .readTimeout(10000, TimeUnit.MILLISECONDS)
+                .callTimeout(BuildConfig.TIMEOUT, TimeUnit.MILLISECONDS)
+                .readTimeout(BuildConfig.TIMEOUT, TimeUnit.MILLISECONDS)
 
         return Retrofit.Builder()
-                .baseUrl("http://ergast.com/api/")
+                .baseUrl(BuildConfig.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(LiveDataCallAdapterFactory())
                 .client(client.build())

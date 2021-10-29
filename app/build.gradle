@@ -18,12 +18,16 @@ android {
         versionName "1.0"
     }
     buildTypes {
-          debug {
-              testCoverageEnabled !project.hasProperty('android.injected.invoked.from.ide')
-          }
+        debug {
+            testCoverageEnabled !project.hasProperty('android.injected.invoked.from.ide')
+            buildConfigField 'String', 'BASE_URL', releaseBaseUrl
+            buildConfigField 'Long', 'TIMEOUT', releaseTimeout
+        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            buildConfigField 'String', 'BASE_URL', debugBaseUrl
+            buildConfigField 'Long', 'TIMEOUT', debugTimeout
         }
     }
     dataBinding {

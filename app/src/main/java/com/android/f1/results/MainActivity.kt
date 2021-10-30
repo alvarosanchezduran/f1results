@@ -40,10 +40,7 @@ class MainActivity : AppCompatActivity(), HasSupportFragmentInjector, SupportAct
 
     override fun onPostCreate(savedInstanceState: Bundle?) {
         super.onPostCreate(savedInstanceState)
-        val toggle = ActionBarDrawerToggle(
-                this, binding.drawerLayout, binding.toolbar, R.string.app_name, R.string.app_name)
-        binding.drawerLayout.addDrawerListener(toggle)
-        toggle.syncState()
+        setUpToggle()
     }
 
     private fun setUpDatabinding() {
@@ -62,6 +59,7 @@ class MainActivity : AppCompatActivity(), HasSupportFragmentInjector, SupportAct
     override fun setToolbarTitle(title: String) {
         binding.toolbar.setTitle(title)
         setSupportActionBar(binding.toolbar)
+        setUpToggle()
     }
 
     override fun onBackPressed() {
@@ -77,5 +75,12 @@ class MainActivity : AppCompatActivity(), HasSupportFragmentInjector, SupportAct
                 supportFragmentManager.findFragmentById(R.id.container) as NavHostFragment
         val navController = navHostFragment.navController
         navController.navigate(id)
+    }
+
+    private fun setUpToggle() {
+        val toggle = ActionBarDrawerToggle(
+                this, binding.drawerLayout, binding.toolbar, R.string.app_name, R.string.app_name)
+        binding.drawerLayout.addDrawerListener(toggle)
+        toggle.syncState()
     }
 }

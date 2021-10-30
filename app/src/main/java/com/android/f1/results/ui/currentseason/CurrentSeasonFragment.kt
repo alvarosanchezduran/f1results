@@ -1,6 +1,7 @@
 package com.android.f1.results.ui.currentseason
 
 import android.os.Bundle
+import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -38,12 +39,13 @@ class CurrentSeasonFragment : Fragment(), Injectable {
     private val homeViewModel: HomeViewModel by viewModels {
         viewModelFactory
     }
+    var adapter: F1PagerAdapter? = null
 
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
-        val dataBinding = DataBindingUtil.inflate<com.android.f1.results.databinding.CurrentSeasonFragmentBinding>(
+        val dataBinding = DataBindingUtil.inflate<CurrentSeasonFragmentBinding>(
                 inflater,
                 R.layout.current_season_fragment,
                 container,
@@ -56,14 +58,20 @@ class CurrentSeasonFragment : Fragment(), Injectable {
         return dataBinding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        binding.lifecycleOwner = viewLifecycleOwner
-        (activity as MainActivity).setToolbarTitle(getString(R.string.current_season_title))
+    override fun onResume() {
+        super.onResume()
+        if (adapter != null) {
+            Handler().post({ binding.pager.setAdapter(adapter) })
+        }
+    }
+
+    private fun setUpTabs() {
         binding.tabs.addTab(binding.tabs.newTab().setText(R.string.drivers))
         binding.tabs.addTab(binding.tabs.newTab().setText(R.string.constructors))
         activity?.let {
-            val adapter = F1PagerAdapter(it, it.supportFragmentManager, binding.tabs.getTabCount())
+            adapter = F1PagerAdapter(it, it.supportFragmentManager, binding.tabs.getTabCount())
             binding.pager.setAdapter(adapter)
+
 
             binding.pager.addOnPageChangeListener(TabLayoutOnPageChangeListener(binding.tabs))
 
@@ -76,6 +84,16 @@ class CurrentSeasonFragment : Fragment(), Injectable {
                 override fun onTabReselected(tab: TabLayout.Tab) {}
             })
         }
+    }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        binding.lifecycleOwner = viewLifecycleOwner
+        (activity as MainActivity).setToolbarTitle(getString(R.string.current_season_title))
+        setUpTabs()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        val i = 0
     }
 }

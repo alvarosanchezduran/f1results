@@ -8,6 +8,7 @@ import androidx.databinding.DataBindingComponent
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.android.f1.results.AppExecutors
 import com.android.f1.results.MainActivity
@@ -53,8 +54,16 @@ class HomeFragment : Fragment(), Injectable {
         return dataBinding.root
     }
 
+    private fun setUpObservers() {
+        homeViewModel.raceRequest.observe(viewLifecycleOwner, { response ->
+            val responseFinal = response.data?.data?.raceTable?.season
+        })
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding.lifecycleOwner = viewLifecycleOwner
         (activity as MainActivity).setToolbarTitle(getString(R.string.home_title))
+        setUpObservers()
+        homeViewModel.getRaceInfo()
     }
 }

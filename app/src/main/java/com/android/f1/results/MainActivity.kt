@@ -13,6 +13,7 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import com.android.f1.results.util.SupportActionManager
 import androidx.core.view.GravityCompat
 import androidx.navigation.fragment.NavHostFragment
+import com.android.f1.results.vo.Status
 import com.google.android.material.navigation.NavigationView
 
 
@@ -82,5 +83,9 @@ class MainActivity : AppCompatActivity(), HasSupportFragmentInjector, SupportAct
                 this, binding.drawerLayout, binding.toolbar, R.string.app_name, R.string.app_name)
         binding.drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
+    }
+
+    fun loading(status: Status?) {
+        binding.progressBar.setProgressBarVisibility(status == Status.LOADING)
     }
 }

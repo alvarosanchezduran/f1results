@@ -16,54 +16,43 @@ import com.android.f1.results.R
 import com.android.f1.results.binding.FragmentDataBindingComponent
 import com.android.f1.results.databinding.HomeFragmentBinding
 import com.android.f1.results.di.Injectable
+import com.android.f1.results.ui.common.BaseFragment
 import com.android.f1.results.ui.common.RetryCallback
 import com.android.f1.results.util.autoCleared
+import com.bumptech.glide.Glide
 import javax.inject.Inject
 
-class HomeFragment : Fragment(), Injectable {
-    @Inject
-    lateinit var viewModelFactory: ViewModelProvider.Factory
-    @Inject
-    lateinit var appExecutors: AppExecutors
+class HomeFragment : BaseFragment<Any, HomeFragmentBinding>(R.layout.home_fragment), Injectable {
 
-    var binding by autoCleared<HomeFragmentBinding>()
     var dataBindingComponent: DataBindingComponent = FragmentDataBindingComponent(this)
 
     private val homeViewModel: HomeViewModel by viewModels {
         viewModelFactory
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        val dataBinding = DataBindingUtil.inflate<HomeFragmentBinding>(
-            inflater,
-            R.layout.home_fragment,
-            container,
-            false,
-            dataBindingComponent
-        )
-        dataBinding.retryCallback = object : RetryCallback {
-            override fun retry() {
-                homeViewModel.retry()
-            }
-        }
-        binding = dataBinding
-
-        return dataBinding.root
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        setUpBinding()
+        setUpObservers()
+        (activity as MainActivity).setToolbarTitle(getString(R.string.home_title))
+        homeViewModel.getRaceInfo()
     }
 
-    private fun setUpObservers() {
+    override fun setUpObservers() {
         homeViewModel.raceRequest.observe(viewLifecycleOwner, { response ->
-            val responseFinal = response.data?.data?.raceTable?.season
+            showLoading(response.status)
+            response.data?.data?.raceTable?.races?.get(0)?.let {
+                homeViewModel.nextRace.value = it
+                context?.let {
+                    Glide.with(it)
+                        .load("https://flagcdn.com/w640/mx.png")
+                        .into(binding.ivFlag)
+                }
+            }
         })
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        binding.lifecycleOwner = viewLifecycleOwner
-        (activity as MainActivity).setToolbarTitle(getString(R.string.home_title))
-        setUpObservers()
-        homeViewModel.getRaceInfo()
+    override fun setUpBinding() {
+        binding.viewModel = homeViewModel
     }
 }

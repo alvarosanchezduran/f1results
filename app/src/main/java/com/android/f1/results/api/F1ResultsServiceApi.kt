@@ -10,6 +10,6 @@ import retrofit2.http.GET
  * REST API access points
  */
 interface F1ResultsServiceApi {
-    @GET("api/f1/2021/18.json")
+    @GET("2021/18.json")
     fun getRace(): LiveData<ApiResponse<F1Response<RaceTableResponse>>>
 }

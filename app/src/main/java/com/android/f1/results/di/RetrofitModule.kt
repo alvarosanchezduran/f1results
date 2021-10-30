@@ -16,6 +16,12 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
+import com.google.gson.GsonBuilder
+
+import com.google.gson.Gson
+
+
+
 
 @Module
 class RetrofitModule {
@@ -31,9 +37,13 @@ class RetrofitModule {
                 .callTimeout(BuildConfig.TIMEOUT, TimeUnit.MILLISECONDS)
                 .readTimeout(BuildConfig.TIMEOUT, TimeUnit.MILLISECONDS)
 
+        val gson = GsonBuilder()
+            .setLenient()
+            .create()
+
         return Retrofit.Builder()
                 .baseUrl(BuildConfig.BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create(gson))
                 .addCallAdapterFactory(LiveDataCallAdapterFactory())
                 .client(client.build())
                 .build()

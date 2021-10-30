@@ -5,11 +5,15 @@ import com.android.f1.results.vo.F1Response
 import com.android.f1.results.vo.RaceTable
 import com.android.f1.results.vo.RaceTableResponse
 import retrofit2.http.GET
+import retrofit2.http.Path
 
-/**
- * REST API access points
- */
 interface F1ResultsServiceApi {
-    @GET("2021/18.json")
-    fun getRace(): LiveData<ApiResponse<F1Response<RaceTableResponse>>>
+    @GET("{year}/{round}.json")
+    fun getRace(
+        @Path("year") year: String,
+        @Path("round") round: String
+    ): LiveData<ApiResponse<F1Response<RaceTableResponse>>>
+
+    @GET("current/last/results.json")
+    fun getLastRaceResult(): LiveData<ApiResponse<F1Response<RaceTableResponse>>>
 }

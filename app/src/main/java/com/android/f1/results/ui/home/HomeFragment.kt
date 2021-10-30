@@ -1,26 +1,17 @@
 package com.android.f1.results.ui.home
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.databinding.DataBindingComponent
-import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
-import com.android.f1.results.AppExecutors
 import com.android.f1.results.MainActivity
 import com.android.f1.results.R
 import com.android.f1.results.binding.FragmentDataBindingComponent
 import com.android.f1.results.databinding.HomeFragmentBinding
 import com.android.f1.results.di.Injectable
 import com.android.f1.results.ui.common.BaseFragment
-import com.android.f1.results.ui.common.RetryCallback
-import com.android.f1.results.util.autoCleared
+import com.android.f1.results.vo.Status
 import com.bumptech.glide.Glide
-import javax.inject.Inject
 
 class HomeFragment : BaseFragment<Any, HomeFragmentBinding>(R.layout.home_fragment), Injectable {
 
@@ -35,17 +26,31 @@ class HomeFragment : BaseFragment<Any, HomeFragmentBinding>(R.layout.home_fragme
         setUpBinding()
         setUpObservers()
         (activity as MainActivity).setToolbarTitle(getString(R.string.home_title))
-        homeViewModel.getRaceInfo()
+        homeViewModel.getLastRaceInfo()
     }
 
     override fun setUpObservers() {
+        homeViewModel.lastRaceRequest.observe(viewLifecycleOwner, { response ->
+            response.data?.data?.raceTable?.let {
+                homeViewModel.lastRace.value = it
+                homeViewModel.getRaceInfo()
+            }
+        })
+
         homeViewModel.raceRequest.observe(viewLifecycleOwner, { response ->
             showLoading(response.status)
-            response.data?.data?.raceTable?.races?.get(0)?.let {
-                homeViewModel.nextRace.value = it
+            response.data?.data?.raceTable?.let {
+                homeViewModel.nextRace.value = it.races.get(0)
+                homeViewModel.getFlagInfo()
+            }
+        })
+
+        homeViewModel.flagRequest.observe(viewLifecycleOwner, { response ->
+            showLoading(response.status)
+            if(response.status == Status.SUCCESS) {
                 context?.let {
                     Glide.with(it)
-                        .load("https://flagcdn.com/w640/mx.png")
+                        .load(response.data?.get(0)?.flags?.png)
                         .into(binding.ivFlag)
                 }
             }

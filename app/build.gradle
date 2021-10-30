@@ -21,12 +21,14 @@ android {
         debug {
             testCoverageEnabled !project.hasProperty('android.injected.invoked.from.ide')
             buildConfigField 'String', 'BASE_URL', releaseBaseUrl
+            buildConfigField 'String', 'COUNTRY_URL', releaseCountryUrl
             buildConfigField 'Long', 'TIMEOUT', releaseTimeout
         }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             buildConfigField 'String', 'BASE_URL', debugBaseUrl
+            buildConfigField 'String', 'COUNTRY_URL', debugCountryUrl
             buildConfigField 'Long', 'TIMEOUT', debugTimeout
         }
     }

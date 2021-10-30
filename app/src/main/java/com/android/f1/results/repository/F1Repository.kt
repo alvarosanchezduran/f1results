@@ -11,20 +11,13 @@ import com.android.f1.results.vo.Resource
 import javax.inject.Inject
 import javax.inject.Singleton
 
-/**
- * Repository that handles Repo instances.
- *
- * unfortunate naming :/ .
- * Repo - value object name
- * Repository - type of this class.
- */
 @Singleton
 @OpenForTesting
 class F1Repository @Inject constructor(
     private val appExecutors: AppExecutors,
     private val f1ResultsServiceApi: F1ResultsServiceApi
 ) {
-    fun example(): LiveData<Resource<F1Response<RaceTableResponse>>> {
+    fun getNextRace(year: String, round: String): LiveData<Resource<F1Response<RaceTableResponse>>> {
         return object : NetworkBoundResource<F1Response<RaceTableResponse>, F1Response<RaceTableResponse>>(appExecutors) {
             override fun saveCallResult(item: F1Response<RaceTableResponse>) {}
 
@@ -34,7 +27,23 @@ class F1Repository @Inject constructor(
 
             override fun loadFromDb() = null
 
-            override fun createCall() = f1ResultsServiceApi.getRace()
+            override fun createCall() = f1ResultsServiceApi.getRace(year, round)
+
+            override fun onFetchFailed() { }
+        }.asLiveData()
+    }
+
+    fun getLastResult(): LiveData<Resource<F1Response<RaceTableResponse>>> {
+        return object : NetworkBoundResource<F1Response<RaceTableResponse>, F1Response<RaceTableResponse>>(appExecutors) {
+            override fun saveCallResult(item: F1Response<RaceTableResponse>) {}
+
+            override fun shouldFetch(data: F1Response<RaceTableResponse>?): Boolean {
+                return true
+            }
+
+            override fun loadFromDb() = null
+
+            override fun createCall() = f1ResultsServiceApi.getLastRaceResult()
 
             override fun onFetchFailed() { }
         }.asLiveData()

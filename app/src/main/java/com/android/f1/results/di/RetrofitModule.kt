@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.android.f1.results.BuildConfig
 import com.android.f1.results.api.F1ResultsServiceApi
+import com.android.f1.results.api.FlagServiceApi
 import com.android.f1.results.ui.home.HomeViewModel
 import com.android.f1.results.util.LiveDataCallAdapterFactory
 import com.android.f1.results.viewmodel.ViewModelFactory
@@ -32,6 +33,12 @@ class RetrofitModule {
         return getRetrofitAdapter().create(F1ResultsServiceApi::class.java)
     }
 
+    @Singleton
+    @Provides
+    fun provideFlagsService(): FlagServiceApi {
+        return getRetrofitCountryAdapter().create(FlagServiceApi::class.java)
+    }
+
     private fun getRetrofitAdapter(): Retrofit {
         val client = OkHttpClient.Builder()
                 .callTimeout(BuildConfig.TIMEOUT, TimeUnit.MILLISECONDS)
@@ -47,6 +54,23 @@ class RetrofitModule {
                 .addCallAdapterFactory(LiveDataCallAdapterFactory())
                 .client(client.build())
                 .build()
+    }
+
+    private fun getRetrofitCountryAdapter(): Retrofit {
+        val client = OkHttpClient.Builder()
+            .callTimeout(BuildConfig.TIMEOUT, TimeUnit.MILLISECONDS)
+            .readTimeout(BuildConfig.TIMEOUT, TimeUnit.MILLISECONDS)
+
+        val gson = GsonBuilder()
+            .setLenient()
+            .create()
+
+        return Retrofit.Builder()
+            .baseUrl(BuildConfig.COUNTRY_URL)
+            .addConverterFactory(GsonConverterFactory.create(gson))
+            .addCallAdapterFactory(LiveDataCallAdapterFactory())
+            .client(client.build())
+            .build()
     }
 
 }

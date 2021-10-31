@@ -16,5 +16,7 @@ data class Race(
     @SerializedName("date")
     val date: String,
     @SerializedName("time")
-    val time: String
+    val time: String,
+    @SerializedName("Results")
+    val results: List<Result>?
 )

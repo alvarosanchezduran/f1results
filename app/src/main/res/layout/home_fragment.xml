@@ -17,13 +17,13 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="20dp">
+        android:padding="@dimen/home_padding">
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:cardBackgroundColor="#37475F"
-            app:cardCornerRadius="20dp"
+            app:cardBackgroundColor="@color/f1gray"
+            app:cardCornerRadius="@dimen/home_card_radius"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -33,7 +33,7 @@
                 android:id="@+id/cl_next_gp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="25dp">
+                android:padding="@dimen/home_card_padding">
 
                 <TextView
                     android:id="@+id/tv_next_gp_label"
@@ -44,13 +44,13 @@
                     android:fontFamily="@font/f1font"
                     android:textFontWeight="500"
                     android:textColor="@color/white"
-                    android:textSize="20sp"
+                    android:textSize="@dimen/home_card_title"
                     android:text="@string/next_gp_label"/>
 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/iv_flag"
-                    android:layout_width="30dp"
-                    android:layout_height="22dp"
+                    android:layout_width="@dimen/home_card_flag_width"
+                    android:layout_height="@dimen/home_card_flag_height"
                     app:layout_constraintTop_toTopOf="@id/tv_next_gp_label"
                     app:layout_constraintEnd_toEndOf="parent"
                     />
@@ -60,52 +60,52 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@{viewModel.nextRace.circuit.circuitName}"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginTop="@dimen/home_card_gp_name_margin_top"
                     app:layout_constraintTop_toBottomOf="@id/iv_flag"
                     app:layout_constraintStart_toStartOf="parent"
                     android:fontFamily="@font/f1font"
                     android:textFontWeight="300"
                     android:textColor="@color/white"
-                    android:textSize="16sp"/>
+                    android:textSize="@dimen/home_card_gp_name_size"/>
 
                 <TextView
                     android:id="@+id/tv_next_gp_city"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@{viewModel.nextRace.circuit.location.locality}"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="@dimen/home_card_gp_margin_top"
                     app:layout_constraintTop_toBottomOf="@id/tv_next_gp_name"
                     app:layout_constraintStart_toStartOf="parent"
                     android:fontFamily="@font/f1font"
                     android:textFontWeight="300"
                     android:textColor="@color/white"
-                    android:textSize="16sp"/>
+                    android:textSize="@dimen/home_card_gp_city_size"/>
 
                 <TextView
                     android:id="@+id/tv_next_gp_date"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@{viewModel.nextRace.dateZoned}"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="@dimen/home_card_gp_margin_top"
                     app:layout_constraintTop_toBottomOf="@id/tv_next_gp_city"
                     app:layout_constraintEnd_toEndOf="parent"
                     android:fontFamily="@font/f1font"
                     android:textFontWeight="300"
                     android:textColor="@color/white"
-                    android:textSize="10sp"/>
+                    android:textSize="@dimen/home_card_gp_datetime_size"/>
 
                 <TextView
                     android:id="@+id/tv_next_gp_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@{viewModel.nextRace.timeZoned}"
-                    android:layout_marginTop="5dp"
+                    android:layout_marginTop="@dimen/home_card_gp_time_margin_top"
                     app:layout_constraintTop_toBottomOf="@id/tv_next_gp_date"
                     app:layout_constraintEnd_toEndOf="parent"
                     android:fontFamily="@font/f1font"
                     android:textFontWeight="300"
                     android:textColor="@color/white"
-                    android:textSize="10sp"/>
+                    android:textSize="@dimen/home_card_gp_datetime_size"/>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

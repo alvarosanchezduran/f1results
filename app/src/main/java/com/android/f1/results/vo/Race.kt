@@ -29,22 +29,38 @@ data class Race(
     val results: List<Result>?
 ) {
     fun getDateZoned(): String {
-        val formatter = DateTimeFormatter.ofPattern("dd MMM")
-        getCorrectTime()?.let {
-            return formatter.format(it).replace(".", "").toUpperCase()
+        val format = "dd MMM"
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val formatter = DateTimeFormatter.ofPattern(format)
+            getCorrectZoneTime()?.let {
+                return formatter.format(it).replace(".", "").toUpperCase()
+            }
+        } else {
+            getCorrectTime()?.let {
+                return SimpleDateFormat(format).format(it).replace(".", "").toUpperCase()
+            }
         }
         return ""
     }
 
     fun getTimeZoned(): String {
-        val formatter = DateTimeFormatter.ofPattern("HH:mm")
-        getCorrectTime()?.let {
-            return formatter.format(it)
+        val format = "HH:mm"
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val formatter = DateTimeFormatter.ofPattern("HH:mm")
+            getCorrectZoneTime()?.let {
+                return formatter.format(it)
+            }
+        } else {
+            getCorrectTime()?.let {
+                return SimpleDateFormat(format).format(it)
+            }
         }
+
         return ""
     }
 
-    fun getCorrectTime(): ZonedDateTime? {
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun getCorrectZoneTime(): ZonedDateTime? {
         var timeZone = TimeZone.getDefault()
         val formatter =
             DateTimeFormatter.ofPattern("yyyy-MM-ddHH:mm:ss'Z'").withZone(timeZone.toZoneId())
@@ -57,5 +73,10 @@ data class Race(
         else finalZone = time.minusHours(("" + zonedArray[1] + zonedArray[2]).toLong())
 
         return finalZone
+    }
+
+    fun getCorrectTime(): Date? {
+        val simpleDateFormat = SimpleDateFormat("yyyy-MM-ddHH:mm:ss'Z'")
+        return simpleDateFormat.parse((date + time))
     }
 }

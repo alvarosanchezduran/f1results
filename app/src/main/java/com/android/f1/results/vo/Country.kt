@@ -5,8 +5,7 @@ import com.google.gson.annotations.SerializedName
 data class CountryResponse(
     @SerializedName("flags")
     val flags: FlagsContent,
-    @SerializedName("name")
-    val name: CountryName
+    var countryName: String?
 )
 
 data class FlagsContent(
@@ -14,9 +13,4 @@ data class FlagsContent(
     val png: String,
     @SerializedName("svg")
     val svg: String
-)
-
-data class CountryName (
-    @SerializedName("common")
-    val common: String
 )

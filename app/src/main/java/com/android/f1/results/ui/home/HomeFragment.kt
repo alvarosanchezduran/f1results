@@ -54,10 +54,12 @@ class HomeFragment : BaseFragment<LastResultsAdapter, HomeFragmentBinding>(R.lay
 
         flagsViewModel.flagRequest.observe(viewLifecycleOwner, { response ->
             if(response.status == Status.SUCCESS) {
-                context?.let {
-                    Glide.with(it)
-                        .load(response.data?.get(0)?.flags?.png)
-                        .into(binding.ivFlag)
+                if (response.data?.size ?: 0 > 0) {
+                    context?.let {
+                        Glide.with(it)
+                            .load(response.data?.get(0)?.flags?.png)
+                            .into(binding.ivFlag)
+                    }
                 }
             }
         })
@@ -75,12 +77,16 @@ class HomeFragment : BaseFragment<LastResultsAdapter, HomeFragmentBinding>(R.lay
         flagsViewModel.flagLastResultsRequest.observe(viewLifecycleOwner, { response ->
             if(response.status == Status.SUCCESS) {
                 context?.let {
-                    response.data?.get(0)?.let {
-                        adapter.setFlag(it, flagsViewModel.currentIndexFlag)
+                    if(response.data?.size?: 0 > 0) {
+                        response.data?.get(0)?.let {
+                            adapter.setFlag(it, flagsViewModel.currentIndexFlag)
+                        }
+                        flagsViewModel.currentIndexFlag++
+                        if (flagsViewModel.lastResultsRaces.size > flagsViewModel.currentIndexFlag) flagsViewModel.getFlagInfoLastResults(
+                            flagsViewModel.lastResultsRaces.get(flagsViewModel.currentIndexFlag).circuit.location.country
+                        )
+                        else showLoading(false)
                     }
-                    flagsViewModel.currentIndexFlag++
-                    if(flagsViewModel.lastResultsRaces.size > flagsViewModel.currentIndexFlag) flagsViewModel.getFlagInfoLastResults(flagsViewModel.lastResultsRaces.get(flagsViewModel.currentIndexFlag).circuit.location.country)
-                    else showLoading(false)
                 }
             }
         })

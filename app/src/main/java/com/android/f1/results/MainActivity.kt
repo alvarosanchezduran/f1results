@@ -88,4 +88,8 @@ class MainActivity : AppCompatActivity(), HasSupportFragmentInjector, SupportAct
     fun loading(status: Status?) {
         binding.progressBar.setProgressBarVisibility(status == Status.LOADING)
     }
+
+    fun loading(status: Boolean) {
+        binding.progressBar.setProgressBarVisibility(status)
+    }
 }

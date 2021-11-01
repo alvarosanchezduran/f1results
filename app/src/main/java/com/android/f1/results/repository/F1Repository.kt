@@ -48,4 +48,20 @@ class F1Repository @Inject constructor(
             override fun onFetchFailed() { }
         }.asLiveData()
     }
+
+    fun getLastResults(): LiveData<Resource<F1Response<RaceTableResponse>>> {
+        return object : NetworkBoundResource<F1Response<RaceTableResponse>, F1Response<RaceTableResponse>>(appExecutors) {
+            override fun saveCallResult(item: F1Response<RaceTableResponse>) {}
+
+            override fun shouldFetch(data: F1Response<RaceTableResponse>?): Boolean {
+                return true
+            }
+
+            override fun loadFromDb() = null
+
+            override fun createCall() = f1ResultsServiceApi.getLastResults()
+
+            override fun onFetchFailed() { }
+        }.asLiveData()
+    }
 }

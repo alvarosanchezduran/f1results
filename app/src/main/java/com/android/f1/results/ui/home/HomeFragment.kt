@@ -10,10 +10,11 @@ import com.android.f1.results.binding.FragmentDataBindingComponent
 import com.android.f1.results.databinding.HomeFragmentBinding
 import com.android.f1.results.di.Injectable
 import com.android.f1.results.ui.common.BaseFragment
+import com.android.f1.results.vo.Race
 import com.android.f1.results.vo.Status
 import com.bumptech.glide.Glide
 
-class HomeFragment : BaseFragment<Any, HomeFragmentBinding>(R.layout.home_fragment), Injectable {
+class HomeFragment : BaseFragment<LastResultsAdapter, HomeFragmentBinding>(R.layout.home_fragment), Injectable {
 
     var dataBindingComponent: DataBindingComponent = FragmentDataBindingComponent(this)
 
@@ -27,6 +28,8 @@ class HomeFragment : BaseFragment<Any, HomeFragmentBinding>(R.layout.home_fragme
         setUpObservers()
         (activity as MainActivity).setToolbarTitle(getString(R.string.home_title))
         homeViewModel.getLastRaceInfo()
+        homeViewModel.getLastResultsInfo()
+        showLoading(true)
     }
 
     override fun setUpObservers() {
@@ -38,7 +41,6 @@ class HomeFragment : BaseFragment<Any, HomeFragmentBinding>(R.layout.home_fragme
         })
 
         homeViewModel.raceRequest.observe(viewLifecycleOwner, { response ->
-            showLoading(response.status)
             response.data?.data?.raceTable?.let {
                 homeViewModel.nextRace.value = it.races.get(0)
                 homeViewModel.getFlagInfo()
@@ -46,7 +48,6 @@ class HomeFragment : BaseFragment<Any, HomeFragmentBinding>(R.layout.home_fragme
         })
 
         homeViewModel.flagRequest.observe(viewLifecycleOwner, { response ->
-            showLoading(response.status)
             if(response.status == Status.SUCCESS) {
                 context?.let {
                     Glide.with(it)
@@ -55,9 +56,37 @@ class HomeFragment : BaseFragment<Any, HomeFragmentBinding>(R.layout.home_fragme
                 }
             }
         })
+
+        homeViewModel.lastResultsRequest.observe(viewLifecycleOwner, { response ->
+            response.data?.data?.raceTable?.let {
+                adapter.submitList(it.races)
+                homeViewModel.lastResultsRaces = it.races as MutableList<Race>
+                homeViewModel.currentIndexFlag = 0
+                if(it.races.size > 0) homeViewModel.getFlagInfo(it.races.get(homeViewModel.currentIndexFlag).circuit.location.country)
+            }
+        })
+
+        homeViewModel.flagLastResultsRequest.observe(viewLifecycleOwner, { response ->
+            if(response.status == Status.SUCCESS) {
+                context?.let {
+                    response.data?.get(0)?.let {
+                        adapter.setFlag(it, homeViewModel.currentIndexFlag)
+                    }
+                    homeViewModel.currentIndexFlag++
+                    if(homeViewModel.lastResultsRaces.size > homeViewModel.currentIndexFlag) homeViewModel.getFlagInfo(homeViewModel.lastResultsRaces.get(homeViewModel.currentIndexFlag).circuit.location.country)
+                    else showLoading(false)
+                }
+            }
+        })
     }
 
     override fun setUpBinding() {
         binding.viewModel = homeViewModel
+        context?.let {
+            adapter = LastResultsAdapter(dataBindingComponent, it, appExecutors, {
+
+            })
+            binding.rvLastRace.adapter = adapter
+        }
     }
 }

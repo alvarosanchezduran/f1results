@@ -16,12 +16,17 @@ class HomeViewModel
     flagRepository: FlagRepository
 ) : ViewModel() {
 
+    var currentIndexFlag = 0
+    var lastResultsRaces = mutableListOf<Race>()
+
     val nextRace = MutableLiveData<Race>()
     val lastRace = MutableLiveData<RaceTable>()
 
     private val getRace: MutableLiveData<Event<Unit>> = MutableLiveData()
     private val getLastRace: MutableLiveData<Event<Unit>> = MutableLiveData()
+    private val getLastResults: MutableLiveData<Event<Unit>> = MutableLiveData()
     private val getFlag: MutableLiveData<Event<Unit>> = MutableLiveData()
+    private val getFlagLastResults: MutableLiveData<Event<String>> = MutableLiveData()
 
     var raceRequest: LiveData<Resource<F1Response<RaceTableResponse>>> = Transformations
             .switchMap(getRace) {
@@ -33,9 +38,19 @@ class HomeViewModel
             f1Repository.getLastResult()
         }
 
+    var lastResultsRequest: LiveData<Resource<F1Response<RaceTableResponse>>> = Transformations
+        .switchMap(getLastResults) {
+            f1Repository.getLastResults()
+        }
+
     var flagRequest: LiveData<Resource<List<CountryResponse>>> = Transformations
         .switchMap(getFlag) {
             flagRepository.getFlag(nextRace.value?.circuit?.location?.country?: "")
+        }
+
+    var flagLastResultsRequest: LiveData<Resource<List<CountryResponse>>> = Transformations
+        .switchMap(getFlagLastResults) {
+            flagRepository.getFlag(it.getContentIfNotHandledOrReturnNull()?: "")
         }
 
     fun getRaceInfo() {
@@ -46,8 +61,16 @@ class HomeViewModel
         getLastRace.value = Event(Unit)
     }
 
+    fun getLastResultsInfo() {
+        getLastResults.value = Event(Unit)
+    }
+
     fun getFlagInfo() {
         getFlag.value = Event(Unit)
+    }
+
+    fun getFlagInfo(country: String) {
+        getFlagLastResults.value = Event(country)
     }
 
     fun retry() {

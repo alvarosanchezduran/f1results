@@ -49,6 +49,10 @@ abstract class BaseFragment<AdapterType : Any, FragmentBinding : ViewDataBinding
         (activity as MainActivity).loading(status)
     }
 
+    protected fun showLoading(status: Boolean) {
+        (activity as MainActivity).loading(status)
+    }
+
     abstract protected fun setUpBinding()
     abstract protected fun setUpObservers()
 

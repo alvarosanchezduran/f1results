@@ -33,7 +33,6 @@ class RetrofitModule {
         return getRetrofitAdapter().create(F1ResultsServiceApi::class.java)
     }
 
-    @Singleton
     @Provides
     fun provideFlagsService(): FlagServiceApi {
         return getRetrofitCountryAdapter().create(FlagServiceApi::class.java)

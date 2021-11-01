@@ -59,10 +59,11 @@ class HomeFragment : BaseFragment<LastResultsAdapter, HomeFragmentBinding>(R.lay
 
         homeViewModel.lastResultsRequest.observe(viewLifecycleOwner, { response ->
             response.data?.data?.raceTable?.let {
-                adapter.submitList(it.races)
-                homeViewModel.lastResultsRaces = it.races as MutableList<Race>
+                val listReversed = it.races.asReversed()
+                adapter.submitList(listReversed)
+                homeViewModel.lastResultsRaces = listReversed.toMutableList()
                 homeViewModel.currentIndexFlag = 0
-                if(it.races.size > 0) homeViewModel.getFlagInfo(it.races.get(homeViewModel.currentIndexFlag).circuit.location.country)
+                if(listReversed.size > 0) homeViewModel.getFlagInfo(listReversed.get(homeViewModel.currentIndexFlag).circuit.location.country)
             }
         })
 

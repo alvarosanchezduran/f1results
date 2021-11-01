@@ -61,7 +61,7 @@ data class Race(
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
-    fun getCorrectZoneTime(): ZonedDateTime? {
+    private fun getCorrectZoneTime(): ZonedDateTime? {
         var timeZone = TimeZone.getDefault()
         val formatter =
             DateTimeFormatter.ofPattern("yyyy-MM-ddHH:mm:ss'Z'").withZone(timeZone.toZoneId())
@@ -76,7 +76,7 @@ data class Race(
         return finalZone
     }
 
-    fun getCorrectTime(): Date? {
+    private fun getCorrectTime(): Date? {
         val simpleDateFormat = SimpleDateFormat("yyyy-MM-ddHH:mm:ss'Z'")
         return simpleDateFormat.parse((date + time))
     }

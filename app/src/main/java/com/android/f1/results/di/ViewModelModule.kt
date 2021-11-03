@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.android.f1.results.ui.common.viewmodels.FlagsViewModel
 import com.android.f1.results.ui.home.HomeViewModel
+import com.android.f1.results.ui.result.ResultViewModel
 import com.android.f1.results.viewmodel.ViewModelFactory
 
 import dagger.Binds
@@ -22,6 +23,11 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(FlagsViewModel::class)
     abstract fun bindFlagsViewModel(flagsViewModel: FlagsViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(ResultViewModel::class)
+    abstract fun bindResultViewModel(resultViewModel: ResultViewModel): ViewModel
 
     @Binds
     abstract fun bindViewModelFactory(factory: ViewModelFactory): ViewModelProvider.Factory

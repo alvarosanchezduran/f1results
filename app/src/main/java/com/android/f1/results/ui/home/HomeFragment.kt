@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.databinding.DataBindingComponent
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.android.f1.results.MainActivity
 import com.android.f1.results.R
 import com.android.f1.results.binding.FragmentDataBindingComponent
@@ -11,6 +12,7 @@ import com.android.f1.results.databinding.HomeFragmentBinding
 import com.android.f1.results.di.Injectable
 import com.android.f1.results.ui.common.BaseFragment
 import com.android.f1.results.ui.common.viewmodels.FlagsViewModel
+import com.android.f1.results.ui.result.ResultViewModel
 import com.android.f1.results.vo.Race
 import com.android.f1.results.vo.Status
 import com.bumptech.glide.Glide
@@ -24,6 +26,10 @@ class HomeFragment : BaseFragment<LastResultsAdapter, HomeFragmentBinding>(R.lay
     }
 
     private val flagsViewModel: FlagsViewModel by viewModels {
+        viewModelFactory
+    }
+
+    private val resultViewModel: ResultViewModel by viewModels {
         viewModelFactory
     }
 
@@ -96,7 +102,8 @@ class HomeFragment : BaseFragment<LastResultsAdapter, HomeFragmentBinding>(R.lay
         binding.viewModel = homeViewModel
         context?.let {
             adapter = LastResultsAdapter(dataBindingComponent, it, appExecutors, {
-
+                resultViewModel.race.value = it
+                findNavController().navigate(R.id.action_HomeFragment_to_ResultFragment)
             })
             binding.rvLastRace.adapter = adapter
         }

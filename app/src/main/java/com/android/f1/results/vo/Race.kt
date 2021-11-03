@@ -27,6 +27,8 @@ data class Race(
     val time: String,
     @SerializedName("Results")
     val results: List<Result>?,
+    @SerializedName("QualifyingResults")
+    val qualifyingResults: List<QualifyingResult>?,
     var flag: String?
 ) {
     fun getDateZoned(): String {

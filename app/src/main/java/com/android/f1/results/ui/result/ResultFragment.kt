@@ -15,48 +15,31 @@ import com.android.f1.results.MainActivity
 import com.android.f1.results.R
 import com.android.f1.results.binding.FragmentDataBindingComponent
 import com.android.f1.results.databinding.CurrentSeasonFragmentBinding
+import com.android.f1.results.databinding.HomeFragmentBinding
+import com.android.f1.results.databinding.ResultFragmentBinding
 import com.android.f1.results.di.Injectable
+import com.android.f1.results.ui.common.BaseFragment
 import com.android.f1.results.ui.home.HomeViewModel
+import com.android.f1.results.ui.home.LastResultsAdapter
 import com.android.f1.results.util.F1PagerAdapter
 import com.android.f1.results.util.autoCleared
 import com.google.android.material.tabs.TabLayout
 import javax.inject.Inject
 
-class ResultFragment : Fragment(), Injectable {
-    @Inject
-    lateinit var viewModelFactory: ViewModelProvider.Factory
-    @Inject
-    lateinit var appExecutors: AppExecutors
+class ResultFragment : BaseFragment<Any, ResultFragmentBinding>(R.layout.result_fragment), Injectable {
 
-    var binding by autoCleared<CurrentSeasonFragmentBinding>()
     var dataBindingComponent: DataBindingComponent = FragmentDataBindingComponent(this)
 
-    private val homeViewModel: HomeViewModel by viewModels {
+    private val resultViewModel: ResultViewModel by viewModels {
         viewModelFactory
     }
-    var adapter: F1PagerAdapter? = null
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        val dataBinding = DataBindingUtil.inflate<CurrentSeasonFragmentBinding>(
-            inflater,
-            R.layout.current_season_fragment,
-            container,
-            false,
-            dataBindingComponent
-        )
-
-        binding = dataBinding
-
-        return dataBinding.root
-    }
+    var pagerAdapter: ResultPagerAdapter? = null
 
     override fun onResume() {
         super.onResume()
-        if (adapter != null) {
-            Handler().post({ binding.pager.setAdapter(adapter) })
+        if (pagerAdapter != null) {
+            Handler().post({ binding.pager.setAdapter(pagerAdapter) })
         }
     }
 
@@ -64,8 +47,8 @@ class ResultFragment : Fragment(), Injectable {
         binding.tabs.addTab(binding.tabs.newTab().setText(R.string.qualifying_label))
         binding.tabs.addTab(binding.tabs.newTab().setText(R.string.race_label))
         activity?.let {
-            adapter = F1PagerAdapter(it, it.supportFragmentManager, binding.tabs.getTabCount())
-            binding.pager.setAdapter(adapter)
+            pagerAdapter = ResultPagerAdapter(it, it.supportFragmentManager, binding.tabs.getTabCount())
+            binding.pager.setAdapter(pagerAdapter)
 
 
             binding.pager.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(binding.tabs))
@@ -85,5 +68,10 @@ class ResultFragment : Fragment(), Injectable {
         binding.lifecycleOwner = viewLifecycleOwner
         (activity as MainActivity).setToolbarTitle(getString(R.string.current_season_title))
         setUpTabs()
+        resultViewModel.getQualifying()
     }
+
+    override fun setUpBinding() {}
+
+    override fun setUpObservers() {}
 }

@@ -24,5 +24,5 @@ data class Result(
     @SerializedName("Time")
     val time: Time,
     @SerializedName("FastestLap")
-    val fastestLap: FastestLap,
+    val fastestLap: FastestLap
 )

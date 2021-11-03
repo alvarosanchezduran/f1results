@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.android.f1.results.BuildConfig
 import com.android.f1.results.api.F1ResultsServiceApi
 import com.android.f1.results.api.FlagServiceApi
+import com.android.f1.results.api.ResultServiceApi
 import com.android.f1.results.ui.home.HomeViewModel
 import com.android.f1.results.util.LiveDataCallAdapterFactory
 import com.android.f1.results.viewmodel.ViewModelFactory
@@ -36,6 +37,12 @@ class RetrofitModule {
     @Provides
     fun provideFlagsService(): FlagServiceApi {
         return getRetrofitCountryAdapter().create(FlagServiceApi::class.java)
+    }
+
+    @Singleton
+    @Provides
+    fun provideResultService(): ResultServiceApi {
+        return getRetrofitAdapter().create(ResultServiceApi::class.java)
     }
 
     private fun getRetrofitAdapter(): Retrofit {

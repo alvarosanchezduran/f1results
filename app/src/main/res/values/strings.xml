@@ -8,6 +8,8 @@
     <string name="circuits_title">Circuits</string>
 
     <string name="next_gp_label">Next GP</string>
+    <string name="latest_results_winner">Winner %1$s</string>
+
 
     <string name="drivers">Drivers</string>
     <string name="constructors">Constructors</string>

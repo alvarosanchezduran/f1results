@@ -10,14 +10,20 @@ import com.android.f1.results.binding.FragmentDataBindingComponent
 import com.android.f1.results.databinding.HomeFragmentBinding
 import com.android.f1.results.di.Injectable
 import com.android.f1.results.ui.common.BaseFragment
+import com.android.f1.results.ui.common.viewmodels.FlagsViewModel
+import com.android.f1.results.vo.Race
 import com.android.f1.results.vo.Status
 import com.bumptech.glide.Glide
 
-class HomeFragment : BaseFragment<Any, HomeFragmentBinding>(R.layout.home_fragment), Injectable {
+class HomeFragment : BaseFragment<LastResultsAdapter, HomeFragmentBinding>(R.layout.home_fragment), Injectable {
 
     var dataBindingComponent: DataBindingComponent = FragmentDataBindingComponent(this)
 
     private val homeViewModel: HomeViewModel by viewModels {
+        viewModelFactory
+    }
+
+    private val flagsViewModel: FlagsViewModel by viewModels {
         viewModelFactory
     }
 
@@ -27,6 +33,8 @@ class HomeFragment : BaseFragment<Any, HomeFragmentBinding>(R.layout.home_fragme
         setUpObservers()
         (activity as MainActivity).setToolbarTitle(getString(R.string.home_title))
         homeViewModel.getLastRaceInfo()
+        homeViewModel.getLastResultsInfo()
+        showLoading(true)
     }
 
     override fun setUpObservers() {
@@ -38,20 +46,47 @@ class HomeFragment : BaseFragment<Any, HomeFragmentBinding>(R.layout.home_fragme
         })
 
         homeViewModel.raceRequest.observe(viewLifecycleOwner, { response ->
-            showLoading(response.status)
             response.data?.data?.raceTable?.let {
                 homeViewModel.nextRace.value = it.races.get(0)
-                homeViewModel.getFlagInfo()
+                flagsViewModel.getFlagInfo(it.races.get(0).circuit.location.country)
             }
         })
 
-        homeViewModel.flagRequest.observe(viewLifecycleOwner, { response ->
-            showLoading(response.status)
+        flagsViewModel.flagRequest.observe(viewLifecycleOwner, { response ->
+            if(response.status == Status.SUCCESS) {
+                if (response.data?.size ?: 0 > 0) {
+                    context?.let {
+                        Glide.with(it)
+                            .load(response.data?.get(0)?.flags?.png)
+                            .into(binding.ivFlag)
+                    }
+                }
+            }
+        })
+
+        homeViewModel.lastResultsRequest.observe(viewLifecycleOwner, { response ->
+            response.data?.data?.raceTable?.let {
+                val listReversed = it.races.asReversed()
+                adapter.submitList(listReversed)
+                flagsViewModel.lastResultsRaces = listReversed.toMutableList()
+                flagsViewModel.currentIndexFlag = 0
+                if(listReversed.size > 0) flagsViewModel.getFlagInfoLastResults(listReversed.get(flagsViewModel.currentIndexFlag).circuit.location.country)
+            }
+        })
+
+        flagsViewModel.flagLastResultsRequest.observe(viewLifecycleOwner, { response ->
             if(response.status == Status.SUCCESS) {
                 context?.let {
-                    Glide.with(it)
-                        .load(response.data?.get(0)?.flags?.png)
-                        .into(binding.ivFlag)
+                    if(response.data?.size?: 0 > 0) {
+                        response.data?.get(0)?.let {
+                            adapter.setFlag(it, flagsViewModel.currentIndexFlag)
+                        }
+                        flagsViewModel.currentIndexFlag++
+                        if (flagsViewModel.lastResultsRaces.size > flagsViewModel.currentIndexFlag) flagsViewModel.getFlagInfoLastResults(
+                            flagsViewModel.lastResultsRaces.get(flagsViewModel.currentIndexFlag).circuit.location.country
+                        )
+                        else showLoading(false)
+                    }
                 }
             }
         })
@@ -59,5 +94,11 @@ class HomeFragment : BaseFragment<Any, HomeFragmentBinding>(R.layout.home_fragme
 
     override fun setUpBinding() {
         binding.viewModel = homeViewModel
+        context?.let {
+            adapter = LastResultsAdapter(dataBindingComponent, it, appExecutors, {
+
+            })
+            binding.rvLastRace.adapter = adapter
+        }
     }
 }

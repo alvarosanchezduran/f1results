@@ -24,4 +24,16 @@
     <dimen name="home_card_gp_time_margin_top">5dp</dimen>
     <dimen name="home_card_gp_datetime_size">10sp</dimen>
 
+    <!-- RESULT ITEM -->
+    <dimen name="result_padding_vertical">15dp</dimen>
+    <dimen name="result_round_width">20dp</dimen>
+    <dimen name="result_round_size">14sp</dimen>
+    <dimen name="result_elements_margin_left">10dp</dimen>
+    <dimen name="result_circuit_name_size">12sp</dimen>
+    <dimen name="result_circuit_name_margin_right">20dp</dimen>
+    <dimen name="result_winner_size">10sp</dimen>
+    <dimen name="result_winner_margin_top">5dp</dimen>
+    <dimen name="result_date_size">10sp</dimen>
+    <dimen name="result_arrow_width">20dp</dimen>
+
 </resources>

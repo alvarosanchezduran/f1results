@@ -26,7 +26,8 @@ data class Race(
     @SerializedName("time")
     val time: String,
     @SerializedName("Results")
-    val results: List<Result>?
+    val results: List<Result>?,
+    var flag: String?
 ) {
     fun getDateZoned(): String {
         val format = "dd MMM"
@@ -60,7 +61,7 @@ data class Race(
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
-    fun getCorrectZoneTime(): ZonedDateTime? {
+    private fun getCorrectZoneTime(): ZonedDateTime? {
         var timeZone = TimeZone.getDefault()
         val formatter =
             DateTimeFormatter.ofPattern("yyyy-MM-ddHH:mm:ss'Z'").withZone(timeZone.toZoneId())
@@ -75,8 +76,12 @@ data class Race(
         return finalZone
     }
 
-    fun getCorrectTime(): Date? {
+    private fun getCorrectTime(): Date? {
         val simpleDateFormat = SimpleDateFormat("yyyy-MM-ddHH:mm:ss'Z'")
         return simpleDateFormat.parse((date + time))
+    }
+
+    fun getWinner(): Driver? {
+        return results?.get(0)?.driver
     }
 }

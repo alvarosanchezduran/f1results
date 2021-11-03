@@ -11,6 +11,8 @@ import com.android.f1.results.databinding.RaceFragmentBinding
 import com.android.f1.results.di.Injectable
 import com.android.f1.results.ui.common.BaseFragment
 import com.android.f1.results.ui.home.HomeViewModel
+import com.android.f1.results.vo.DriverQualifying
+import com.android.f1.results.vo.QualifyingRow
 
 class QualifyingFragment : BaseFragment<Any, QualifyingFragmentBinding>(R.layout.qualifying_fragment), Injectable {
 
@@ -30,7 +32,27 @@ class QualifyingFragment : BaseFragment<Any, QualifyingFragmentBinding>(R.layout
 
     override fun setUpObservers() {
         resultViewModel.qualifyingRequest.observe(viewLifecycleOwner, { response ->
-            val i = 0
+            response.data?.data?.raceTable?.races?.let {
+                if(it.size == 1) {
+                    val qualifyingRowList = mutableListOf<QualifyingRow>()
+                    val qualifyingResultList = it.get(0).qualifyingResults
+                    qualifyingResultList?.forEachIndexed { index, qualifyingResult ->
+                        if(index%2 == 0) {
+                            var firstDriver = DriverQualifying(qualifyingResult.driver, qualifyingResult.position, qualifyingResult.getQualificationTime())
+                            var secondDriver: DriverQualifying? = null
+                            if(qualifyingResultList.size > index + 1) {
+                                secondDriver = DriverQualifying(qualifyingResultList.get(index+1).driver, qualifyingResultList.get(index+1).position, qualifyingResultList.get(index+1).getQualificationTime())
+                            }
+                            qualifyingRowList.add(
+                                QualifyingRow(
+                                    firstDriver,
+                                    secondDriver
+                                )
+                            )
+                        }
+                    }
+                }
+            }
         })
     }
 }

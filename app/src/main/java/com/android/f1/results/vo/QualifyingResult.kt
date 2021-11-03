@@ -12,9 +12,16 @@ data class QualifyingResult(
     @SerializedName("Constructor")
     val constructor: Constructor,
     @SerializedName("Q1")
-    val q1: String,
+    val q1: String?,
     @SerializedName("Q2")
-    val q2: String,
+    val q2: String?,
     @SerializedName("Q3")
-    val q3: String,
-)
+    val q3: String?,
+) {
+    fun getQualificationTime(): String {
+        if (q3 != null) return q3
+        else if(q2 != null) return q2
+        else if(q1 != null) return q1
+        else return ""
+    }
+}

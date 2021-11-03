@@ -1,0 +1,111 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="race"
+            type="com.android.f1.results.vo.QualifyingRow" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="26dp"
+        android:paddingBottom="24dp"
+        android:paddingHorizontal="90dp"
+        android:background="@color/f1gray">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_first_position"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <TextView
+                android:id="@+id/tv_position"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1"
+                android:textSize="11sp"
+                android:textColor="@color/white"
+                android:fontFamily="@font/f1font"
+                android:textFontWeight="500"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="@id/iv_firstPosition"
+                app:layout_constraintEnd_toEndOf="@id/iv_firstPosition"/>
+
+            <ImageView
+                android:id="@+id/iv_firstPosition"
+                android:layout_width="70dp"
+                android:layout_height="18dp"
+                android:layout_marginTop="2dp"
+                android:src="@drawable/ic_grid_box"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_position"
+                app:tint="@color/white" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
+                android:fontFamily="@font/f1font"
+                android:text="HAM"
+                android:textColor="@color/white"
+                android:textFontWeight="500"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="@id/iv_firstPosition"
+                app:layout_constraintStart_toStartOf="@id/iv_firstPosition"
+                app:layout_constraintTop_toTopOf="@id/iv_firstPosition" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_second_position"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/cl_first_position"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <TextView
+                android:id="@+id/tv_position2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="2"
+                android:textColor="@color/white"
+                android:fontFamily="@font/f1font"
+                android:textFontWeight="500"
+                android:textSize="10sp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="@id/iv_secondPosition"
+                app:layout_constraintEnd_toEndOf="@id/iv_secondPosition"/>
+
+            <ImageView
+                android:id="@+id/iv_secondPosition"
+                android:layout_width="70dp"
+                android:layout_height="18dp"
+                android:layout_marginTop="2dp"
+                android:src="@drawable/ic_grid_box"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_position2"
+                app:tint="@color/white" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
+                android:fontFamily="@font/f1font"
+                android:text="ALO"
+                android:textColor="@color/white"
+                android:textFontWeight="500"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="@id/iv_secondPosition"
+                app:layout_constraintStart_toStartOf="@id/iv_secondPosition"
+                app:layout_constraintTop_toTopOf="@id/iv_secondPosition" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

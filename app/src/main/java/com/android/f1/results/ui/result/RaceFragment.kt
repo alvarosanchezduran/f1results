@@ -1,4 +1,4 @@
-package com.android.f1.results.ui.clasification
+package com.android.f1.results.ui.result
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,26 +10,22 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import com.android.f1.results.AppExecutors
-import com.android.f1.results.MainActivity
 import com.android.f1.results.R
 import com.android.f1.results.binding.FragmentDataBindingComponent
 import com.android.f1.results.databinding.ConstructorsClasificationFragmentBinding
-import com.android.f1.results.databinding.CurrentSeasonFragmentBinding
-import com.android.f1.results.databinding.DriversClasificationFragmentBinding
-import com.android.f1.results.databinding.HomeFragmentBinding
+import com.android.f1.results.databinding.RaceFragmentBinding
 import com.android.f1.results.di.Injectable
-import com.android.f1.results.ui.common.RetryCallback
 import com.android.f1.results.ui.home.HomeViewModel
 import com.android.f1.results.util.autoCleared
 import javax.inject.Inject
 
-class ConstructorsClasificationFragment : Fragment(), Injectable {
+class RaceFragment : Fragment(), Injectable {
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
     @Inject
     lateinit var appExecutors: AppExecutors
 
-    var binding by autoCleared<ConstructorsClasificationFragmentBinding>()
+    var binding by autoCleared<RaceFragmentBinding>()
     var dataBindingComponent: DataBindingComponent = FragmentDataBindingComponent(this)
 
     private val homeViewModel: HomeViewModel by viewModels {
@@ -37,15 +33,15 @@ class ConstructorsClasificationFragment : Fragment(), Injectable {
     }
 
     override fun onCreateView(
-            inflater: LayoutInflater, container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
-        val dataBinding = DataBindingUtil.inflate<ConstructorsClasificationFragmentBinding>(
-                inflater,
-                R.layout.constructors_clasification_fragment,
-                container,
-                false,
-                dataBindingComponent
+        val dataBinding = DataBindingUtil.inflate<RaceFragmentBinding>(
+            inflater,
+            R.layout.race_fragment,
+            container,
+            false,
+            dataBindingComponent
         )
 
         binding = dataBinding

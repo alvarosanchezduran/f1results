@@ -12,4 +12,7 @@
     <string name="drivers">Drivers</string>
     <string name="constructors">Constructors</string>
 
+    <string name="qualifying_label">Qualifying</string>
+    <string name="race_label">Race</string>
+
 </resources>

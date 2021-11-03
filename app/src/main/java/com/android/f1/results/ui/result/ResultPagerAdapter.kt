@@ -1,14 +1,11 @@
-package com.android.f1.results.util
+package com.android.f1.results.ui.result
 
-import android.content.Context;
+import android.content.Context
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
-import com.android.f1.results.ui.standings.ConstructorsStandingFragment
-import com.android.f1.results.ui.standings.DriversStandingFragment
 
-
-class F1PagerAdapter(context: Context, fm: FragmentManager, totalTabs: Int) : FragmentPagerAdapter(fm) {
+class ResultPagerAdapter(context: Context, fm: FragmentManager, totalTabs: Int) : FragmentPagerAdapter(fm) {
     private val myContext: Context
     var totalTabs: Int
 
@@ -16,16 +13,15 @@ class F1PagerAdapter(context: Context, fm: FragmentManager, totalTabs: Int) : Fr
     override fun getItem(position: Int): Fragment {
         return when (position) {
             0 -> {
-                DriversStandingFragment()
+                QualifyingFragment()
             }
             1 -> {
-                ConstructorsStandingFragment()
+                RaceFragment()
             }
-            else -> DriversStandingFragment()
+            else -> RaceFragment()
         }
     }
 
-    // this counts total number of tabs
     override fun getCount(): Int {
         return totalTabs
     }

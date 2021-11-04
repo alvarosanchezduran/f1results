@@ -4,7 +4,7 @@
 
     <data>
         <variable
-            name="race"
+            name="qualifyingRow"
             type="com.android.f1.results.vo.QualifyingRow" />
     </data>
 
@@ -13,8 +13,8 @@
         android:layout_height="wrap_content"
         android:paddingTop="26dp"
         android:paddingBottom="24dp"
-        android:paddingHorizontal="90dp"
-        android:background="@color/f1gray">
+        android:paddingHorizontal="70dp"
+        android:background="#333">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cl_first_position"
@@ -27,7 +27,7 @@
                 android:id="@+id/tv_position"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="1"
+                android:text="@{qualifyingRow.firstPosition.position}"
                 android:textSize="11sp"
                 android:textColor="@color/white"
                 android:fontFamily="@font/f1font"
@@ -51,7 +51,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="3dp"
                 android:fontFamily="@font/f1font"
-                android:text="HAM"
+                android:text="@{qualifyingRow.firstPosition.driver.code}"
                 android:textColor="@color/white"
                 android:textFontWeight="500"
                 android:textSize="12sp"
@@ -72,7 +72,7 @@
                 android:id="@+id/tv_position2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="2"
+                android:text="@{qualifyingRow.secondPosition.position}"
                 android:textColor="@color/white"
                 android:fontFamily="@font/f1font"
                 android:textFontWeight="500"
@@ -96,7 +96,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="3dp"
                 android:fontFamily="@font/f1font"
-                android:text="ALO"
+                android:text="@{qualifyingRow.secondPosition.driver.code}"
                 android:textColor="@color/white"
                 android:textFontWeight="500"
                 android:textSize="12sp"

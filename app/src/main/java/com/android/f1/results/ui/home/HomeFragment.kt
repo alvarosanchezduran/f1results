@@ -1,7 +1,9 @@
 package com.android.f1.results.ui.home
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import androidx.databinding.DataBindingComponent
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -38,9 +40,15 @@ class HomeFragment : BaseFragment<LastResultsAdapter, HomeFragmentBinding>(R.lay
         setUpBinding()
         setUpObservers()
         (activity as MainActivity).setToolbarTitle(getString(R.string.home_title))
+        flagsViewModel.currentIndexFlag = 0
         homeViewModel.getLastRaceInfo()
         homeViewModel.getLastResultsInfo()
         showLoading(true)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        flagsViewModel.currentIndexFlag = 0
     }
 
     override fun setUpObservers() {
@@ -59,7 +67,7 @@ class HomeFragment : BaseFragment<LastResultsAdapter, HomeFragmentBinding>(R.lay
         })
 
         flagsViewModel.flagRequest.observe(viewLifecycleOwner, { response ->
-            if(response.status == Status.SUCCESS) {
+            if (response.status == Status.SUCCESS) {
                 if (response.data?.size ?: 0 > 0) {
                     context?.let {
                         Glide.with(it)
@@ -76,25 +84,32 @@ class HomeFragment : BaseFragment<LastResultsAdapter, HomeFragmentBinding>(R.lay
                 adapter.submitList(listReversed)
                 flagsViewModel.lastResultsRaces = listReversed.toMutableList()
                 flagsViewModel.currentIndexFlag = 0
-                if(listReversed.size > 0) flagsViewModel.getFlagInfoLastResults(listReversed.get(flagsViewModel.currentIndexFlag).circuit.location.country)
+                if (listReversed.size > 0) flagsViewModel.getFlagInfoLastResults(
+                    listReversed.get(
+                        flagsViewModel.currentIndexFlag
+                    ).circuit.location.country
+                )
             }
         })
 
         flagsViewModel.flagLastResultsRequest.observe(viewLifecycleOwner, { response ->
-            if(response.status == Status.SUCCESS) {
+            if (response.status == Status.SUCCESS) {
                 context?.let {
-                    if(response.data?.size?: 0 > 0) {
-                        response.data?.get(0)?.let {
-                            adapter.setFlag(it, flagsViewModel.currentIndexFlag)
+                    if(adapter.currentList.size > 0) {
+                        if (response.data?.size ?: 0 > 0) {
+                            response.data?.get(0)?.let {
+                                adapter.setFlag(it, flagsViewModel.currentIndexFlag)
+                            }
+                            flagsViewModel.currentIndexFlag++
+                            if (flagsViewModel.lastResultsRaces.size > flagsViewModel.currentIndexFlag) flagsViewModel.getFlagInfoLastResults(
+                                flagsViewModel.lastResultsRaces.get(flagsViewModel.currentIndexFlag).circuit.location.country
+                            )
+                            else showLoading(false)
                         }
-                        flagsViewModel.currentIndexFlag++
-                        if (flagsViewModel.lastResultsRaces.size > flagsViewModel.currentIndexFlag) flagsViewModel.getFlagInfoLastResults(
-                            flagsViewModel.lastResultsRaces.get(flagsViewModel.currentIndexFlag).circuit.location.country
-                        )
-                        else showLoading(false)
                     }
                 }
             }
+
         })
     }
 

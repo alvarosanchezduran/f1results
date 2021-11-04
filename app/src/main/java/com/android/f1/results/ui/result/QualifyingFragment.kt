@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.databinding.DataBindingComponent
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.android.f1.results.R
 import com.android.f1.results.binding.FragmentDataBindingComponent
 import com.android.f1.results.databinding.QualifyingFragmentBinding
@@ -11,10 +12,14 @@ import com.android.f1.results.databinding.RaceFragmentBinding
 import com.android.f1.results.di.Injectable
 import com.android.f1.results.ui.common.BaseFragment
 import com.android.f1.results.ui.home.HomeViewModel
+import com.android.f1.results.ui.home.LastResultsAdapter
+import com.android.f1.results.util.DriversImages
 import com.android.f1.results.vo.DriverQualifying
 import com.android.f1.results.vo.QualifyingRow
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 
-class QualifyingFragment : BaseFragment<Any, QualifyingFragmentBinding>(R.layout.qualifying_fragment), Injectable {
+class QualifyingFragment : BaseFragment<QualifyingAdapter, QualifyingFragmentBinding>(R.layout.qualifying_fragment), Injectable {
 
     var dataBindingComponent: DataBindingComponent = FragmentDataBindingComponent(this)
 
@@ -28,10 +33,17 @@ class QualifyingFragment : BaseFragment<Any, QualifyingFragmentBinding>(R.layout
         setUpObservers()
     }
 
-    override fun setUpBinding() {}
+    override fun setUpBinding() {
+        adapter = QualifyingAdapter(dataBindingComponent, appExecutors) {
+            selectRow(it)
+
+        }
+        binding.rvQualifyingResult.adapter = adapter
+    }
 
     override fun setUpObservers() {
         resultViewModel.qualifyingRequest.observe(viewLifecycleOwner, { response ->
+            showLoading(response.status)
             response.data?.data?.raceTable?.races?.let {
                 if(it.size == 1) {
                     val qualifyingRowList = mutableListOf<QualifyingRow>()
@@ -51,8 +63,27 @@ class QualifyingFragment : BaseFragment<Any, QualifyingFragmentBinding>(R.layout
                             )
                         }
                     }
+                    if(qualifyingRowList.size > 0) {
+                        adapter.submitList(qualifyingRowList)
+                        selectRow(qualifyingRowList.get(0))
+                    }
                 }
             }
         })
+    }
+
+    private fun selectRow(qualifyingRow: QualifyingRow) {
+        binding.qualifyingRowDetail = qualifyingRow
+        DriversImages.DRIVERS_IMAGES.get(qualifyingRow.firstPosition.driver.driverId)?.let {
+            binding.ivDriver1.setImageResource(it)
+        }?: run {
+            binding.ivDriver1.setImageResource(R.drawable.alonso)
+        }
+
+        DriversImages.DRIVERS_IMAGES.get(qualifyingRow.secondPosition?.driver?.driverId?: "")?.let {
+            binding.ivDriver2.setImageResource(it)
+        }?: run {
+            binding.ivDriver2.setImageResource(R.drawable.alonso)
+        }
     }
 }

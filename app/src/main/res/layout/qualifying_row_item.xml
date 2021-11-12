@@ -14,7 +14,7 @@
         android:paddingTop="26dp"
         android:paddingBottom="24dp"
         android:paddingHorizontal="70dp"
-        android:background="#333">
+        android:background="@{qualifyingRow.selected ? @color/black : @color/gridGray}">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cl_first_position"

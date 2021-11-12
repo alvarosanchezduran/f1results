@@ -37,25 +37,25 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:paddingTop="20dp"
-            android:paddingRight="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toStartOf="@id/gl_vertical">
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/iv_driver_1"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                app:layout_constraintTop_toTopOf="parent"
+                android:layout_width="130dp"
+                android:layout_height="130dp"
+                app:layout_constraintTop_toBottomOf="@id/cl_name_container_1"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"/>
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/cl_name_container_1"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintEnd_toEndOf="parent">
+                app:layout_constraintStart_toStartOf="@id/iv_driver_1"
+                app:layout_constraintEnd_toEndOf="@id/iv_driver_1">
 
                 <TextView
                     android:id="@+id/tv_name_driver_1"
@@ -64,7 +64,8 @@
                     app:layout_constraintTop_toTopOf="parent"
                     android:textSize="11sp"
                     android:layout_marginRight="6dp"
-                    app:layout_constraintEnd_toStartOf="@id/ll_color_constructor_1"
+                    android:textColor="@color/colorPrimary"
+                    app:layout_constraintStart_toStartOf="@id/tv_surname_driver_1"
                     android:fontFamily="@font/formula_bold"
                     android:text="@{qualifyingRowDetail.firstPosition.driver.givenName}"/>
 
@@ -73,22 +74,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="6dp"
+                    android:textColor="@color/colorPrimary"
                     app:layout_constraintTop_toBottomOf="@id/tv_name_driver_1"
-                    app:layout_constraintEnd_toStartOf="@id/ll_color_constructor_1"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
                     android:fontFamily="@font/formula_black"
                     android:textSize="13sp"
                     android:text="@{qualifyingRowDetail.firstPosition.driver.familyName}"/>
-
-                <androidx.appcompat.widget.LinearLayoutCompat
-                    android:id="@+id/ll_color_constructor_1"
-                    android:layout_width="4dp"
-                    android:layout_height="0dp"
-                    android:layout_marginTop="2dp"
-                    android:layout_marginBottom="2dp"
-                    android:background="#789654"
-                    app:layout_constraintBottom_toBottomOf="@id/tv_surname_driver_1"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@id/tv_name_driver_1" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -97,18 +89,24 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintStart_toEndOf="@id/iv_driver_1"
-                app:layout_constraintTop_toBottomOf="@id/cl_name_container_1"
-                android:layout_marginTop="10dp"
-                android:fontFamily="@font/formula_bold"
-                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginRight="25dp"
+                android:textColor="@color/colorPrimary"
+                android:fontFamily="@font/formula_black"
+                android:textSize="24sp"
                 android:text="@{qualifyingRowDetail.firstPosition.position}"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintStart_toEndOf="@id/iv_driver_1"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_position_1"
                 android:layout_marginTop="5dp"
+                android:layout_marginRight="25dp"
+                android:textColor="@color/colorPrimary"
                 android:fontFamily="@font/formula_bold"
                 android:textSize="11sp"
                 android:text="@{qualifyingRowDetail.firstPosition.time}"/>
@@ -122,16 +120,15 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:paddingTop="20dp"
-            android:paddingLeft="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/gl_vertical">
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/iv_driver_2"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                app:layout_constraintTop_toTopOf="parent"
+                android:layout_width="130dp"
+                android:layout_height="130dp"
+                app:layout_constraintTop_toBottomOf="@id/cl_name_container_2"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"/>
 
@@ -140,7 +137,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent">
+                app:layout_constraintStart_toStartOf="@id/iv_driver_2"
+                app:layout_constraintEnd_toEndOf="@id/iv_driver_2">
 
                 <TextView
                     android:id="@+id/tv_name_driver_2"
@@ -148,8 +146,8 @@
                     android:layout_height="wrap_content"
                     app:layout_constraintTop_toTopOf="parent"
                     android:textSize="11sp"
-                    android:layout_marginLeft="6dp"
-                    app:layout_constraintStart_toEndOf="@id/ll_color_constructor_2"
+                    android:textColor="@color/colorPrimary"
+                    app:layout_constraintStart_toStartOf="@id/tv_surname_driver_2"
                     android:fontFamily="@font/formula_bold"
                     android:text="@{qualifyingRowDetail.secondPosition.driver.givenName}"/>
 
@@ -158,22 +156,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="6dp"
+                    android:textColor="@color/colorPrimary"
                     app:layout_constraintTop_toBottomOf="@id/tv_name_driver_2"
-                    app:layout_constraintStart_toEndOf="@id/ll_color_constructor_2"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
                     android:fontFamily="@font/formula_black"
                     android:textSize="13sp"
                     android:text="@{qualifyingRowDetail.secondPosition.driver.familyName}"/>
-
-                <androidx.appcompat.widget.LinearLayoutCompat
-                    android:id="@+id/ll_color_constructor_2"
-                    android:layout_width="4dp"
-                    android:layout_height="0dp"
-                    android:layout_marginTop="2dp"
-                    android:layout_marginBottom="2dp"
-                    android:background="#789654"
-                    app:layout_constraintBottom_toBottomOf="@id/tv_surname_driver_2"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@id/tv_name_driver_2" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -182,10 +171,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintEnd_toStartOf="@id/iv_driver_2"
-                app:layout_constraintTop_toBottomOf="@id/cl_name_container_2"
-                android:layout_marginTop="10dp"
-                android:fontFamily="@font/formula_bold"
-                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginLeft="25dp"
+                android:textColor="@color/colorPrimary"
+                android:fontFamily="@font/formula_black"
+                android:textSize="24sp"
                 android:text="@{qualifyingRowDetail.secondPosition.position}"/>
 
             <TextView
@@ -193,7 +185,10 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintEnd_toStartOf="@id/iv_driver_2"
                 app:layout_constraintTop_toBottomOf="@id/tv_position_2"
+                app:layout_constraintStart_toStartOf="parent"
+                android:textColor="@color/colorPrimary"
                 android:layout_marginTop="5dp"
+                android:layout_marginLeft="25dp"
                 android:fontFamily="@font/formula_bold"
                 android:textSize="11sp"
                 android:text="@{qualifyingRowDetail.secondPosition.time}"/>

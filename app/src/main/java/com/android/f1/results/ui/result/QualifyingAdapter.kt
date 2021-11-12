@@ -52,4 +52,11 @@ class QualifyingAdapter(
     override fun bind(binding: QualifyingRowItemBinding, item: QualifyingRow) {
         binding.qualifyingRow = item
     }
+
+    fun setSelectedRow(item: QualifyingRow) {
+        currentList.forEach {
+            it.selected = item.firstPosition == it.firstPosition
+        }
+        notifyDataSetChanged()
+    }
 }

@@ -85,5 +85,6 @@ class QualifyingFragment : BaseFragment<QualifyingAdapter, QualifyingFragmentBin
         }?: run {
             binding.ivDriver2.setImageResource(R.drawable.alonso)
         }
+        adapter.setSelectedRow(qualifyingRow)
     }
 }

@@ -13,7 +13,7 @@
     <!-- HOME -->
     <dimen name="home_padding">20dp</dimen>
     <dimen name="home_card_padding">25dp</dimen>
-    <dimen name="home_card_radius">20dp</dimen>
+    <dimen name="home_card_radius">25dp</dimen>
     <dimen name="home_card_title">20sp</dimen>
     <dimen name="home_card_flag_width">30dp</dimen>
     <dimen name="home_card_flag_height">22dp</dimen>
@@ -35,5 +35,23 @@
     <dimen name="result_winner_margin_top">5dp</dimen>
     <dimen name="result_date_size">10sp</dimen>
     <dimen name="result_arrow_width">20dp</dimen>
+
+    <!-- QUALIFYING GRID -->
+    <dimen name="qualifying_detail_image_size">130dp</dimen>
+    <dimen name="qualifying_detail_text_margin">6dp</dimen>
+    <dimen name="qualifying_detail_name_size">11sp</dimen>
+    <dimen name="qualifying_detail_surname_size">13sp</dimen>
+    <dimen name="qualifying_detail_position_size">24sp</dimen>
+    <dimen name="qualifying_detail_position_margin">25dp</dimen>
+    <dimen name="qualifying_detail_time_margin_top">5dp</dimen>
+    <dimen name="qualifying_detail_padding_top">20dp</dimen>
+    <dimen name="qualifying_row_padding_top">26dp</dimen>
+    <dimen name="qualifying_row_padding_bottom">24dp</dimen>
+    <dimen name="qualifying_row_padding_horizontal">70dp</dimen>
+    <dimen name="qualifying_row_grid_image_width">70dp</dimen>
+    <dimen name="qualifying_row_grid_image_height">18dp</dimen>
+    <dimen name="qualifying_row_grid_image_margin_top">2dp</dimen>
+    <dimen name="qualifying_row_code_margin_top">3dp</dimen>
+    <dimen name="qualifying_row_code_text_size">12sp</dimen>
 
 </resources>

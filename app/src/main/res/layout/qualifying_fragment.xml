@@ -17,7 +17,7 @@
             android:id="@+id/rv_qualifying_result"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:background="#4D4D57"
+            android:background="@color/gridGrayQaulifying"
             app:layoutManager="LinearLayoutManager"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
@@ -36,15 +36,15 @@
             android:id="@+id/cl_first_position_detail"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:paddingTop="20dp"
+            android:paddingTop="@dimen/qualifying_detail_padding_top"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toStartOf="@id/gl_vertical">
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/iv_driver_1"
-                android:layout_width="130dp"
-                android:layout_height="130dp"
+                android:layout_width="@dimen/qualifying_detail_image_size"
+                android:layout_height="@dimen/qualifying_detail_image_size"
                 app:layout_constraintTop_toBottomOf="@id/cl_name_container_1"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"/>
@@ -62,10 +62,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:layout_constraintTop_toTopOf="parent"
-                    android:textSize="11sp"
-                    android:layout_marginRight="6dp"
+                    android:textSize="@dimen/qualifying_detail_name_size"
+                    android:layout_marginRight="@dimen/qualifying_detail_text_margin"
                     android:textColor="@color/colorPrimary"
-                    app:layout_constraintStart_toStartOf="@id/tv_surname_driver_1"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
                     android:fontFamily="@font/formula_bold"
                     android:text="@{qualifyingRowDetail.firstPosition.driver.givenName}"/>
 
@@ -73,13 +74,12 @@
                     android:id="@+id/tv_surname_driver_1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="6dp"
                     android:textColor="@color/colorPrimary"
                     app:layout_constraintTop_toBottomOf="@id/tv_name_driver_1"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     android:fontFamily="@font/formula_black"
-                    android:textSize="13sp"
+                    android:textSize="@dimen/qualifying_detail_surname_size"
                     android:text="@{qualifyingRowDetail.firstPosition.driver.familyName}"/>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -92,10 +92,10 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
-                android:layout_marginRight="25dp"
+                android:layout_marginRight="@dimen/qualifying_detail_position_margin"
                 android:textColor="@color/colorPrimary"
                 android:fontFamily="@font/formula_black"
-                android:textSize="24sp"
+                android:textSize="@dimen/qualifying_detail_position_size"
                 android:text="@{qualifyingRowDetail.firstPosition.position}"/>
 
             <TextView
@@ -104,11 +104,11 @@
                 app:layout_constraintStart_toEndOf="@id/iv_driver_1"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_position_1"
-                android:layout_marginTop="5dp"
-                android:layout_marginRight="25dp"
+                android:layout_marginTop="@dimen/qualifying_detail_time_margin_top"
+                android:layout_marginRight="@dimen/qualifying_detail_position_margin"
                 android:textColor="@color/colorPrimary"
                 android:fontFamily="@font/formula_bold"
-                android:textSize="11sp"
+                android:textSize="@dimen/qualifying_detail_name_size"
                 android:text="@{qualifyingRowDetail.firstPosition.time}"/>
 
 
@@ -119,15 +119,15 @@
             android:id="@+id/cl_second_position_detail"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:paddingTop="20dp"
+            android:paddingTop="@dimen/qualifying_detail_padding_top"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/gl_vertical">
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/iv_driver_2"
-                android:layout_width="130dp"
-                android:layout_height="130dp"
+                android:layout_width="@dimen/qualifying_detail_image_size"
+                android:layout_height="@dimen/qualifying_detail_image_size"
                 app:layout_constraintTop_toBottomOf="@id/cl_name_container_2"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"/>
@@ -145,9 +145,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:layout_constraintTop_toTopOf="parent"
-                    android:textSize="11sp"
+                    android:textSize="@dimen/qualifying_detail_name_size"
                     android:textColor="@color/colorPrimary"
-                    app:layout_constraintStart_toStartOf="@id/tv_surname_driver_2"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
                     android:fontFamily="@font/formula_bold"
                     android:text="@{qualifyingRowDetail.secondPosition.driver.givenName}"/>
 
@@ -155,13 +156,12 @@
                     android:id="@+id/tv_surname_driver_2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="6dp"
                     android:textColor="@color/colorPrimary"
                     app:layout_constraintTop_toBottomOf="@id/tv_name_driver_2"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     android:fontFamily="@font/formula_black"
-                    android:textSize="13sp"
+                    android:textSize="@dimen/qualifying_detail_surname_size"
                     android:text="@{qualifyingRowDetail.secondPosition.driver.familyName}"/>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -174,10 +174,10 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
-                android:layout_marginLeft="25dp"
+                android:layout_marginLeft="@dimen/qualifying_detail_position_margin"
                 android:textColor="@color/colorPrimary"
                 android:fontFamily="@font/formula_black"
-                android:textSize="24sp"
+                android:textSize="@dimen/qualifying_detail_position_size"
                 android:text="@{qualifyingRowDetail.secondPosition.position}"/>
 
             <TextView
@@ -187,10 +187,10 @@
                 app:layout_constraintTop_toBottomOf="@id/tv_position_2"
                 app:layout_constraintStart_toStartOf="parent"
                 android:textColor="@color/colorPrimary"
-                android:layout_marginTop="5dp"
-                android:layout_marginLeft="25dp"
+                android:layout_marginTop="@dimen/qualifying_detail_time_margin_top"
+                android:layout_marginLeft="@dimen/qualifying_detail_position_margin"
                 android:fontFamily="@font/formula_bold"
-                android:textSize="11sp"
+                android:textSize="@dimen/qualifying_detail_name_size"
                 android:text="@{qualifyingRowDetail.secondPosition.time}"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>

@@ -9,4 +9,5 @@
     <color name="black">#000000</color>
     <color name="f1gray">#37475F</color>
     <color name="gridGray">#333</color>
+    <color name="gridGrayQaulifying">#4D4D57</color>
 </resources>

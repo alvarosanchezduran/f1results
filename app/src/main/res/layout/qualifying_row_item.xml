@@ -1,6 +1,5 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
         <variable
@@ -11,9 +10,9 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="26dp"
-        android:paddingBottom="24dp"
-        android:paddingHorizontal="70dp"
+        android:paddingTop="@dimen/qualifying_row_padding_top"
+        android:paddingBottom="@dimen/qualifying_row_padding_bottom"
+        android:paddingHorizontal="@dimen/qualifying_row_padding_horizontal"
         android:background="@{qualifyingRow.selected ? @color/black : @color/gridGray}">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -28,7 +27,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@{qualifyingRow.firstPosition.position}"
-                android:textSize="11sp"
+                android:textSize="@dimen/qualifying_detail_name_size"
                 android:textColor="@color/white"
                 android:fontFamily="@font/f1font"
                 android:textFontWeight="500"
@@ -38,9 +37,9 @@
 
             <ImageView
                 android:id="@+id/iv_firstPosition"
-                android:layout_width="70dp"
-                android:layout_height="18dp"
-                android:layout_marginTop="2dp"
+                android:layout_width="@dimen/qualifying_row_grid_image_width"
+                android:layout_height="@dimen/qualifying_row_grid_image_height"
+                android:layout_marginTop="@dimen/qualifying_row_grid_image_margin_top"
                 android:src="@drawable/ic_grid_box"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_position"
@@ -49,12 +48,12 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="3dp"
+                android:layout_marginTop="@dimen/qualifying_row_code_margin_top"
                 android:fontFamily="@font/f1font"
                 android:text="@{qualifyingRow.firstPosition.driver.code}"
                 android:textColor="@color/white"
                 android:textFontWeight="500"
-                android:textSize="12sp"
+                android:textSize="@dimen/qualifying_row_code_text_size"
                 app:layout_constraintEnd_toEndOf="@id/iv_firstPosition"
                 app:layout_constraintStart_toStartOf="@id/iv_firstPosition"
                 app:layout_constraintTop_toTopOf="@id/iv_firstPosition" />
@@ -76,16 +75,16 @@
                 android:textColor="@color/white"
                 android:fontFamily="@font/f1font"
                 android:textFontWeight="500"
-                android:textSize="10sp"
+                android:textSize="@dimen/qualifying_detail_name_size"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="@id/iv_secondPosition"
                 app:layout_constraintEnd_toEndOf="@id/iv_secondPosition"/>
 
             <ImageView
                 android:id="@+id/iv_secondPosition"
-                android:layout_width="70dp"
-                android:layout_height="18dp"
-                android:layout_marginTop="2dp"
+                android:layout_width="@dimen/qualifying_row_grid_image_width"
+                android:layout_height="@dimen/qualifying_row_grid_image_height"
+                android:layout_marginTop="@dimen/qualifying_row_grid_image_margin_top"
                 android:src="@drawable/ic_grid_box"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_position2"
@@ -94,12 +93,12 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="3dp"
+                android:layout_marginTop="@dimen/qualifying_row_code_margin_top"
                 android:fontFamily="@font/f1font"
                 android:text="@{qualifyingRow.secondPosition.driver.code}"
                 android:textColor="@color/white"
                 android:textFontWeight="500"
-                android:textSize="12sp"
+                android:textSize="@dimen/qualifying_row_code_text_size"
                 app:layout_constraintEnd_toEndOf="@id/iv_secondPosition"
                 app:layout_constraintStart_toStartOf="@id/iv_secondPosition"
                 app:layout_constraintTop_toTopOf="@id/iv_secondPosition" />

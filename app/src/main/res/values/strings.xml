@@ -17,4 +17,9 @@
     <string name="qualifying_label">Qualifying</string>
     <string name="race_label">Race</string>
 
+    <string name="position_text">%1$sº</string>
+    <string name="points_added">+%1$spts</string>
+    <string name="pitstops_done">Pitstops %1$s</string>
+    <string name="laps_done">Laps %1$s</string>
+
 </resources>

@@ -21,19 +21,32 @@ import com.android.f1.results.ui.home.HomeViewModel
 import com.android.f1.results.util.autoCleared
 import javax.inject.Inject
 
-class RaceFragment : BaseFragment<Any, RaceFragmentBinding>(R.layout.race_fragment), Injectable {
+class RaceFragment : BaseFragment<RaceAdapter, RaceFragmentBinding>(R.layout.race_fragment), Injectable {
 
     var dataBindingComponent: DataBindingComponent = FragmentDataBindingComponent(this)
 
-    private val homeViewModel: HomeViewModel by viewModels {
+    private val resultViewModel: ResultViewModel by viewModels {
         viewModelFactory
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding.lifecycleOwner = viewLifecycleOwner
+        setUpBinding()
+        setUpObservers()
     }
 
-    override fun setUpBinding() {}
+    override fun setUpBinding() {
+        binding.apply {
+            adapter = RaceAdapter(dataBindingComponent, appExecutors, {
+                adapter.setSelectedResult(it)
+            }, {
+                adapter.setAllSelected()
+            })
+            if(resultViewModel.race.value?.results?.size?: 0 > 0) resultViewModel.race.value?.results?.get(0)?.selected = true
+            adapter.submitList(resultViewModel.race.value?.results)
+            rvRaceResult.adapter = adapter
+        }
+    }
 
     override fun setUpObservers() {}
 }

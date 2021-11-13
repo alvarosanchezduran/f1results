@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName
 
 data class Result(
     @SerializedName("number")
-    val number: String,
+    val number: String? = "",
     @SerializedName("position")
     val position: String,
     @SerializedName("positionText")
@@ -18,11 +18,28 @@ data class Result(
     @SerializedName("grid")
     val grid: String,
     @SerializedName("laps")
-    val laps: String,
+    val laps: String?,
     @SerializedName("status")
     val status: String,
     @SerializedName("Time")
-    val time: Time,
+    val time: Time?,
     @SerializedName("FastestLap")
-    val fastestLap: FastestLap
-)
+    val fastestLap: FastestLap?,
+    var selected: Boolean? = false
+) {
+    fun getFinalTime(): String {
+        time?.let {
+            return it.time
+        }?: run  {
+            return status
+        }
+    }
+
+    fun isFastesLap(): Boolean {
+        fastestLap?.let {
+            return it.rank == "1"
+        }?: run  {
+            return false
+        }
+    }
+}

@@ -3,6 +3,7 @@
 <resources>
     <dimen name="photo_size">64dp</dimen>
     <dimen name="default_margin">8dp</dimen>
+    <dimen name="none">0dp</dimen>
 
     <!-- TOOLBAR -->
     <dimen name="toolbar_title_size">16sp</dimen>
@@ -53,5 +54,8 @@
     <dimen name="qualifying_row_grid_image_margin_top">2dp</dimen>
     <dimen name="qualifying_row_code_margin_top">3dp</dimen>
     <dimen name="qualifying_row_code_text_size">12sp</dimen>
+
+    <!-- RACE RESULT -->
+    <dimen name="race_result_info_margin_left">10dp</dimen>
 
 </resources>

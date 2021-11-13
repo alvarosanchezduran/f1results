@@ -1,0 +1,155 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <import type="android.view.View"/>
+        <variable
+            name="result"
+            type="com.android.f1.results.vo.Result" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_result_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingVertical="20dp"
+        android:paddingHorizontal="20dp">
+
+        <TextView
+            android:id="@+id/tv_position"
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:text="@{@string/position_text(result.position)}"
+            android:textSize="18sp"
+            android:textColor="@color/black"
+            android:fontFamily="@font/formula_bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/ll_constructor_color"
+            android:layout_width="5dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="2dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:background="@color/colorPrimary"
+            app:layout_constraintStart_toEndOf="@id/tv_position"/>
+
+        <ImageView
+            android:id="@+id/iv_driver"
+            android:layout_width="70dp"
+            android:layout_height="100dp"
+            android:adjustViewBounds="true"
+            android:scaleType="centerCrop"
+            android:translationZ="1dp"
+            android:layout_marginStart="8dp"
+            android:src="@drawable/alonso"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/ll_constructor_color"
+            android:visibility="@{result.selected ? View.VISIBLE : View.GONE}"
+            imageResource="@{result.driver.image}"/>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            android:translationZ="10dp"
+            app:layout_constraintStart_toEndOf="@id/iv_driver"
+            margin_start="@{result.selected ? @dimen/none : @dimen/race_result_info_margin_left}">
+
+            <TextView
+                android:id="@+id/tv_driver_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/formula_bold"
+                android:textSize="14sp"
+                android:textColor="@color/black"
+                android:layout_marginStart="10dp"
+                android:text="@{result.driver.givenName}"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"/>
+
+            <TextView
+                android:id="@+id/tv_driver_surname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/formula_black"
+                android:textSize="18sp"
+                android:textColor="@color/black"
+                android:text="@{result.driver.familyName}"
+                app:layout_constraintTop_toBottomOf="@id/tv_driver_name"
+                app:layout_constraintStart_toStartOf="@id/tv_driver_name"/>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                app:layout_constraintTop_toBottomOf="@id/tv_driver_surname"
+                app:layout_constraintStart_toStartOf="@id/tv_driver_surname"
+                android:visibility="@{result.selected ? View.VISIBLE : View.GONE}">
+
+                <TextView
+                    android:id="@+id/tv_final_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/formula_bold"
+                    android:textSize="11sp"
+                    android:textColor="@color/black"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:text="@{result.finalTime}"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:fontFamily="@font/formula_bold"
+                    android:textSize="11sp"
+                    android:textColor="@color/black"
+                    app:layout_constraintTop_toBottomOf="@id/tv_final_time"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:text="@{@string/laps_done(result.laps)}"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="50dp"
+            app:cardBackgroundColor="@{result.fastesLap ? @color/flPurple : @color/f1gray}"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:text="@{@string/points_added(result.points)}"
+                android:textColor="@color/white"
+                android:fontFamily="@font/formula_bold"
+                android:textSize="11sp"/>
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/ll_constructor_color_bottom"
+            android:layout_width="0dp"
+            android:layout_height="5dp"
+            android:translationZ="99999dp"
+            android:background="@color/colorPrimary"
+            app:layout_constraintBottom_toBottomOf="@id/ll_constructor_color"
+            app:layout_constraintStart_toStartOf="@id/ll_constructor_color"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:visibility="@{result.selected ? View.VISIBLE : View.GONE}"/>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

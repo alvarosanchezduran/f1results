@@ -6,6 +6,7 @@ import com.android.f1.results.BuildConfig
 import com.android.f1.results.api.F1ResultsServiceApi
 import com.android.f1.results.api.FlagServiceApi
 import com.android.f1.results.api.ResultServiceApi
+import com.android.f1.results.api.StandingsServiceApi
 import com.android.f1.results.ui.home.HomeViewModel
 import com.android.f1.results.util.LiveDataCallAdapterFactory
 import com.android.f1.results.viewmodel.ViewModelFactory
@@ -43,6 +44,12 @@ class RetrofitModule {
     @Provides
     fun provideResultService(): ResultServiceApi {
         return getRetrofitAdapter().create(ResultServiceApi::class.java)
+    }
+
+    @Singleton
+    @Provides
+    fun provideStandingsService(): StandingsServiceApi {
+        return getRetrofitAdapter().create(StandingsServiceApi::class.java)
     }
 
     private fun getRetrofitAdapter(): Retrofit {

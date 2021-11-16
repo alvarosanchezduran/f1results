@@ -12,43 +12,33 @@ import androidx.lifecycle.ViewModelProvider
 import com.android.f1.results.AppExecutors
 import com.android.f1.results.R
 import com.android.f1.results.binding.FragmentDataBindingComponent
+import com.android.f1.results.databinding.CurrentSeasonFragmentBinding
 import com.android.f1.results.databinding.DriversClasificationFragmentBinding
 import com.android.f1.results.di.Injectable
+import com.android.f1.results.ui.common.BaseFragment
 import com.android.f1.results.ui.home.HomeViewModel
 import com.android.f1.results.util.autoCleared
 import javax.inject.Inject
 
-class DriversStandingFragment : Fragment(), Injectable {
-    @Inject
-    lateinit var viewModelFactory: ViewModelProvider.Factory
-    @Inject
-    lateinit var appExecutors: AppExecutors
+class DriversStandingFragment : BaseFragment<Any, DriversClasificationFragmentBinding>(R.layout.drivers_clasification_fragment), Injectable {
 
-    var binding by autoCleared<DriversClasificationFragmentBinding>()
     var dataBindingComponent: DataBindingComponent = FragmentDataBindingComponent(this)
 
-    private val homeViewModel: HomeViewModel by viewModels {
+    private val standingsViewModel: StandingsViewModel by viewModels {
         viewModelFactory
-    }
-
-    override fun onCreateView(
-            inflater: LayoutInflater, container: ViewGroup?,
-            savedInstanceState: Bundle?
-    ): View? {
-        val dataBinding = DataBindingUtil.inflate<DriversClasificationFragmentBinding>(
-                inflater,
-                R.layout.drivers_clasification_fragment,
-                container,
-                false,
-                dataBindingComponent
-        )
-
-        binding = dataBinding
-
-        return dataBinding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding.lifecycleOwner = viewLifecycleOwner
+        setUpBinding()
+        setUpObservers()
+    }
+
+    override fun setUpBinding() {}
+
+    override fun setUpObservers() {
+        standingsViewModel.driverStandingRequest.observe(viewLifecycleOwner, { response ->
+            val a = response
+        })
     }
 }

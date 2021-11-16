@@ -1,4 +1,4 @@
-package com.android.f1.results.util
+package com.android.f1.results.ui.common.adapters
 
 import android.content.Context;
 import androidx.fragment.app.Fragment
@@ -8,7 +8,7 @@ import com.android.f1.results.ui.standings.ConstructorsStandingFragment
 import com.android.f1.results.ui.standings.DriversStandingFragment
 
 
-class F1PagerAdapter(context: Context, fm: FragmentManager, totalTabs: Int) : FragmentPagerAdapter(fm) {
+class StandingsPagerAdapter(context: Context, fm: FragmentManager, totalTabs: Int) : FragmentPagerAdapter(fm) {
     private val myContext: Context
     var totalTabs: Int
 

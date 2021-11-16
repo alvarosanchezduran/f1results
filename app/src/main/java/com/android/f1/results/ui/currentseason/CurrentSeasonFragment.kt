@@ -15,11 +15,13 @@ import com.android.f1.results.MainActivity
 import com.android.f1.results.R
 import com.android.f1.results.binding.FragmentDataBindingComponent
 import com.android.f1.results.databinding.CurrentSeasonFragmentBinding
-import com.android.f1.results.databinding.HomeFragmentBinding
+import com.android.f1.results.databinding.ResultFragmentBinding
 import com.android.f1.results.di.Injectable
-import com.android.f1.results.ui.common.RetryCallback
+import com.android.f1.results.ui.common.BaseFragment
 import com.android.f1.results.ui.home.HomeViewModel
-import com.android.f1.results.util.F1PagerAdapter
+import com.android.f1.results.ui.common.adapters.StandingsPagerAdapter
+import com.android.f1.results.ui.result.ResultPagerAdapter
+import com.android.f1.results.ui.standings.StandingsViewModel
 import com.android.f1.results.util.autoCleared
 import javax.inject.Inject
 import com.google.android.material.tabs.TabLayout
@@ -27,41 +29,25 @@ import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
 import com.google.android.material.tabs.TabLayout.TabLayoutOnPageChangeListener
 
 
-class CurrentSeasonFragment : Fragment(), Injectable {
-    @Inject
-    lateinit var viewModelFactory: ViewModelProvider.Factory
-    @Inject
-    lateinit var appExecutors: AppExecutors
+class CurrentSeasonFragment : BaseFragment<Any, CurrentSeasonFragmentBinding>(R.layout.current_season_fragment), Injectable {
 
-    var binding by autoCleared<CurrentSeasonFragmentBinding>()
     var dataBindingComponent: DataBindingComponent = FragmentDataBindingComponent(this)
 
-    private val homeViewModel: HomeViewModel by viewModels {
+    private val standingsViewModel: StandingsViewModel by viewModels {
         viewModelFactory
     }
-    var adapter: F1PagerAdapter? = null
 
-    override fun onCreateView(
-            inflater: LayoutInflater, container: ViewGroup?,
-            savedInstanceState: Bundle?
-    ): View? {
-        val dataBinding = DataBindingUtil.inflate<CurrentSeasonFragmentBinding>(
-                inflater,
-                R.layout.current_season_fragment,
-                container,
-                false,
-                dataBindingComponent
-        )
+    var pagerAdapter: StandingsPagerAdapter? = null
 
-        binding = dataBinding
-
-        return dataBinding.root
-    }
+    var positionSelected = 0
 
     override fun onResume() {
         super.onResume()
-        if (adapter != null) {
-            Handler().post({ binding.pager.setAdapter(adapter) })
+        if (pagerAdapter != null) {
+            Handler().post({
+                binding.pager.setAdapter(pagerAdapter)
+                binding.pager.setCurrentItem(positionSelected)
+            })
         }
     }
 
@@ -69,8 +55,8 @@ class CurrentSeasonFragment : Fragment(), Injectable {
         binding.tabs.addTab(binding.tabs.newTab().setText(R.string.drivers))
         binding.tabs.addTab(binding.tabs.newTab().setText(R.string.constructors))
         activity?.let {
-            adapter = F1PagerAdapter(it, it.supportFragmentManager, binding.tabs.getTabCount())
-            binding.pager.setAdapter(adapter)
+            pagerAdapter = StandingsPagerAdapter(it, it.supportFragmentManager, binding.tabs.getTabCount())
+            binding.pager.setAdapter(pagerAdapter)
 
 
             binding.pager.addOnPageChangeListener(TabLayoutOnPageChangeListener(binding.tabs))
@@ -78,6 +64,7 @@ class CurrentSeasonFragment : Fragment(), Injectable {
             binding.tabs.addOnTabSelectedListener(object : OnTabSelectedListener {
                 override fun onTabSelected(tab: TabLayout.Tab) {
                     binding.pager.setCurrentItem(tab.position)
+                    positionSelected = tab.position
                 }
 
                 override fun onTabUnselected(tab: TabLayout.Tab) {}
@@ -90,10 +77,17 @@ class CurrentSeasonFragment : Fragment(), Injectable {
         binding.lifecycleOwner = viewLifecycleOwner
         (activity as MainActivity).setToolbarTitle(getString(R.string.current_season_title))
         setUpTabs()
+        setUpBinding()
+        setUpObservers()
+        standingsViewModel.getStandings()
     }
 
     override fun onDestroy() {
         super.onDestroy()
         val i = 0
     }
+
+    override fun setUpBinding() {}
+
+    override fun setUpObservers() {}
 }

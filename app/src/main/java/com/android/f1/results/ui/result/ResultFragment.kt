@@ -29,8 +29,8 @@ class ResultFragment : BaseFragment<Any, ResultFragmentBinding>(R.layout.result_
         super.onResume()
         if (pagerAdapter != null) {
             Handler().post({
-                binding.pager.setAdapter(pagerAdapter)
-                binding.pager.setCurrentItem(positionSelected)
+                binding.resultsPager.setAdapter(pagerAdapter)
+                binding.resultsPager.setCurrentItem(positionSelected)
             })
         }
     }
@@ -40,14 +40,14 @@ class ResultFragment : BaseFragment<Any, ResultFragmentBinding>(R.layout.result_
         binding.tabs.addTab(binding.tabs.newTab().setText(R.string.race_label))
         activity?.let {
             pagerAdapter = ResultPagerAdapter(it, it.supportFragmentManager, binding.tabs.getTabCount())
-            binding.pager.setAdapter(pagerAdapter)
+            binding.resultsPager.setAdapter(pagerAdapter)
 
 
-            binding.pager.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(binding.tabs))
+            binding.resultsPager.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(binding.tabs))
 
             binding.tabs.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
                 override fun onTabSelected(tab: TabLayout.Tab) {
-                    binding.pager.setCurrentItem(tab.position)
+                    binding.resultsPager.setCurrentItem(tab.position)
                     positionSelected = tab.position
                 }
 
@@ -59,7 +59,7 @@ class ResultFragment : BaseFragment<Any, ResultFragmentBinding>(R.layout.result_
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding.lifecycleOwner = viewLifecycleOwner
-        (activity as MainActivity).setToolbarTitle(getString(R.string.current_season_title))
+        (activity as MainActivity).setToolbarTitle(getString(R.string.result_title))
         setUpTabs()
         resultViewModel.getQualifying()
     }

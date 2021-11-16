@@ -2,6 +2,7 @@
     <string name="app_name">F1 Results</string>
     <string name="home_title">Home</string>
     <string name="current_season_title">Current Season</string>
+    <string name="result_title">Result</string>
     <string name="historical_season_title">Historical Season</string>
     <string name="drivers_title">Drivers</string>
     <string name="constructors_title">Constructors</string>

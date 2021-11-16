@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">F1 Results</string>
+    <string name="home_title">Home</string>
+    <string name="current_season_title">Temporada actual</string>
+    <string name="historical_season_title">Temporada histórica</string>
+    <string name="drivers_title">Pilotos</string>
+    <string name="constructors_title">Escuderias</string>
+    <string name="circuits_title">Circuitos</string>
+
+    <string name="next_gp_label">Siguiente GP</string>
+    <string name="latest_results_winner">Ganador %1$s</string>
+
+
+    <string name="drivers">Pilotos</string>
+    <string name="constructors">Escuderias</string>
+
+    <string name="qualifying_label">Clasificación</string>
+    <string name="race_label">Carrera</string>
+
+    <string name="position_text">%1$sº</string>
+    <string name="points_added">+%1$spts</string>
+    <string name="pitstops_done">Paradas en box %1$s</string>
+    <string name="laps_done">Vueltas %1$s</string>
+
+    <!-- FINISHING STATUS -->
+    <string name="oil_leak">Problema de aceite</string>
+    <string name="disqualified">Descalificado</string>
+    <string name="accident">Accidente</string>
+    <string name="collision">Colisión</string>
+    <string name="engine">Problema de motor</string>
+    <string name="gearbox">Problema de caja de cambios</string>
+    <string name="transmission">Problema de transmisión</string>
+    <string name="clutch">Problema de embrague</string>
+    <string name="hydraulics">Problema hidráulico</string>
+    <string name="electrical">Problema eléctrico</string>
+    <string name="spun_off">Trompo</string>
+    <string name="radiator">Problema de radiador</string>
+    <string name="suspension">Problema de suspensión</string>
+    <string name="brakes">Problema de frenos</string>
+    <string name="differential">Problema de diferencial</string>
+    <string name="overheating">Problema de sobrecalentamiento</string>
+    <string name="mechanical">Problema mecánico</string>
+    <string name="tyre">Problema de neumático</string>
+    <string name="driver_seat">Problema de asiento</string>
+    <string name="puncture">Pinchazo</string>
+    <string name="driveshaft">Problema de eje</string>
+</resources>

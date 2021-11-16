@@ -1,5 +1,7 @@
 package com.android.f1.results.vo
 
+import android.content.Context
+import com.android.f1.results.util.FinishStatus
 import com.google.gson.annotations.SerializedName
 
 data class Result(
@@ -27,11 +29,11 @@ data class Result(
     val fastestLap: FastestLap?,
     var selected: Boolean? = false
 ) {
-    fun getFinalTime(): String {
+    fun getFinalTime(context: Context): String {
         time?.let {
             return it.time
         }?: run  {
-            return status
+            return getFinishingStatus(context)
         }
     }
 
@@ -41,5 +43,12 @@ data class Result(
         }?: run  {
             return false
         }
+    }
+
+    fun getFinishingStatus(context: Context): String {
+        enumValues<FinishStatus>().forEach {
+            if(status == it.value) return context.resources.getString(it.text)
+        }
+        return status
     }
 }

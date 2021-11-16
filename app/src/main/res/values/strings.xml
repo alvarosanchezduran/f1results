@@ -22,4 +22,27 @@
     <string name="pitstops_done">Pitstops %1$s</string>
     <string name="laps_done">Laps %1$s</string>
 
+    <!-- FINISHING STATUS -->
+    <string name="oil_leak">Oil leak problem</string>
+    <string name="disqualified">Disqualified</string>
+    <string name="accident">Accident</string>
+    <string name="collision">Collision</string>
+    <string name="engine">Engine problem</string>
+    <string name="gearbox">Gearbox problem</string>
+    <string name="transmission">Transmission problem</string>
+    <string name="clutch">Clutch problem</string>
+    <string name="hydraulics">Hydraulic problem</string>
+    <string name="electrical">Electrical problem</string>
+    <string name="spun_off">Spun off</string>
+    <string name="radiator">Radiator problem</string>
+    <string name="suspension">Suspension problem</string>
+    <string name="brakes">Brakes problem</string>
+    <string name="differential">Differential problem</string>
+    <string name="overheating">Overheating problem</string>
+    <string name="mechanical">Mechanical problem</string>
+    <string name="tyre">Tyre problem</string>
+    <string name="driver_seat">Driver Seat problem</string>
+    <string name="puncture">Puncture</string>
+    <string name="driveshaft">Driveshaft problem</string>
+
 </resources>

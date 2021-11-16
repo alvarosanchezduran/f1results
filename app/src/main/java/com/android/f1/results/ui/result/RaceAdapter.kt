@@ -1,5 +1,6 @@
 package com.android.f1.results.ui.result
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingComponent
@@ -9,12 +10,13 @@ import com.android.f1.results.AppExecutors
 import com.android.f1.results.R
 import com.android.f1.results.databinding.RaceItemBinding
 import com.android.f1.results.ui.common.DataBoundListAdapter
-import com.android.f1.results.vo.QualifyingRow
+import com.android.f1.results.util.ConstructorsColors
 import com.android.f1.results.vo.Result
 
 class RaceAdapter(
     private val dataBindingComponent: DataBindingComponent,
     appExecutors: AppExecutors,
+    private val context: Context?,
     private val onClickCallback: ((Result) -> Unit)?,
     private val onLongClickCallback: ((Result) -> Unit)?
 ) : DataBoundListAdapter<Result, RaceItemBinding>(
@@ -57,6 +59,16 @@ class RaceAdapter(
 
     override fun bind(binding: RaceItemBinding, item: Result) {
         binding.result = item
+        context?.let {
+            ConstructorsColors.getConstructorColorSaved(item.constructor.constructorId)?.let {
+                binding.llConstructorColor.setBackgroundResource(it)
+                binding.llConstructorColorBottom.setBackgroundResource(it)
+            }?: run {
+                val color = ConstructorsColors.getConstructorColorProvisional(item.constructor.constructorId)
+                binding.llConstructorColor.setBackgroundColor(color)
+                binding.llConstructorColorBottom.setBackgroundColor(color)
+            }
+        }
     }
 
     fun setAllSelected() {

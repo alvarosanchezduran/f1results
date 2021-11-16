@@ -101,7 +101,7 @@
                     android:textColor="@color/black"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    android:text="@{result.finalTime}"/>
+                    android:text="@{result.getFinalTime(context)}"/>
 
                 <TextView
                     android:layout_width="wrap_content"

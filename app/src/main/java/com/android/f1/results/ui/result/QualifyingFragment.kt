@@ -13,6 +13,7 @@ import com.android.f1.results.di.Injectable
 import com.android.f1.results.ui.common.BaseFragment
 import com.android.f1.results.ui.home.HomeViewModel
 import com.android.f1.results.ui.home.LastResultsAdapter
+import com.android.f1.results.util.ConstructorsColors
 import com.android.f1.results.util.DriversImages
 import com.android.f1.results.vo.DriverQualifying
 import com.android.f1.results.vo.QualifyingRow
@@ -73,18 +74,21 @@ class QualifyingFragment : BaseFragment<QualifyingAdapter, QualifyingFragmentBin
     }
 
     private fun selectRow(qualifyingRow: QualifyingRow) {
-        binding.qualifyingRowDetail = qualifyingRow
-        DriversImages.DRIVERS_IMAGES.get(qualifyingRow.firstPosition.driver.driverId)?.let {
-            binding.ivDriver1.setImageResource(it)
-        }?: run {
-            binding.ivDriver1.setImageResource(R.drawable.alonso)
+        binding.apply {
+            qualifyingRowDetail = qualifyingRow
+            DriversImages.DRIVERS_IMAGES.get(qualifyingRow.firstPosition.driver.driverId)?.let {
+                ivDriver1.setImageResource(it)
+            }?: run {
+                ivDriver1.setImageResource(R.drawable.alonso)
+            }
+
+            DriversImages.DRIVERS_IMAGES.get(qualifyingRow.secondPosition?.driver?.driverId?: "")?.let {
+                ivDriver2.setImageResource(it)
+            }?: run {
+                ivDriver2.setImageResource(R.drawable.alonso)
+            }
+            adapter.setSelectedRow(qualifyingRow)
         }
 
-        DriversImages.DRIVERS_IMAGES.get(qualifyingRow.secondPosition?.driver?.driverId?: "")?.let {
-            binding.ivDriver2.setImageResource(it)
-        }?: run {
-            binding.ivDriver2.setImageResource(R.drawable.alonso)
-        }
-        adapter.setSelectedRow(qualifyingRow)
     }
 }

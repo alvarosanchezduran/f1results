@@ -11,4 +11,16 @@
     <color name="flPurple">#EB00FD</color>
     <color name="gridGray">#333</color>
     <color name="gridGrayQaulifying">#4D4D57</color>
+
+    <!-- CONSTRUCTOR COLORS -->
+    <color name="alfa_romeo">#990000</color>
+    <color name="mercedes">#00D2BE</color>
+    <color name="red_bull">#16185F</color>
+    <color name="ferrari">#FF0000</color>
+    <color name="mclaren">#FF8700</color>
+    <color name="alpine">#0E1C2C</color>
+    <color name="alpha_tauri">#27284F</color>
+    <color name="aston_martin">#02574F</color>
+    <color name="williams">#02A8EA</color>
+    <color name="haas">#ED1A3B</color>
 </resources>

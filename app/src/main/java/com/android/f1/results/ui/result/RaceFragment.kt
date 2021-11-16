@@ -37,7 +37,7 @@ class RaceFragment : BaseFragment<RaceAdapter, RaceFragmentBinding>(R.layout.rac
 
     override fun setUpBinding() {
         binding.apply {
-            adapter = RaceAdapter(dataBindingComponent, appExecutors, {
+            adapter = RaceAdapter(dataBindingComponent, appExecutors, context, {
                 adapter.setSelectedResult(it)
             }, {
                 adapter.setAllSelected()

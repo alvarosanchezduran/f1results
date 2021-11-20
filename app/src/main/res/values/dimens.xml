@@ -7,6 +7,7 @@
 
     <!-- TOOLBAR -->
     <dimen name="toolbar_title_size">16sp</dimen>
+    <dimen name="toolbar_icon_size">25dp</dimen>
 
     <!-- MENU -->
     <dimen name="menu_header_text_size">18sp</dimen>
@@ -72,5 +73,7 @@
     <dimen name="race_result_item_detail_info_size">11sp</dimen>
     <dimen name="race_result_item_points_padding">8dp</dimen>
     <dimen name="race_result_item_points_size">11sp</dimen>
+
+    <dimen name="driver_standing_gap">9sp</dimen>
 
 </resources>

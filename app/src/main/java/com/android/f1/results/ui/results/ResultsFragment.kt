@@ -1,29 +1,22 @@
 package com.android.f1.results.ui.results
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.databinding.DataBindingComponent
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.android.f1.results.MainActivity
 import com.android.f1.results.R
 import com.android.f1.results.binding.FragmentDataBindingComponent
-import com.android.f1.results.databinding.HomeFragmentBinding
 import com.android.f1.results.databinding.ResultsFragmentBinding
 import com.android.f1.results.di.Injectable
 import com.android.f1.results.ui.common.BaseFragment
 import com.android.f1.results.ui.common.viewmodels.FlagsViewModel
-import com.android.f1.results.ui.home.HomeViewModel
-import com.android.f1.results.ui.home.LastResultsAdapter
+import com.android.f1.results.ui.common.adapters.ResultsAdapter
 import com.android.f1.results.ui.result.ResultViewModel
-import com.android.f1.results.util.Constants.Companion.CURRENT_YEAR
-import com.android.f1.results.vo.Race
 import com.android.f1.results.vo.Status
-import com.bumptech.glide.Glide
 
-class ResultsFragment : BaseFragment<LastResultsAdapter, ResultsFragmentBinding>(R.layout.results_fragment), Injectable {
+class ResultsFragment : BaseFragment<ResultsAdapter, ResultsFragmentBinding>(R.layout.results_fragment), Injectable {
 
     var dataBindingComponent: DataBindingComponent = FragmentDataBindingComponent(this)
 
@@ -88,7 +81,7 @@ class ResultsFragment : BaseFragment<LastResultsAdapter, ResultsFragmentBinding>
 
     override fun setUpBinding() {
         context?.let {
-            adapter = LastResultsAdapter(dataBindingComponent, it, appExecutors, {
+            adapter = ResultsAdapter(dataBindingComponent, it, appExecutors, {
                 resultViewModel.race.value = it
                 findNavController().navigate(R.id.action_ResultsFragment_to_ResultFragment)
             })

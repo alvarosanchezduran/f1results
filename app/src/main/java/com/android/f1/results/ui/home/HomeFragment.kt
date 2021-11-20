@@ -1,9 +1,7 @@
 package com.android.f1.results.ui.home
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.databinding.DataBindingComponent
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -13,13 +11,13 @@ import com.android.f1.results.binding.FragmentDataBindingComponent
 import com.android.f1.results.databinding.HomeFragmentBinding
 import com.android.f1.results.di.Injectable
 import com.android.f1.results.ui.common.BaseFragment
+import com.android.f1.results.ui.common.adapters.ResultsAdapter
 import com.android.f1.results.ui.common.viewmodels.FlagsViewModel
 import com.android.f1.results.ui.result.ResultViewModel
-import com.android.f1.results.vo.Race
 import com.android.f1.results.vo.Status
 import com.bumptech.glide.Glide
 
-class HomeFragment : BaseFragment<LastResultsAdapter, HomeFragmentBinding>(R.layout.home_fragment), Injectable {
+class HomeFragment : BaseFragment<ResultsAdapter, HomeFragmentBinding>(R.layout.home_fragment), Injectable {
 
     var dataBindingComponent: DataBindingComponent = FragmentDataBindingComponent(this)
 
@@ -116,7 +114,7 @@ class HomeFragment : BaseFragment<LastResultsAdapter, HomeFragmentBinding>(R.lay
     override fun setUpBinding() {
         binding.viewModel = homeViewModel
         context?.let {
-            adapter = LastResultsAdapter(dataBindingComponent, it, appExecutors, {
+            adapter = ResultsAdapter(dataBindingComponent, it, appExecutors, {
                 resultViewModel.race.value = it
                 findNavController().navigate(R.id.action_HomeFragment_to_ResultFragment)
             })

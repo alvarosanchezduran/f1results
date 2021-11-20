@@ -4,21 +4,14 @@ import android.os.Bundle
 import android.view.View
 import androidx.databinding.DataBindingComponent
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
 import com.android.f1.results.R
 import com.android.f1.results.binding.FragmentDataBindingComponent
 import com.android.f1.results.databinding.QualifyingFragmentBinding
-import com.android.f1.results.databinding.RaceFragmentBinding
 import com.android.f1.results.di.Injectable
 import com.android.f1.results.ui.common.BaseFragment
-import com.android.f1.results.ui.home.HomeViewModel
-import com.android.f1.results.ui.home.LastResultsAdapter
-import com.android.f1.results.util.ConstructorsColors
 import com.android.f1.results.util.DriversImages
 import com.android.f1.results.vo.DriverQualifying
 import com.android.f1.results.vo.QualifyingRow
-import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions
 
 class QualifyingFragment : BaseFragment<QualifyingAdapter, QualifyingFragmentBinding>(R.layout.qualifying_fragment), Injectable {
 

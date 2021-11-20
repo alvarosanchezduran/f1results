@@ -152,8 +152,8 @@
             android:text="@{@string/points_gap(standing.leaderGap)}"
             android:textColor="@color/colorPrimary"
             android:fontFamily="@font/formula_bold"
-            android:textSize="9sp"
-            android:layout_marginTop="2dp"
+            android:textSize="@dimen/driver_standing_gap"
+            android:layout_marginTop="@dimen/race_result_item_detail_info_margin_top"
             tools:ignore="SmallSp" />
 
         <androidx.appcompat.widget.LinearLayoutCompat

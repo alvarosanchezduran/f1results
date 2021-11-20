@@ -1,4 +1,4 @@
-package com.android.f1.results.ui.home
+package com.android.f1.results.ui.common.adapters
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -14,7 +14,7 @@ import com.android.f1.results.vo.CountryResponse
 import com.android.f1.results.vo.Race
 import com.bumptech.glide.Glide
 
-class LastResultsAdapter(
+class ResultsAdapter(
     private val dataBindingComponent: DataBindingComponent,
     private val context: Context,
     appExecutors: AppExecutors,

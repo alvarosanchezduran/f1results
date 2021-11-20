@@ -17,7 +17,4 @@ interface F1ResultsServiceApi {
 
     @GET("current/last/results.json")
     fun getLastRaceResult(): LiveData<ApiResponse<F1Response<RaceTableResponse>>>
-
-    @GET("current/results.json")
-    fun getLastResults(@Query("limit") limit: Int = 500): LiveData<ApiResponse<F1Response<RaceTableResponse>>>
 }

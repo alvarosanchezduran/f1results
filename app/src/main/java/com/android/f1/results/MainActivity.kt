@@ -2,6 +2,7 @@ package com.android.f1.results
 
 import android.os.Bundle
 import android.view.MenuItem
+import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -57,8 +58,15 @@ class MainActivity : AppCompatActivity(), HasSupportFragmentInjector, SupportAct
 
     override fun supportFragmentInjector() = dispatchingAndroidInjector
 
-    override fun setToolbarTitle(title: String) {
+    override fun setToolbarTitle(title: String, iconSrc: Int?, iconOnClick: View.OnClickListener?) {
         binding.toolbar.setTitle(title)
+        iconSrc?.let {
+            binding.toolbarIcon.visibility = View.VISIBLE
+            binding.toolbarIcon.setImageResource(iconSrc)
+            binding.toolbarIcon.setOnClickListener(iconOnClick)
+        }?: run {
+            binding.toolbarIcon.visibility = View.GONE
+        }
         setSupportActionBar(binding.toolbar)
         setUpToggle()
     }

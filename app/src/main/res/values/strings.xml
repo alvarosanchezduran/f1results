@@ -3,6 +3,7 @@
     <string name="home_title">Home</string>
     <string name="current_season_title">Current Season</string>
     <string name="result_title">Result</string>
+    <string name="results_title">Results</string>
     <string name="historical_season_title">Historical Season</string>
     <string name="drivers_title">Drivers</string>
     <string name="constructors_title">Constructors</string>
@@ -20,8 +21,11 @@
 
     <string name="position_text">%1$sº</string>
     <string name="points_added">+%1$spts</string>
+    <string name="points_earned">%1$s pts</string>
+    <string name="points_gap">-%1$s pts</string>
     <string name="pitstops_done">Pitstops %1$s</string>
     <string name="laps_done">Laps %1$s</string>
+    <string name="number_of_wins">Wins %1$s</string>
 
     <!-- FINISHING STATUS -->
     <string name="oil_leak">Oil leak problem</string>

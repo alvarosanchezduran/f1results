@@ -10,6 +10,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.android.f1.results.AppExecutors
 import com.android.f1.results.MainActivity
 import com.android.f1.results.R
@@ -21,6 +22,7 @@ import com.android.f1.results.ui.common.BaseFragment
 import com.android.f1.results.ui.home.HomeViewModel
 import com.android.f1.results.ui.common.adapters.StandingsPagerAdapter
 import com.android.f1.results.ui.result.ResultPagerAdapter
+import com.android.f1.results.ui.result.ResultViewModel
 import com.android.f1.results.ui.standings.StandingsViewModel
 import com.android.f1.results.util.autoCleared
 import javax.inject.Inject
@@ -37,12 +39,20 @@ class CurrentSeasonFragment : BaseFragment<Any, CurrentSeasonFragmentBinding>(R.
         viewModelFactory
     }
 
+    private val resultsViewModel: ResultViewModel by viewModels {
+        viewModelFactory
+    }
+
     var pagerAdapter: StandingsPagerAdapter? = null
 
     var positionSelected = 0
 
     override fun onResume() {
         super.onResume()
+        (activity as MainActivity).setToolbarTitle("Standings", R.drawable.ic_result_list, {
+            resultsViewModel.year.value = standingsViewModel.yearSelected
+            findNavController().navigate(R.id.action_CurrentSeasonFragment_to_ResultsFragment)
+        })
         if (pagerAdapter != null) {
             Handler().post({
                 binding.pager.setAdapter(pagerAdapter)

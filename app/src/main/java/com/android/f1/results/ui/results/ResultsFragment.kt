@@ -1,4 +1,4 @@
-package com.android.f1.results.ui.home
+package com.android.f1.results.ui.results
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,21 +11,21 @@ import com.android.f1.results.MainActivity
 import com.android.f1.results.R
 import com.android.f1.results.binding.FragmentDataBindingComponent
 import com.android.f1.results.databinding.HomeFragmentBinding
+import com.android.f1.results.databinding.ResultsFragmentBinding
 import com.android.f1.results.di.Injectable
 import com.android.f1.results.ui.common.BaseFragment
 import com.android.f1.results.ui.common.viewmodels.FlagsViewModel
+import com.android.f1.results.ui.home.HomeViewModel
+import com.android.f1.results.ui.home.LastResultsAdapter
 import com.android.f1.results.ui.result.ResultViewModel
+import com.android.f1.results.util.Constants.Companion.CURRENT_YEAR
 import com.android.f1.results.vo.Race
 import com.android.f1.results.vo.Status
 import com.bumptech.glide.Glide
 
-class HomeFragment : BaseFragment<LastResultsAdapter, HomeFragmentBinding>(R.layout.home_fragment), Injectable {
+class ResultsFragment : BaseFragment<LastResultsAdapter, ResultsFragmentBinding>(R.layout.results_fragment), Injectable {
 
     var dataBindingComponent: DataBindingComponent = FragmentDataBindingComponent(this)
-
-    private val homeViewModel: HomeViewModel by viewModels {
-        viewModelFactory
-    }
 
     private val flagsViewModel: FlagsViewModel by viewModels {
         viewModelFactory
@@ -39,9 +39,8 @@ class HomeFragment : BaseFragment<LastResultsAdapter, HomeFragmentBinding>(R.lay
         super.onViewCreated(view, savedInstanceState)
         setUpBinding()
         setUpObservers()
-        (activity as MainActivity).setToolbarTitle(getString(R.string.home_title))
+        (activity as MainActivity).setToolbarTitle(getString(R.string.results_title) + " " + resultViewModel.getYearSelected())
         flagsViewModel.currentIndexFlag = 0
-        homeViewModel.getLastRaceInfo()
         resultViewModel.getResultsInfo()
         showLoading(true)
     }
@@ -52,32 +51,6 @@ class HomeFragment : BaseFragment<LastResultsAdapter, HomeFragmentBinding>(R.lay
     }
 
     override fun setUpObservers() {
-        homeViewModel.lastRaceRequest.observe(viewLifecycleOwner, { response ->
-            response.data?.data?.raceTable?.let {
-                homeViewModel.lastRace.value = it
-                homeViewModel.getRaceInfo()
-            }
-        })
-
-        homeViewModel.raceRequest.observe(viewLifecycleOwner, { response ->
-            response.data?.data?.raceTable?.let {
-                homeViewModel.nextRace.value = it.races.get(0)
-                flagsViewModel.getFlagInfo(it.races.get(0).circuit.location.country)
-            }
-        })
-
-        flagsViewModel.flagRequest.observe(viewLifecycleOwner, { response ->
-            if (response.status == Status.SUCCESS) {
-                if (response.data?.size ?: 0 > 0) {
-                    context?.let {
-                        Glide.with(it)
-                            .load(response.data?.get(0)?.flags?.png)
-                            .into(binding.ivFlag)
-                    }
-                }
-            }
-        })
-
         resultViewModel.resultsRequest.observe(viewLifecycleOwner, { response ->
             response.data?.data?.raceTable?.let {
                 val listReversed = it.races.asReversed()
@@ -114,13 +87,12 @@ class HomeFragment : BaseFragment<LastResultsAdapter, HomeFragmentBinding>(R.lay
     }
 
     override fun setUpBinding() {
-        binding.viewModel = homeViewModel
         context?.let {
             adapter = LastResultsAdapter(dataBindingComponent, it, appExecutors, {
                 resultViewModel.race.value = it
-                findNavController().navigate(R.id.action_HomeFragment_to_ResultFragment)
+                findNavController().navigate(R.id.action_ResultsFragment_to_ResultFragment)
             })
-            binding.rvLastRace.adapter = adapter
+            binding.rvRaceResults.adapter = adapter
         }
     }
 }

@@ -9,6 +9,7 @@ import com.android.f1.results.repository.FlagRepository
 import com.android.f1.results.repository.ResultRepository
 import com.android.f1.results.repository.StandingsRepository
 import com.android.f1.results.testing.OpenForTesting
+import com.android.f1.results.util.Constants.Companion.CURRENT_YEAR
 import com.android.f1.results.util.Event
 import com.android.f1.results.vo.*
 import javax.inject.Inject
@@ -20,8 +21,6 @@ class StandingsViewModel
 @Inject constructor(
     standingsRepository: StandingsRepository
 ) : ViewModel() {
-
-    private val CURRENT_YEAR = "2021"
 
     var yearSelected: String? = null
 

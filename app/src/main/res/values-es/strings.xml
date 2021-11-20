@@ -4,6 +4,7 @@
     <string name="home_title">Home</string>
     <string name="current_season_title">Temporada actual</string>
     <string name="result_title">Resultado</string>
+    <string name="results_title">Resultados</string>
     <string name="historical_season_title">Temporada histórica</string>
     <string name="drivers_title">Pilotos</string>
     <string name="constructors_title">Escuderias</string>
@@ -21,8 +22,12 @@
 
     <string name="position_text">%1$sº</string>
     <string name="points_added">+%1$spts</string>
+    <string name="points_earned">%1$s pts</string>
+    <string name="points_gap">-%1$s pts</string>
     <string name="pitstops_done">Paradas en box %1$s</string>
     <string name="laps_done">Vueltas %1$s</string>
+    <string name="number_of_wins">Victorias %1$s</string>
+
 
     <!-- FINISHING STATUS -->
     <string name="oil_leak">Problema de aceite</string>

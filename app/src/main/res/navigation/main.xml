@@ -15,11 +15,24 @@
         android:id="@+id/currentSeasonFragment"
         android:name="com.android.f1.results.ui.currentseason.CurrentSeasonFragment"
         android:label="CurrentSeasonFragment" >
+        <action
+            android:id="@+id/action_CurrentSeasonFragment_to_ResultsFragment"
+            app:destination="@id/resultsFragment" />
     </fragment>
 
     <fragment
         android:id="@+id/resultFragment"
         android:name="com.android.f1.results.ui.result.ResultFragment"
         android:label="ResultFragment" >
+    </fragment>
+
+    <fragment
+        android:id="@+id/resultsFragment"
+        android:name="com.android.f1.results.ui.results.ResultsFragment"
+        android:label="ResultsFragment" >
+
+        <action
+            android:id="@+id/action_ResultsFragment_to_ResultFragment"
+            app:destination="@id/resultFragment" />
     </fragment>
 </navigation>

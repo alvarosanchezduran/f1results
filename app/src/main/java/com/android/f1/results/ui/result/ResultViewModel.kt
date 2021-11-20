@@ -8,6 +8,7 @@ import com.android.f1.results.repository.F1Repository
 import com.android.f1.results.repository.FlagRepository
 import com.android.f1.results.repository.ResultRepository
 import com.android.f1.results.testing.OpenForTesting
+import com.android.f1.results.util.Constants
 import com.android.f1.results.util.Event
 import com.android.f1.results.vo.*
 import javax.inject.Inject
@@ -21,8 +22,11 @@ class ResultViewModel
 ) : ViewModel() {
 
     val race = MutableLiveData<Race>()
+    val year = MutableLiveData<String?>()
 
     private val getQualifying: MutableLiveData<Event<Unit>> = MutableLiveData()
+    private val getResults: MutableLiveData<Event<Unit>> = MutableLiveData()
+
 
     var qualifyingRequest: LiveData<Resource<F1Response<RaceTableResponse>>> = Transformations
         .switchMap(getQualifying) {
@@ -34,8 +38,21 @@ class ResultViewModel
             }
         }
 
+    var resultsRequest: LiveData<Resource<F1Response<RaceTableResponse>>> = Transformations
+        .switchMap(getResults) {
+            resultRepository.getLastResults(year.value)
+        }
+
 
     fun getQualifying() {
         getQualifying.value = Event(Unit)
+    }
+
+    fun getResultsInfo() {
+        getResults.value = Event(Unit)
+    }
+
+    fun getYearSelected(): String {
+        return year.value?: Constants.CURRENT_YEAR
     }
 }

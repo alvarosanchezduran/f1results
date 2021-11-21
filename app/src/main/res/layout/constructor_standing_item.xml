@@ -1,0 +1,133 @@
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <import type="android.view.View"/>
+        <variable
+            name="standing"
+            type="com.android.f1.results.vo.ConstructorStanding" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_standing_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/race_result_item_padding">
+
+        <TextView
+            android:id="@+id/tv_position"
+            android:layout_width="@dimen/race_result_item_position_width"
+            android:layout_height="wrap_content"
+            android:text="@{@string/position_text(standing.position)}"
+            android:textSize="@dimen/race_result_item_position_size"
+            android:textColor="@color/black"
+            android:fontFamily="@font/formula_bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/ll_constructor_color"
+            android:layout_width="@dimen/race_result_item_constructor_layout_size"
+            android:layout_height="0dp"
+            android:layout_marginStart="@dimen/race_result_item_constructor_layout_vertical_margin"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:background="@color/colorPrimary"
+            app:layout_constraintStart_toEndOf="@id/tv_position"/>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            android:translationZ="10dp"
+            app:layout_constraintStart_toEndOf="@id/ll_constructor_color"
+            margin_start="@{standing.selected ? @dimen/none : @dimen/race_result_info_margin_left}">
+
+            <TextView
+                android:id="@+id/tv_driver_surname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/formula_black"
+                android:textSize="@dimen/race_result_item_driver_surname"
+                android:textColor="@color/black"
+                android:text="@{standing.constructor.name}"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"/>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/race_result_item_detail_info_margin_top"
+                app:layout_constraintTop_toBottomOf="@id/tv_driver_surname"
+                app:layout_constraintStart_toStartOf="@id/tv_driver_surname"
+                android:visibility="@{standing.selected ? View.VISIBLE : View.GONE}">
+
+                <TextView
+                    android:id="@+id/tv_wins"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/race_result_item_detail_info_margin_top"
+                    android:fontFamily="@font/formula_bold"
+                    android:textSize="@dimen/race_result_item_detail_info_size"
+                    android:textColor="@color/black"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:text="@{@string/number_of_wins(standing.wins)}"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cv_points"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="50dp"
+            app:cardBackgroundColor="@color/f1gray"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/race_result_item_points_padding"
+                android:text="@{@string/points_earned(standing.points)}"
+                android:textColor="@color/white"
+                android:fontFamily="@font/formula_bold"
+                android:textSize="@dimen/race_result_item_points_size"/>
+
+        </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/cv_points"
+            app:layout_constraintStart_toStartOf="@id/cv_points"
+            app:layout_constraintEnd_toEndOf="@id/cv_points"
+            android:visibility="@{standing.leaderGap != null &amp;&amp; standing.selected ? View.VISIBLE : View.GONE}"
+            android:text="@{@string/points_gap(standing.leaderGap)}"
+            android:textColor="@color/colorPrimary"
+            android:fontFamily="@font/formula_bold"
+            android:textSize="@dimen/driver_standing_gap"
+            android:layout_marginTop="@dimen/race_result_item_detail_info_margin_top"
+            tools:ignore="SmallSp" />
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/ll_constructor_color_bottom"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/race_result_item_constructor_layout_size"
+            android:translationZ="99999dp"
+            android:background="@color/colorPrimary"
+            app:layout_constraintBottom_toBottomOf="@id/ll_constructor_color"
+            app:layout_constraintStart_toStartOf="@id/ll_constructor_color"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:visibility="@{standing.selected ? View.VISIBLE : View.GONE}"/>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

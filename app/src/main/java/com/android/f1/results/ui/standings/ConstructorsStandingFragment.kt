@@ -19,9 +19,10 @@ import com.android.f1.results.di.Injectable
 import com.android.f1.results.ui.common.BaseFragment
 import com.android.f1.results.ui.home.HomeViewModel
 import com.android.f1.results.util.autoCleared
+import com.android.f1.results.vo.Status
 import javax.inject.Inject
 
-class ConstructorsStandingFragment : BaseFragment<Any, ConstructorsClasificationFragmentBinding>(R.layout.constructors_clasification_fragment), Injectable {
+class ConstructorsStandingFragment : BaseFragment<ConstructorStandingAdapter, ConstructorsClasificationFragmentBinding>(R.layout.constructors_clasification_fragment), Injectable {
 
     var dataBindingComponent: DataBindingComponent = FragmentDataBindingComponent(this)
 
@@ -35,11 +36,30 @@ class ConstructorsStandingFragment : BaseFragment<Any, ConstructorsClasification
         setUpObservers()
     }
 
-    override fun setUpBinding() {}
+    override fun setUpBinding() {
+        binding.apply {
+            adapter = ConstructorStandingAdapter(dataBindingComponent, appExecutors, {
+                adapter.setSelectedResult(it)
+            }, {
+                adapter.setAllSelected()
+            })
+            rvConstructorStanding.adapter = adapter
+        }
+    }
 
     override fun setUpObservers() {
         standingsViewModel.constructorsStandingRequest.observe(viewLifecycleOwner, { response ->
-            val a = response
+            showLoading(response.status)
+            if(response.status == Status.SUCCESS) {
+                response.data?.data?.standingsTable?.standingsLists?.get(0)?.constructorStanding?.let {
+                    val list = it
+                    list.first().selected = true
+                    list.forEach {
+                        it.calculateGap(list.first().points)
+                    }
+                    adapter.submitList(list)
+                }
+            }
         })
     }
 }

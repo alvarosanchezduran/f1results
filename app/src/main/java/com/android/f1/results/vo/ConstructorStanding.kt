@@ -12,5 +12,16 @@ data class ConstructorStanding(
     @SerializedName("wins")
     val wins: String,
     @SerializedName("Constructor")
-    val constructor: Constructor
-)
+    val constructor: Constructor,
+    var selected: Boolean? = false,
+    var leaderGap: String?
+){
+    fun calculateGap(firstPositionPoints: String) {
+        val gap = firstPositionPoints.toFloat() - points.toFloat()
+        if(gap != 0f) {
+            var gapDecimals = gap.toString().split(".")
+            if(gapDecimals[1].toInt() == 0) leaderGap = gapDecimals[0]
+            else leaderGap = gap.toString()
+        }
+    }
+}

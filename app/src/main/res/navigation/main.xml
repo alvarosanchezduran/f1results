@@ -21,6 +21,15 @@
     </fragment>
 
     <fragment
+        android:id="@+id/historicalSeasonFragment"
+        android:name="com.android.f1.results.ui.currentseason.HistoricalSeasonFragment"
+        android:label="HistoricalSeasonFragment" >
+        <action
+            android:id="@+id/action_HistoricalFragment_to_ResultsFragment"
+            app:destination="@id/resultsFragment" />
+    </fragment>
+
+    <fragment
         android:id="@+id/resultFragment"
         android:name="com.android.f1.results.ui.result.ResultFragment"
         android:label="ResultFragment" >

@@ -28,7 +28,7 @@
 
     <!-- RESULT ITEM -->
     <dimen name="result_padding_vertical">15dp</dimen>
-    <dimen name="result_round_width">20dp</dimen>
+    <dimen name="result_round_width">22dp</dimen>
     <dimen name="result_round_size">14sp</dimen>
     <dimen name="result_elements_margin_left">10dp</dimen>
     <dimen name="result_circuit_name_size">12sp</dimen>

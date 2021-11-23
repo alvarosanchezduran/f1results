@@ -63,7 +63,7 @@
             android:layout_marginRight="@dimen/result_elements_margin_left"
             android:textSize="@dimen/result_winner_size"
             android:textColor="@color/black"
-            android:text="@{@string/latest_results_winner(race.winner.code)}"
+            android:text="@{@string/latest_results_winner(race.winner.codeOrSurname)}"
             android:fontFamily="@font/f1font"
             android:textFontWeight="300"/>
 

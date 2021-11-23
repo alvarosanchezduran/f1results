@@ -80,15 +80,27 @@
                 android:fontFamily="@font/formula_black"
                 android:textSize="@dimen/race_result_item_driver_surname"
                 android:textColor="@color/black"
+                android:textAllCaps="true"
                 android:text="@{standing.driver.familyName}"
                 app:layout_constraintTop_toBottomOf="@id/tv_driver_name"
                 app:layout_constraintStart_toStartOf="@id/tv_driver_name"/>
+
+            <TextView
+                android:id="@+id/tv_driver_constructor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/formula_bold"
+                android:textSize="@dimen/race_result_item_detail_info_size"
+                android:textColor="@color/black"
+                android:text="@{standing.constructorName}"
+                app:layout_constraintTop_toBottomOf="@id/tv_driver_surname"
+                app:layout_constraintStart_toStartOf="@id/tv_driver_surname"/>
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/race_result_item_detail_info_margin_top"
-                app:layout_constraintTop_toBottomOf="@id/tv_driver_surname"
+                app:layout_constraintTop_toBottomOf="@id/tv_driver_constructor"
                 app:layout_constraintStart_toStartOf="@id/tv_driver_surname"
                 android:visibility="@{standing.selected ? View.VISIBLE : View.GONE}">
 

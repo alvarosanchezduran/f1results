@@ -50,4 +50,8 @@
     <string name="puncture">Puncture</string>
     <string name="driveshaft">Driveshaft problem</string>
 
+    <string name="no_constructor_standing">This season there was still no constructors world championship</string>
+
+    <string name="no_qualifying_data">No hay datos sobre la clasificación</string>
+
 </resources>

@@ -16,6 +16,12 @@ import androidx.core.view.GravityCompat
 import androidx.navigation.fragment.NavHostFragment
 import com.android.f1.results.vo.Status
 import com.google.android.material.navigation.NavigationView
+import android.widget.ArrayAdapter
+import android.widget.Spinner
+import com.android.f1.results.util.Constants.Companion.CURRENT_YEAR
+import com.android.f1.results.util.SpinnerManager
+import android.widget.AdapterView
+import android.widget.AdapterView.OnItemSelectedListener
 
 
 class MainActivity : AppCompatActivity(), HasSupportFragmentInjector, SupportActionManager, NavigationView.OnNavigationItemSelectedListener {
@@ -28,6 +34,18 @@ class MainActivity : AppCompatActivity(), HasSupportFragmentInjector, SupportAct
         super.onCreate(savedInstanceState)
         setUpDatabinding()
         setUpMenu()
+        setUpSpinner()
+    }
+
+    private fun setUpSpinner() {
+        var i = CURRENT_YEAR.toInt() - 1
+        val items = mutableListOf<Int>()
+        while (i >= 1950){
+            items.add(i)
+            i--
+        }
+        val adapter = ArrayAdapter(this, R.layout.spinner_item, items)
+        binding.spYear.setAdapter(adapter)
     }
 
     override fun onNavigationItemSelected(mi: MenuItem): Boolean {
@@ -35,6 +53,7 @@ class MainActivity : AppCompatActivity(), HasSupportFragmentInjector, SupportAct
         when(mi.itemId) {
             R.id.nav_current_season -> redirectTo(R.id.currentSeasonFragment)
             R.id.nav_home -> redirectTo(R.id.homeFragment)
+            R.id.nav_past_season -> redirectTo(R.id.historicalSeasonFragment)
         }
 
         return true
@@ -67,8 +86,32 @@ class MainActivity : AppCompatActivity(), HasSupportFragmentInjector, SupportAct
         }?: run {
             binding.toolbarIcon.visibility = View.GONE
         }
+
+
         setSupportActionBar(binding.toolbar)
         setUpToggle()
+    }
+
+    fun setSpinnerToolbarVisibility(spinnerManager: SpinnerManager?) {
+        spinnerManager?.let {
+            binding.spYear.visibility = View.VISIBLE
+            binding.spYear.onItemSelectedListener = object : OnItemSelectedListener {
+                override fun onItemSelected(
+                    adapterView: AdapterView<*>?,
+                    view: View,
+                    i: Int,
+                    l: Long
+                ) {
+                    spinnerManager.onSpinnerChangeItem(CURRENT_YEAR.toInt() - 1 - i)
+                }
+
+                override fun onNothingSelected(adapterView: AdapterView<*>?) {
+                    return
+                }
+            }
+        }?: run {
+            binding.spYear.visibility = View.GONE
+        }
     }
 
     override fun onBackPressed() {

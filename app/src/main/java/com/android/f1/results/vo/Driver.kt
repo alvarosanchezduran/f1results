@@ -10,7 +10,7 @@ data class Driver(
     @SerializedName("permanentNumber")
     val permanentNumber: String?,
     @SerializedName("code")
-    val code: String,
+    val code: String?,
     @SerializedName("url")
     val url: String,
     @SerializedName("givenName")
@@ -28,5 +28,9 @@ data class Driver(
         }?: run {
             return R.drawable.alonso
         }
+    }
+
+    fun getCodeOrSurname(): String {
+        return if(code != null) code else familyName.substring(0, 3).toUpperCase()
     }
 }

@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.android.f1.results.AppExecutors
 import com.android.f1.results.MainActivity
 import com.android.f1.results.testing.OpenForTesting
+import com.android.f1.results.util.SpinnerManager
 import com.android.f1.results.util.autoCleared
 import com.android.f1.results.vo.Status
 import javax.inject.Inject
@@ -28,6 +29,11 @@ abstract class BaseFragment<AdapterType : Any, FragmentBinding : ViewDataBinding
 
     var adapter by autoCleared<AdapterType>()
     var binding by autoCleared<FragmentBinding>()
+
+    override fun onResume() {
+        super.onResume()
+        setSpinnerVisibility()
+    }
 
 
     override fun onCreateView(
@@ -51,6 +57,10 @@ abstract class BaseFragment<AdapterType : Any, FragmentBinding : ViewDataBinding
 
     protected fun showLoading(status: Boolean) {
         (activity as MainActivity).loading(status)
+    }
+
+    protected open fun setSpinnerVisibility() {
+        (activity as MainActivity).setSpinnerToolbarVisibility(null)
     }
 
     abstract protected fun setUpBinding()

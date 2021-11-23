@@ -23,6 +23,7 @@ object DriversImages {
         "raikkonen" to R.drawable.raikonen,
         "mazepin" to R.drawable.mazepin,
         "mick_schumacher" to R.drawable.schumacher,
-        "max_verstappen" to R.drawable.verstappen
+        "max_verstappen" to R.drawable.verstappen,
+        "michael_schumacher" to R.drawable.mschumacher
     )
 }

@@ -24,7 +24,7 @@ import com.android.f1.results.ui.common.adapters.StandingsPagerAdapter
 import com.android.f1.results.ui.result.ResultPagerAdapter
 import com.android.f1.results.ui.result.ResultViewModel
 import com.android.f1.results.ui.standings.StandingsViewModel
-import com.android.f1.results.util.Constants.Companion.CURRENT_YEAR
+import com.android.f1.results.util.SpinnerManager
 import com.android.f1.results.util.autoCleared
 import javax.inject.Inject
 import com.google.android.material.tabs.TabLayout
@@ -32,7 +32,7 @@ import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
 import com.google.android.material.tabs.TabLayout.TabLayoutOnPageChangeListener
 
 
-class CurrentSeasonFragment : BaseFragment<Any, CurrentSeasonFragmentBinding>(R.layout.current_season_fragment), Injectable {
+class HistoricalSeasonFragment : BaseFragment<Any, CurrentSeasonFragmentBinding>(R.layout.current_season_fragment), Injectable, SpinnerManager {
 
     var dataBindingComponent: DataBindingComponent = FragmentDataBindingComponent(this)
 
@@ -50,10 +50,9 @@ class CurrentSeasonFragment : BaseFragment<Any, CurrentSeasonFragmentBinding>(R.
 
     override fun onResume() {
         super.onResume()
-        standingsViewModel.yearSelected = CURRENT_YEAR
         (activity as MainActivity).setToolbarTitle("Standings", R.drawable.ic_result_list, {
             resultsViewModel.year.value = standingsViewModel.yearSelected
-            findNavController().navigate(R.id.action_CurrentSeasonFragment_to_ResultsFragment)
+            findNavController().navigate(R.id.action_HistoricalFragment_to_ResultsFragment)
         })
         if (pagerAdapter != null) {
             Handler().post({
@@ -61,8 +60,6 @@ class CurrentSeasonFragment : BaseFragment<Any, CurrentSeasonFragmentBinding>(R.
                 binding.pager.setCurrentItem(positionSelected)
             })
         }
-
-        standingsViewModel.getStandings()
     }
 
     private fun setUpTabs() {
@@ -93,7 +90,6 @@ class CurrentSeasonFragment : BaseFragment<Any, CurrentSeasonFragmentBinding>(R.
         setUpTabs()
         setUpBinding()
         setUpObservers()
-
     }
 
     override fun onDestroy() {
@@ -104,4 +100,12 @@ class CurrentSeasonFragment : BaseFragment<Any, CurrentSeasonFragmentBinding>(R.
     override fun setUpBinding() {}
 
     override fun setUpObservers() {}
+    override fun onSpinnerChangeItem(year: Int) {
+        standingsViewModel.yearSelected = year.toString()
+        standingsViewModel.getStandings()
+    }
+
+    override fun setSpinnerVisibility() {
+        (activity as MainActivity).setSpinnerToolbarVisibility(this)
+    }
 }

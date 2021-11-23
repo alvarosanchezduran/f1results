@@ -51,15 +51,27 @@ class ConstructorsStandingFragment : BaseFragment<ConstructorStandingAdapter, Co
         standingsViewModel.constructorsStandingRequest.observe(viewLifecycleOwner, { response ->
             showLoading(response.status)
             if(response.status == Status.SUCCESS) {
-                response.data?.data?.standingsTable?.standingsLists?.get(0)?.constructorStanding?.let {
-                    val list = it
-                    list.first().selected = true
-                    list.forEach {
-                        it.calculateGap(list.first().points)
+                response.data?.data?.standingsTable?.standingsLists?.let {
+                    if(it.size > 0) {
+                        it.get(0)?.constructorStanding?.let {
+                            val list = it
+                            list.first().selected = true
+                            list.forEach {
+                                it.calculateGap(list.first().points)
+                            }
+                            binding.tvNoConstructorStanding.visibility = View.GONE
+                            binding.rvConstructorStanding.visibility = View.VISIBLE
+                            adapter.submitList(list)
+                        }
+                    } else  {
+                        binding.tvNoConstructorStanding.visibility = View.VISIBLE
+                        binding.rvConstructorStanding.visibility = View.GONE
                     }
-                    adapter.submitList(list)
+
                 }
             }
         })
     }
+
+    override fun setSpinnerVisibility() {}
 }

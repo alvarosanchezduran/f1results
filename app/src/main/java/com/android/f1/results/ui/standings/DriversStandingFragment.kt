@@ -64,4 +64,6 @@ class DriversStandingFragment : BaseFragment<DriverStandingAdapter, DriversClasi
             }
         })
     }
+
+    override fun setSpinnerVisibility() {}
 }

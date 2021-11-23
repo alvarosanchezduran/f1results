@@ -51,4 +51,9 @@
     <string name="driver_seat">Problema de asiento</string>
     <string name="puncture">Pinchazo</string>
     <string name="driveshaft">Problema de eje</string>
+
+    <string name="no_constructor_standing">Este año todavía no existía el mundial de constructores</string>
+
+    <string name="no_qualifying_data">No hay datos sobre la clasificación</string>
+
 </resources>

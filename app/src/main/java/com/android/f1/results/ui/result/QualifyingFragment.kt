@@ -40,6 +40,7 @@ class QualifyingFragment : BaseFragment<QualifyingAdapter, QualifyingFragmentBin
             showLoading(response.status)
             response.data?.data?.raceTable?.races?.let {
                 if(it.size == 1) {
+                    binding.clNoQualifyingData.visibility = View.GONE
                     val qualifyingRowList = mutableListOf<QualifyingRow>()
                     val qualifyingResultList = it.get(0).qualifyingResults
                     qualifyingResultList?.forEachIndexed { index, qualifyingResult ->
@@ -61,6 +62,8 @@ class QualifyingFragment : BaseFragment<QualifyingAdapter, QualifyingFragmentBin
                         adapter.submitList(qualifyingRowList)
                         selectRow(qualifyingRowList.get(0))
                     }
+                } else {
+                    binding.clNoQualifyingData.visibility = View.VISIBLE
                 }
             }
         })

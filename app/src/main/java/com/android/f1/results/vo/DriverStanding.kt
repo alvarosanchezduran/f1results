@@ -41,4 +41,8 @@ data class DriverStanding(
             }
         }
     }
+
+    fun getConstructorName(): String {
+        return constructors.last().name
+    }
 }

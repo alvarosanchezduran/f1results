@@ -3,6 +3,7 @@ package com.android.f1.results.di
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.android.f1.results.ui.common.viewmodels.FlagsViewModel
+import com.android.f1.results.ui.drivers.DriversViewModel
 import com.android.f1.results.ui.home.HomeViewModel
 import com.android.f1.results.ui.result.ResultViewModel
 import com.android.f1.results.ui.standings.StandingsViewModel
@@ -34,6 +35,11 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(StandingsViewModel::class)
     abstract fun bindStandingsViewModel(standingsViewModel: StandingsViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(DriversViewModel::class)
+    abstract fun bindDriversViewModel(driversViewModel: DriversViewModel): ViewModel
 
     @Binds
     abstract fun bindViewModelFactory(factory: ViewModelFactory): ViewModelProvider.Factory

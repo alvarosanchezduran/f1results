@@ -4,6 +4,7 @@ import com.android.f1.results.ui.standings.ConstructorsStandingFragment
 import com.android.f1.results.ui.standings.DriversStandingFragment
 import com.android.f1.results.ui.currentseason.CurrentSeasonFragment
 import com.android.f1.results.ui.currentseason.HistoricalSeasonFragment
+import com.android.f1.results.ui.drivers.DriversFragment
 import com.android.f1.results.ui.home.HomeFragment
 import com.android.f1.results.ui.result.QualifyingFragment
 import com.android.f1.results.ui.result.RaceFragment
@@ -42,4 +43,7 @@ abstract class FragmentBuildersModule {
 
     @ContributesAndroidInjector
     abstract fun contributeResultsFragment(): ResultsFragment
+
+    @ContributesAndroidInjector
+    abstract fun contributeDriversFragment(): DriversFragment
 }

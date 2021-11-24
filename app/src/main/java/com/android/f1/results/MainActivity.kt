@@ -17,7 +17,6 @@ import androidx.navigation.fragment.NavHostFragment
 import com.android.f1.results.vo.Status
 import com.google.android.material.navigation.NavigationView
 import android.widget.ArrayAdapter
-import android.widget.Spinner
 import com.android.f1.results.util.Constants.Companion.CURRENT_YEAR
 import com.android.f1.results.util.SpinnerManager
 import android.widget.AdapterView
@@ -34,11 +33,11 @@ class MainActivity : AppCompatActivity(), HasSupportFragmentInjector, SupportAct
         super.onCreate(savedInstanceState)
         setUpDatabinding()
         setUpMenu()
-        setUpSpinner()
     }
 
-    private fun setUpSpinner() {
-        var i = CURRENT_YEAR.toInt() - 1
+    private fun setUpSpinner(showCurrentYear: Boolean) {
+        var i = CURRENT_YEAR.toInt()
+        if(!showCurrentYear) i--
         val items = mutableListOf<Int>()
         while (i >= 1950){
             items.add(i)
@@ -54,6 +53,7 @@ class MainActivity : AppCompatActivity(), HasSupportFragmentInjector, SupportAct
             R.id.nav_current_season -> redirectTo(R.id.currentSeasonFragment)
             R.id.nav_home -> redirectTo(R.id.homeFragment)
             R.id.nav_past_season -> redirectTo(R.id.historicalSeasonFragment)
+            R.id.nav_drivers -> redirectTo(R.id.driversFragment)
         }
 
         return true
@@ -92,8 +92,9 @@ class MainActivity : AppCompatActivity(), HasSupportFragmentInjector, SupportAct
         setUpToggle()
     }
 
-    fun setSpinnerToolbarVisibility(spinnerManager: SpinnerManager?) {
+    fun setSpinnerToolbarVisibility(spinnerManager: SpinnerManager?, showCurrentYear: Boolean = false) {
         spinnerManager?.let {
+            setUpSpinner(showCurrentYear)
             binding.spYear.visibility = View.VISIBLE
             binding.spYear.onItemSelectedListener = object : OnItemSelectedListener {
                 override fun onItemSelected(

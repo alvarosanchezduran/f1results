@@ -3,10 +3,7 @@ package com.android.f1.results.di
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.android.f1.results.BuildConfig
-import com.android.f1.results.api.F1ResultsServiceApi
-import com.android.f1.results.api.FlagServiceApi
-import com.android.f1.results.api.ResultServiceApi
-import com.android.f1.results.api.StandingsServiceApi
+import com.android.f1.results.api.*
 import com.android.f1.results.ui.home.HomeViewModel
 import com.android.f1.results.util.LiveDataCallAdapterFactory
 import com.android.f1.results.viewmodel.ViewModelFactory
@@ -50,6 +47,12 @@ class RetrofitModule {
     @Provides
     fun provideStandingsService(): StandingsServiceApi {
         return getRetrofitAdapter().create(StandingsServiceApi::class.java)
+    }
+
+    @Singleton
+    @Provides
+    fun provideDriversService(): DriversServiceApi {
+        return getRetrofitAdapter().create(DriversServiceApi::class.java)
     }
 
     private fun getRetrofitAdapter(): Retrofit {

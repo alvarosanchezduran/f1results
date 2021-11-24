@@ -44,4 +44,10 @@
             android:id="@+id/action_ResultsFragment_to_ResultFragment"
             app:destination="@id/resultFragment" />
     </fragment>
+
+    <fragment
+        android:id="@+id/driversFragment"
+        android:name="com.android.f1.results.ui.drivers.DriversFragment"
+        android:label="DriversFragment" >
+    </fragment>
 </navigation>

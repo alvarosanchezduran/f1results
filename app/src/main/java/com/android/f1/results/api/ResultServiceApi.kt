@@ -10,7 +10,7 @@ import retrofit2.http.Query
 
 interface ResultServiceApi {
     @GET("{year}/{round}/qualifying.json")
-    fun getQualifying(
+    fun getResult(
         @Path("year") year: String,
         @Path("round") round: String
     ): LiveData<ApiResponse<F1Response<RaceTableResponse>>>

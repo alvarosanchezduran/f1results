@@ -16,6 +16,7 @@ android {
         targetSdkVersion build_versions.target_sdk
         versionCode 1
         versionName "1.0"
+        testInstrumentationRunner "com.android.f1.results.TestRunner"
     }
     buildTypes {
         debug {
@@ -104,6 +105,10 @@ dependencies {
     androidTestImplementation deps.arch_core.testing
     androidTestImplementation deps.mockito.core
     androidTestImplementation deps.mockito.android
+
+    debugImplementation 'androidx.test:core:1.3.0'
+    debugImplementation 'androidx.test:monitor:1.3.0'
+    androidTestImplementation 'com.squareup.okhttp3:mockwebserver3:5.0.0-alpha.2'
 }
 
 // we need all open to run tests which we enable only for debug builds.

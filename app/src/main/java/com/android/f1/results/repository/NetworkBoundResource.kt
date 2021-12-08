@@ -11,15 +11,6 @@ import com.android.f1.results.api.ApiResponse
 import com.android.f1.results.api.ApiSuccessResponse
 import com.android.f1.results.vo.Resource
 
-/**
- * A generic class that can provide a resource backed by both the sqlite database and the network.
- *
- *
- * You can read more about it in the [Architecture
- * Guide](https://developer.android.com/arch).
- * @param <ResultType>
- * @param <RequestType>
-</RequestType></ResultType> */
 abstract class NetworkBoundResource<ResultType, RequestType>
 @MainThread constructor(
         private val appExecutors: AppExecutors

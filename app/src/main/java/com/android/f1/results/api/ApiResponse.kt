@@ -4,11 +4,7 @@ import retrofit2.Response
 import timber.log.Timber
 import java.util.regex.Pattern
 
-/**
- * Common class used by API responses.
- * @param <T> the type of the response object
-</T> */
-@Suppress("unused") // T is used in extending classes
+@Suppress("unused")
 sealed class ApiResponse<T> {
     companion object {
         fun <T> create(error: Throwable): ApiErrorResponse<T> {
@@ -39,9 +35,6 @@ sealed class ApiResponse<T> {
     }
 }
 
-/**
- * separate class for HTTP 204 responses so that we can make ApiSuccessResponse's body non-null.
- */
 class ApiEmptyResponse<T> : ApiResponse<T>()
 
 data class ApiSuccessResponse<T>(

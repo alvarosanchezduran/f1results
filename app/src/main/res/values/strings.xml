@@ -10,6 +10,9 @@
     <string name="circuits_title">Circuits</string>
 
     <string name="next_gp_label">Next GP</string>
+    <string name="next_gp_void_title">All the Grand Prix of this season have already been disputed</string>
+    <string name="next_gp_void_subtitle">Until next year!</string>
+    <string name="lasts_gp_label">Latest Results</string>
     <string name="latest_results_winner">Winner %1$s</string>
 
 

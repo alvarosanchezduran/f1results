@@ -59,8 +59,10 @@ class HomeFragment : BaseFragment<ResultsAdapter, HomeFragmentBinding>(R.layout.
 
         homeViewModel.raceRequest.observe(viewLifecycleOwner, { response ->
             response.data?.data?.raceTable?.let {
-                homeViewModel.nextRace.value = it.races.get(0)
-                flagsViewModel.getFlagInfo(it.races.get(0).circuit.location.country)
+                if(it.races.size > 0) {
+                    homeViewModel.nextRace.value = it.races.get(0)
+                    flagsViewModel.getFlagInfo(it.races.get(0).circuit.location.country)
+                }
             }
         })
 

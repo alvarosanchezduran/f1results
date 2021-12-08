@@ -11,6 +11,9 @@
     <string name="circuits_title">Circuitos</string>
 
     <string name="next_gp_label">Siguiente GP</string>
+    <string name="next_gp_void_title">Ya se han disputado todos los Grandes Premios de esta temporada</string>
+    <string name="next_gp_void_subtitle">¡Hasta el año que viene!</string>
+    <string name="lasts_gp_label">Últimos resultados</string>
     <string name="latest_results_winner">Ganador %1$s</string>
 
 

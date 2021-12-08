@@ -27,14 +27,51 @@
             app:cardElevation="10dp"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:visibility="@{viewModel.nextRace != null ? View.VISIBLE : View.GONE}">
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_next_gp_void"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/home_card_padding"
+                android:visibility="@{viewModel.nextRace == null ? View.VISIBLE : View.GONE}">
+
+                <TextView
+                    android:id="@+id/tv_next_gp_void_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="center"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:padding="20dp"
+                    android:text="@string/next_gp_void_title"
+                    android:fontFamily="@font/formula_bold"
+                    android:textColor="@color/white"/>
+
+                <TextView
+                    android:id="@+id/tv_next_gp_void_subtitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="center"
+                    app:layout_constraintTop_toBottomOf="@id/tv_next_gp_void_title"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:padding="20dp"
+                    android:textSize="18sp"
+                    android:text="@string/next_gp_void_subtitle"
+                    android:fontFamily="@font/formula_bold"
+                    android:textColor="@color/white"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/cl_next_gp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/home_card_padding">
+                android:padding="@dimen/home_card_padding"
+                android:visibility="@{viewModel.nextRace != null ? View.VISIBLE : View.GONE}">
 
                 <TextView
                     android:id="@+id/tv_next_gp_label"
@@ -42,8 +79,7 @@
                     android:layout_height="wrap_content"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    android:fontFamily="@font/f1font"
-                    android:textFontWeight="500"
+                    android:fontFamily="@font/formula_bold"
                     android:textColor="@color/white"
                     android:textSize="@dimen/home_card_title"
                     android:text="@string/next_gp_label"/>
@@ -64,8 +100,7 @@
                     android:layout_marginTop="@dimen/home_card_gp_name_margin_top"
                     app:layout_constraintTop_toBottomOf="@id/iv_flag"
                     app:layout_constraintStart_toStartOf="parent"
-                    android:fontFamily="@font/f1font"
-                    android:textFontWeight="300"
+                    android:fontFamily="@font/formula_regular"
                     android:textColor="@color/white"
                     android:textSize="@dimen/home_card_gp_name_size"/>
 
@@ -77,8 +112,7 @@
                     android:layout_marginTop="@dimen/home_card_gp_margin_top"
                     app:layout_constraintTop_toBottomOf="@id/tv_next_gp_name"
                     app:layout_constraintStart_toStartOf="parent"
-                    android:fontFamily="@font/f1font"
-                    android:textFontWeight="300"
+                    android:fontFamily="@font/formula_regular"
                     android:textColor="@color/white"
                     android:textSize="@dimen/home_card_gp_city_size"/>
 
@@ -90,8 +124,7 @@
                     android:layout_marginTop="@dimen/home_card_gp_margin_top"
                     app:layout_constraintTop_toBottomOf="@id/tv_next_gp_city"
                     app:layout_constraintEnd_toEndOf="parent"
-                    android:fontFamily="@font/f1font"
-                    android:textFontWeight="300"
+                    android:fontFamily="@font/formula_regular"
                     android:textColor="@color/white"
                     android:textSize="@dimen/home_card_gp_datetime_size"/>
 
@@ -103,8 +136,7 @@
                     android:layout_marginTop="@dimen/home_card_gp_time_margin_top"
                     app:layout_constraintTop_toBottomOf="@id/tv_next_gp_date"
                     app:layout_constraintEnd_toEndOf="parent"
-                    android:fontFamily="@font/f1font"
-                    android:textFontWeight="300"
+                    android:fontFamily="@font/formula_regular"
                     android:textColor="@color/white"
                     android:textSize="@dimen/home_card_gp_datetime_size"/>
 
@@ -119,11 +151,10 @@
             android:layout_marginTop="20dp"
             app:layout_constraintTop_toBottomOf="@id/cv_next_race"
             app:layout_constraintStart_toStartOf="parent"
-            android:text="Latest Results"
+            android:text="@string/lasts_gp_label"
             android:textColor="@color/black"
             android:textSize="20sp"
-            android:fontFamily="@font/f1font"
-            android:textFontWeight="500"
+            android:fontFamily="@font/formula_bold"
             />
 
         <androidx.recyclerview.widget.RecyclerView

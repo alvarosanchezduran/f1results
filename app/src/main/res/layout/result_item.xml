@@ -23,8 +23,7 @@
             android:textColor="@color/black"
             android:text="@{race.round}"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:fontFamily="@font/f1font"
-            android:textFontWeight="300"/>
+            android:fontFamily="@font/formula_regular"/>
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/iv_flag"
@@ -48,8 +47,7 @@
             android:layout_marginRight="@dimen/result_circuit_name_margin_right"
             android:textColor="@color/black"
             android:text="@{race.circuit.circuitName}"
-            android:fontFamily="@font/f1font"
-            android:textFontWeight="300"/>
+            android:fontFamily="@font/formula_regular"/>
 
         <TextView
             android:id="@+id/tv_winner"
@@ -64,8 +62,7 @@
             android:textSize="@dimen/result_winner_size"
             android:textColor="@color/black"
             android:text="@{@string/latest_results_winner(race.winner.codeOrSurname)}"
-            android:fontFamily="@font/f1font"
-            android:textFontWeight="300"/>
+            android:fontFamily="@font/formula_regular"/>
 
         <TextView
             android:id="@+id/tv_date"
@@ -78,8 +75,7 @@
             android:layout_marginRight="@dimen/result_elements_margin_left"
             android:textColor="@color/black"
             android:text="@{race.dateZoned}"
-            android:fontFamily="@font/f1font"
-            android:textFontWeight="300"/>
+            android:fontFamily="@font/formula_regular"/>
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/iv_arrow"

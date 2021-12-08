@@ -16,7 +16,7 @@ android {
         targetSdkVersion build_versions.target_sdk
         versionCode 1
         versionName "1.0"
-        testInstrumentationRunner "com.android.f1.results.TestRunner"
+        testInstrumentationRunner "com.android.f1.results.util.TestRunner"
     }
     buildTypes {
         debug {

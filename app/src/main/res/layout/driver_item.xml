@@ -13,7 +13,8 @@
         android:id="@+id/cl_standing_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="5dp">
+        android:paddingVertical="5dp"
+        android:paddingHorizontal="20dp">
 
         <ImageView
             android:id="@+id/iv_driver"

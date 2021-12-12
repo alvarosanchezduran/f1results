@@ -46,7 +46,10 @@ class DriversFragment : BaseFragment<DriversAdapter, DriversFragmentBinding>(R.l
     }
 
     override fun setUpBinding() {
-        adapter = DriversAdapter(dataBindingComponent, appExecutors, {})
+        adapter = DriversAdapter(dataBindingComponent, appExecutors) {
+            driversViewModel.driver.value = it
+            findNavController().navigate(R.id.action_DriversFragment_to_DriverDetailFragment)
+        }
         binding.apply {
             rvDrivers.adapter = adapter
         }

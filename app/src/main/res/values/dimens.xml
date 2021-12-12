@@ -68,7 +68,7 @@
     <dimen name="race_result_item_image_margin_start">8dp</dimen>
     <dimen name="race_result_item_driver_name">14sp</dimen>
     <dimen name="race_result_item_driver_margin_start">10dp</dimen>
-    <dimen name="race_result_item_driver_surname">18sp</dimen>
+    <dimen name="race_result_item_driver_surname">16sp</dimen>
     <dimen name="race_result_item_detail_info_margin_top">2dp</dimen>
     <dimen name="race_result_item_detail_info_size">11sp</dimen>
     <dimen name="race_result_item_points_padding">8dp</dimen>
@@ -76,4 +76,6 @@
 
     <dimen name="driver_standing_gap">9sp</dimen>
 
+    <dimen name="driver_detail_image_width">140dp</dimen>
+    <dimen name="driver_detail_image_height">200dp</dimen>
 </resources>

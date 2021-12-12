@@ -103,7 +103,7 @@ class MainActivity : AppCompatActivity(), HasSupportFragmentInjector, SupportAct
                     i: Int,
                     l: Long
                 ) {
-                    spinnerManager.onSpinnerChangeItem(CURRENT_YEAR.toInt() - 1 - i)
+                    spinnerManager.onSpinnerChangeItem(CURRENT_YEAR.toInt() - i)
                 }
 
                 override fun onNothingSelected(adapterView: AdapterView<*>?) {

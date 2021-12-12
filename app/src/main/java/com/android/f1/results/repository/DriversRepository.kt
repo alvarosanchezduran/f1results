@@ -33,4 +33,52 @@ class DriversRepository @Inject constructor(
             override fun onFetchFailed() { }
         }.asLiveData()
     }
+
+    fun getDriverGP(driverId: String): LiveData<Resource<F1Response<RaceTableResponse>>> {
+        return object : NetworkBoundResource<F1Response<RaceTableResponse>, F1Response<RaceTableResponse>>(appExecutors) {
+            override fun saveCallResult(items: F1Response<RaceTableResponse>) {}
+
+            override fun shouldFetch(data: F1Response<RaceTableResponse>?): Boolean {
+                return true
+            }
+
+            override fun loadFromDb() = null
+
+            override fun createCall() = driversServiceApi.getDriverGP(driverId)
+
+            override fun onFetchFailed() { }
+        }.asLiveData()
+    }
+
+    fun getDriverGPWinned(driverId: String): LiveData<Resource<F1Response<DriverTotalResponse>>> {
+        return object : NetworkBoundResource<F1Response<DriverTotalResponse>, F1Response<DriverTotalResponse>>(appExecutors) {
+            override fun saveCallResult(items: F1Response<DriverTotalResponse>) {}
+
+            override fun shouldFetch(data: F1Response<DriverTotalResponse>?): Boolean {
+                return true
+            }
+
+            override fun loadFromDb() = null
+
+            override fun createCall() = driversServiceApi.getDriverGPWinned(driverId)
+
+            override fun onFetchFailed() { }
+        }.asLiveData()
+    }
+
+    fun getDriverChampionships(driverId: String): LiveData<Resource<F1Response<DriverTotalResponse>>> {
+        return object : NetworkBoundResource<F1Response<DriverTotalResponse>, F1Response<DriverTotalResponse>>(appExecutors) {
+            override fun saveCallResult(items: F1Response<DriverTotalResponse>) {}
+
+            override fun shouldFetch(data: F1Response<DriverTotalResponse>?): Boolean {
+                return true
+            }
+
+            override fun loadFromDb() = null
+
+            override fun createCall() = driversServiceApi.getDriverChampionships(driverId)
+
+            override fun onFetchFailed() { }
+        }.asLiveData()
+    }
 }

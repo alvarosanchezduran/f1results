@@ -10,5 +10,8 @@ data class Constructor(
     @SerializedName("name")
     val name: String,
     @SerializedName("nationality")
-    val nationality: String
+    val nationality: String,
+
+    var years: Int = 0,
+    var carreras: Int = 0
 )

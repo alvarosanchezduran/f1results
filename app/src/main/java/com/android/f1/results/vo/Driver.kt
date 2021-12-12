@@ -20,7 +20,8 @@ data class Driver(
     @SerializedName("dateOfBirth")
     val dateOfBirth: String,
     @SerializedName("nationality")
-    val nationality: String
+    val nationality: String,
+    var totalGP: Int = 0
 ) {
     fun getImage(): Int {
         DriversImages.DRIVERS_IMAGES.get(driverId)?.let {
@@ -32,5 +33,9 @@ data class Driver(
 
     fun getCodeOrSurname(): String {
         return if(code != null) code else familyName.substring(0, 3).toUpperCase()
+    }
+
+    fun getName(): String {
+        return givenName + " " + familyName
     }
 }

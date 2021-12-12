@@ -22,17 +22,43 @@ class DriversViewModel
     driversRepository: DriversRepository
 ) : ViewModel() {
 
+    var driver = MutableLiveData<Driver?>()
+
+    var driverConstructors = mutableListOf<Constructor>()
+
     val year = MutableLiveData<String?>()
 
     private val getDrivers: MutableLiveData<Event<Unit>> = MutableLiveData()
+
+    private val getDriverTotalGP: MutableLiveData<Event<Unit>> = MutableLiveData()
+
 
     var driversRequest: LiveData<Resource<F1Response<DriversTableResponse>>> = Transformations
         .switchMap(getDrivers) {
             driversRepository.getDrivers(getYearSelected())
         }
 
+    var driverTotalGPRequest: LiveData<Resource<F1Response<RaceTableResponse>>> = Transformations
+        .switchMap(getDriverTotalGP) {
+            driversRepository.getDriverGP(driver.value?.driverId?: "")
+        }
+
+    var driverTotalGPWinnedRequest: LiveData<Resource<F1Response<DriverTotalResponse>>> = Transformations
+        .switchMap(getDriverTotalGP) {
+            driversRepository.getDriverGPWinned(driver.value?.driverId?: "")
+        }
+
+    var driverTotalGPChampionshipsRequest: LiveData<Resource<F1Response<DriverTotalResponse>>> = Transformations
+        .switchMap(getDriverTotalGP) {
+            driversRepository.getDriverChampionships(driver.value?.driverId?: "")
+        }
+
     fun getDriversInfo() {
         getDrivers.value = Event(Unit)
+    }
+
+    fun getDriverTotalGP() {
+        getDriverTotalGP.value = Event(Unit)
     }
 
     fun getYearSelected(): String {

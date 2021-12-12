@@ -49,5 +49,14 @@
         android:id="@+id/driversFragment"
         android:name="com.android.f1.results.ui.drivers.DriversFragment"
         android:label="DriversFragment" >
+        <action
+            android:id="@+id/action_DriversFragment_to_DriverDetailFragment"
+            app:destination="@id/driverDetailFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/driverDetailFragment"
+        android:name="com.android.f1.results.ui.drivers.detail.DriverDetailFragment"
+        android:label="DriverDetailFragment" >
     </fragment>
 </navigation>

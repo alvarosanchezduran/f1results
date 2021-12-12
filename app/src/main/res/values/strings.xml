@@ -57,4 +57,7 @@
 
     <string name="no_qualifying_data">No hay datos sobre la clasificación</string>
 
+    <string name="number_races_in_contructor">%1$s GP</string>
+    <string name="number_years_in_contructor">%1$s seasons</string>
+
 </resources>

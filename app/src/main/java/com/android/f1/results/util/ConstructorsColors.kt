@@ -18,7 +18,14 @@ object ConstructorsColors {
         "mclaren" to R.color.mclaren,
         "mercedes" to R.color.mercedes,
         "red_bull" to R.color.red_bull,
-        "williams" to R.color.williams
+        "williams" to R.color.williams,
+        "renault" to R.color.renault,
+        "racing_point" to R.color.racing_point,
+        "toro_rosso" to R.color.toro_rosso,
+        "force_india" to R.color.racing_point,
+        "sauber" to R.color.sauber,
+        "manor" to R.color.manor_marussia,
+        "lotus_f1" to R.color.lotus,
     )
 
     fun getConstructorColorSaved(team: String): Int? {

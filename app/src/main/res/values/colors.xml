@@ -23,4 +23,11 @@
     <color name="aston_martin">#02574F</color>
     <color name="williams">#02A8EA</color>
     <color name="haas">#ED1A3B</color>
+    <color name="renault">#2384DE</color>
+    <color name="racing_point">#C54DB0</color>
+    <color name="toro_rosso">#161791</color>
+    <color name="sauber">#9D2235</color>
+    <color name="manor_marussia">#F74017</color>
+    <color name="lotus">#9c885d</color>
+
 </resources>

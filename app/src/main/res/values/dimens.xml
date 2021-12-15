@@ -78,4 +78,7 @@
 
     <dimen name="driver_detail_image_width">140dp</dimen>
     <dimen name="driver_detail_image_height">200dp</dimen>
+
+    <dimen name="constructor_item_name_size">22sp</dimen>
+
 </resources>

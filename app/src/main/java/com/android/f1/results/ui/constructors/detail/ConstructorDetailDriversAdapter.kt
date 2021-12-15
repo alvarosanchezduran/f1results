@@ -1,4 +1,4 @@
-package com.android.f1.results.ui.drivers.detail
+package com.android.f1.results.ui.constructors.detail
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -12,7 +12,7 @@ import com.android.f1.results.ui.common.DataBoundListAdapter
 import com.android.f1.results.util.ConstructorsColors
 import com.android.f1.results.vo.Constructor
 
-class DriverDetailConstructorsAdapter(
+class ConstructorDetailDriversAdapter(
     private val dataBindingComponent: DataBindingComponent,
     appExecutors: AppExecutors,
     private val onClickCallback: ((Constructor) -> Unit)?,

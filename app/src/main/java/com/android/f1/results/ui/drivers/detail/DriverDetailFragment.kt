@@ -63,9 +63,11 @@ class DriverDetailFragment : BaseFragment<DriverDetailConstructorsAdapter, Drive
                 response.data?.data?.raceTable?.races?.last()?.results?.first()?.constructor?.let {
                     ConstructorsColors.getConstructorColorSaved(it.constructorId)?.let {
                         binding.llLineDriver.setBackgroundResource(it)
+                        binding.llLineDriverBottom.setBackgroundResource(it)
                     }?: run {
                         val color = ConstructorsColors.getConstructorColorProvisional(it.constructorId)
                         binding.llLineDriver.setBackgroundColor(color)
+                        binding.llLineDriverBottom.setBackgroundColor(color)
                     }
                 }
                 response.data?.data?.raceTable?.races?.let {
@@ -93,21 +95,34 @@ class DriverDetailFragment : BaseFragment<DriverDetailConstructorsAdapter, Drive
                 binding.tvTotalGp.text = response.data?.data?.total?: ""
                 adapter.submitList(driversViewModel.driverConstructors.reversed())
             }
-            showLoading(response.status)
+            showLoading(
+                driversViewModel.driverTotalGPRequest.value?.status?: Status.LOADING == Status.LOADING ||
+                        driversViewModel.totalGPWinnedRequest.value?.status?: Status.LOADING == Status.LOADING ||
+                        driversViewModel.totalGPChampionshipsRequest.value?.status?: Status.LOADING == Status.LOADING
+            )
         })
 
-        driversViewModel.driverTotalGPWinnedRequest.observe(viewLifecycleOwner, { response ->
+        driversViewModel.totalGPWinnedRequest.observe(viewLifecycleOwner, { response ->
             showLoading(response.status)
             if(response.status == Status.SUCCESS) {
                 binding.tvTotalGpWinned.text = response.data?.data?.total?: ""
             }
+            showLoading(
+                driversViewModel.driverTotalGPRequest.value?.status?: Status.LOADING == Status.LOADING ||
+                driversViewModel.totalGPWinnedRequest.value?.status?: Status.LOADING == Status.LOADING ||
+                        driversViewModel.totalGPChampionshipsRequest.value?.status?: Status.LOADING == Status.LOADING
+            )
         })
 
-        driversViewModel.driverTotalGPChampionshipsRequest.observe(viewLifecycleOwner, { response ->
-            showLoading(response.status)
+        driversViewModel.totalGPChampionshipsRequest.observe(viewLifecycleOwner, { response ->
             if(response.status == Status.SUCCESS) {
                 binding.tvTotalNumberChampionship.text = response.data?.data?.total?: ""
             }
+            showLoading(
+                driversViewModel.driverTotalGPRequest.value?.status?: Status.LOADING == Status.LOADING ||
+                        driversViewModel.totalGPWinnedRequest.value?.status?: Status.LOADING == Status.LOADING ||
+                        driversViewModel.totalGPChampionshipsRequest.value?.status?: Status.LOADING == Status.LOADING
+            )
         })
     }
 

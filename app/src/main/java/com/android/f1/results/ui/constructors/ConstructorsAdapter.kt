@@ -1,5 +1,6 @@
-package com.android.f1.results.ui.drivers.detail
+package com.android.f1.results.ui.constructors
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingComponent
@@ -7,32 +8,36 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.DiffUtil
 import com.android.f1.results.AppExecutors
 import com.android.f1.results.R
-import com.android.f1.results.databinding.ConstructorDetailItemBinding
+import com.android.f1.results.databinding.ConstructorItemBinding
+import com.android.f1.results.databinding.DriverItemBinding
+import com.android.f1.results.databinding.RaceItemBinding
 import com.android.f1.results.ui.common.DataBoundListAdapter
 import com.android.f1.results.util.ConstructorsColors
 import com.android.f1.results.vo.Constructor
+import com.android.f1.results.vo.Driver
+import com.android.f1.results.vo.Result
 
-class DriverDetailConstructorsAdapter(
+class ConstructorsAdapter(
     private val dataBindingComponent: DataBindingComponent,
     appExecutors: AppExecutors,
     private val onClickCallback: ((Constructor) -> Unit)?,
-) : DataBoundListAdapter<Constructor, ConstructorDetailItemBinding>(
+) : DataBoundListAdapter<Constructor, ConstructorItemBinding>(
     appExecutors = appExecutors,
     diffCallback = object : DiffUtil.ItemCallback<Constructor>() {
         override fun areItemsTheSame(oldItem: Constructor, newItem: Constructor): Boolean {
-            return false
+            return oldItem == newItem
         }
 
         override fun areContentsTheSame(oldItem: Constructor, newItem: Constructor): Boolean {
-            return false
+            return oldItem == newItem
         }
     }
 ) {
 
-    override fun createBinding(parent: ViewGroup): ConstructorDetailItemBinding {
-        val binding = DataBindingUtil.inflate<ConstructorDetailItemBinding>(
+    override fun createBinding(parent: ViewGroup): ConstructorItemBinding {
+        val binding = DataBindingUtil.inflate<ConstructorItemBinding>(
             LayoutInflater.from(parent.context),
-            R.layout.constructor_detail_item,
+            R.layout.constructor_item,
             parent,
             false,
             dataBindingComponent
@@ -46,16 +51,13 @@ class DriverDetailConstructorsAdapter(
         return binding
     }
 
-    override fun bind(binding: ConstructorDetailItemBinding, item: Constructor) {
+    override fun bind(binding: ConstructorItemBinding, item: Constructor) {
         binding.constructor = item
-
         ConstructorsColors.getConstructorColorSaved(item.constructorId)?.let {
-            binding.clDriverConstructorContainer.setBackgroundResource(it)
-            binding.clDriverConstructorContainer.setBackgroundResource(it)
+            binding.clConstructorContainer.setBackgroundResource(it)
         }?: run {
             val color = ConstructorsColors.getConstructorColorProvisional(item.constructorId)
-            binding.clDriverConstructorContainer.setBackgroundColor(color)
-            binding.clDriverConstructorContainer.setBackgroundColor(color)
+            binding.clConstructorContainer.setBackgroundColor(color)
         }
     }
 }

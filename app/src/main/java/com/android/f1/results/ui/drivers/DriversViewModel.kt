@@ -5,9 +5,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import com.android.f1.results.repository.DriversRepository
-import com.android.f1.results.repository.F1Repository
-import com.android.f1.results.repository.FlagRepository
-import com.android.f1.results.repository.ResultRepository
 import com.android.f1.results.testing.OpenForTesting
 import com.android.f1.results.util.Constants
 import com.android.f1.results.util.Event
@@ -43,12 +40,12 @@ class DriversViewModel
             driversRepository.getDriverGP(driver.value?.driverId?: "")
         }
 
-    var driverTotalGPWinnedRequest: LiveData<Resource<F1Response<DriverTotalResponse>>> = Transformations
+    var totalGPWinnedRequest: LiveData<Resource<F1Response<TotalResponse>>> = Transformations
         .switchMap(getDriverTotalGP) {
             driversRepository.getDriverGPWinned(driver.value?.driverId?: "")
         }
 
-    var driverTotalGPChampionshipsRequest: LiveData<Resource<F1Response<DriverTotalResponse>>> = Transformations
+    var totalGPChampionshipsRequest: LiveData<Resource<F1Response<TotalResponse>>> = Transformations
         .switchMap(getDriverTotalGP) {
             driversRepository.getDriverChampionships(driver.value?.driverId?: "")
         }

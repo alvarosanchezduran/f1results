@@ -1,5 +1,7 @@
 package com.android.f1.results.di
 
+import com.android.f1.results.ui.constructors.ConstructorsFragment
+import com.android.f1.results.ui.constructors.detail.ConstructorDetailFragment
 import com.android.f1.results.ui.standings.ConstructorsStandingFragment
 import com.android.f1.results.ui.standings.DriversStandingFragment
 import com.android.f1.results.ui.currentseason.CurrentSeasonFragment
@@ -50,4 +52,10 @@ abstract class FragmentBuildersModule {
 
     @ContributesAndroidInjector
     abstract fun contributeDriverDetailFragment(): DriverDetailFragment
+
+    @ContributesAndroidInjector
+    abstract fun contributeConstructorsFragment(): ConstructorsFragment
+
+    @ContributesAndroidInjector
+    abstract fun contributeConstructorDetailFragment(): ConstructorDetailFragment
 }

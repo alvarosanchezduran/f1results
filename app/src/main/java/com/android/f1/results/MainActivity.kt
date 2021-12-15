@@ -54,6 +54,7 @@ class MainActivity : AppCompatActivity(), HasSupportFragmentInjector, SupportAct
             R.id.nav_home -> redirectTo(R.id.homeFragment)
             R.id.nav_past_season -> redirectTo(R.id.historicalSeasonFragment)
             R.id.nav_drivers -> redirectTo(R.id.driversFragment)
+            R.id.nav_constructors -> redirectTo(R.id.constructorsFragment)
         }
 
         return true

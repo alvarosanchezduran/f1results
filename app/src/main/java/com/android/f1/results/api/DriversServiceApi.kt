@@ -1,7 +1,7 @@
 package com.android.f1.results.api
 
 import androidx.lifecycle.LiveData
-import com.android.f1.results.vo.DriverTotalResponse
+import com.android.f1.results.vo.TotalResponse
 import com.android.f1.results.vo.DriversTableResponse
 import com.android.f1.results.vo.F1Response
 import com.android.f1.results.vo.RaceTableResponse
@@ -32,13 +32,13 @@ interface DriversServiceApi {
     fun getDriverGPWinned(
         @Path("driverId") driverId: String,
         @Query("limit") limit: Int = 500
-    ): LiveData<ApiResponse<F1Response<DriverTotalResponse>>>
+    ): LiveData<ApiResponse<F1Response<TotalResponse>>>
 
     @GET("drivers/{driverId}/driverStandings/1.json?limit=500")
     fun getDriverChampionships(
         @Path("driverId") driverId: String,
         @Query("limit") limit: Int = 500
-    ): LiveData<ApiResponse<F1Response<DriverTotalResponse>>>
+    ): LiveData<ApiResponse<F1Response<TotalResponse>>>
 
 
 }

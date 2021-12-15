@@ -3,11 +3,7 @@ package com.android.f1.results.repository
 import androidx.lifecycle.LiveData
 import com.android.f1.results.AppExecutors
 import com.android.f1.results.api.DriversServiceApi
-import com.android.f1.results.api.FlagServiceApi
-import com.android.f1.results.api.ResultServiceApi
-import com.android.f1.results.db.FlagsDao
 import com.android.f1.results.testing.OpenForTesting
-import com.android.f1.results.util.Constants.Companion.CURRENT_YEAR
 import com.android.f1.results.vo.*
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -50,11 +46,11 @@ class DriversRepository @Inject constructor(
         }.asLiveData()
     }
 
-    fun getDriverGPWinned(driverId: String): LiveData<Resource<F1Response<DriverTotalResponse>>> {
-        return object : NetworkBoundResource<F1Response<DriverTotalResponse>, F1Response<DriverTotalResponse>>(appExecutors) {
-            override fun saveCallResult(items: F1Response<DriverTotalResponse>) {}
+    fun getDriverGPWinned(driverId: String): LiveData<Resource<F1Response<TotalResponse>>> {
+        return object : NetworkBoundResource<F1Response<TotalResponse>, F1Response<TotalResponse>>(appExecutors) {
+            override fun saveCallResult(items: F1Response<TotalResponse>) {}
 
-            override fun shouldFetch(data: F1Response<DriverTotalResponse>?): Boolean {
+            override fun shouldFetch(data: F1Response<TotalResponse>?): Boolean {
                 return true
             }
 
@@ -66,11 +62,11 @@ class DriversRepository @Inject constructor(
         }.asLiveData()
     }
 
-    fun getDriverChampionships(driverId: String): LiveData<Resource<F1Response<DriverTotalResponse>>> {
-        return object : NetworkBoundResource<F1Response<DriverTotalResponse>, F1Response<DriverTotalResponse>>(appExecutors) {
-            override fun saveCallResult(items: F1Response<DriverTotalResponse>) {}
+    fun getDriverChampionships(driverId: String): LiveData<Resource<F1Response<TotalResponse>>> {
+        return object : NetworkBoundResource<F1Response<TotalResponse>, F1Response<TotalResponse>>(appExecutors) {
+            override fun saveCallResult(items: F1Response<TotalResponse>) {}
 
-            override fun shouldFetch(data: F1Response<DriverTotalResponse>?): Boolean {
+            override fun shouldFetch(data: F1Response<TotalResponse>?): Boolean {
                 return true
             }
 

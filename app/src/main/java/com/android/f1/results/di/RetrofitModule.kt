@@ -55,6 +55,12 @@ class RetrofitModule {
         return getRetrofitAdapter().create(DriversServiceApi::class.java)
     }
 
+    @Singleton
+    @Provides
+    fun provideConstructorsService(): ConstructorServiceApi {
+        return getRetrofitAdapter().create(ConstructorServiceApi::class.java)
+    }
+
     private fun getRetrofitAdapter(): Retrofit {
         val client = OkHttpClient.Builder()
                 .callTimeout(BuildConfig.TIMEOUT, TimeUnit.MILLISECONDS)

@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.databinding.DataBindingComponent
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.android.f1.results.MainActivity
 import com.android.f1.results.R
 import com.android.f1.results.binding.FragmentDataBindingComponent
@@ -12,6 +13,7 @@ import com.android.f1.results.ui.common.BaseFragment
 import java.util.*
 import com.android.f1.results.databinding.ConstructorDetailFragmentBinding
 import com.android.f1.results.ui.constructors.ConstructorsViewModel
+import com.android.f1.results.ui.drivers.DriversViewModel
 import com.android.f1.results.util.ConstructorsColors
 import com.android.f1.results.vo.Status
 
@@ -22,6 +24,10 @@ class ConstructorDetailFragment : BaseFragment<ConstructorDetailDriversAdapter, 
     var dataBindingComponent: DataBindingComponent = FragmentDataBindingComponent(this)
 
     private val constructorViewModel: ConstructorsViewModel by viewModels {
+        viewModelFactory
+    }
+
+    private val driverViewModel: DriversViewModel by viewModels {
         viewModelFactory
     }
 
@@ -38,7 +44,7 @@ class ConstructorDetailFragment : BaseFragment<ConstructorDetailDriversAdapter, 
                 binding.clConstructorInfo.setBackgroundColor(color)
             }
         }
-        constructorViewModel.getConstructorTotalGP()
+        constructorViewModel.getConstructorInfo()
     }
 
     override fun setUpObservers() {
@@ -48,7 +54,8 @@ class ConstructorDetailFragment : BaseFragment<ConstructorDetailDriversAdapter, 
             }
             showLoading(
                 constructorViewModel.totalGPWinnedRequest.value?.status?: Status.LOADING == Status.LOADING ||
-                        constructorViewModel.totalGPChampionshipsRequest.value?.status?: Status.LOADING == Status.LOADING
+                        constructorViewModel.totalGPChampionshipsRequest.value?.status?: Status.LOADING == Status.LOADING ||
+                        constructorViewModel.driversOfConstructorRequest.value?.status?: Status.LOADING == Status.LOADING
             )
         })
 
@@ -58,7 +65,21 @@ class ConstructorDetailFragment : BaseFragment<ConstructorDetailDriversAdapter, 
             }
             showLoading(
                 constructorViewModel.totalGPWinnedRequest.value?.status?: Status.LOADING == Status.LOADING ||
-                        constructorViewModel.totalGPChampionshipsRequest.value?.status?: Status.LOADING == Status.LOADING
+                        constructorViewModel.totalGPChampionshipsRequest.value?.status?: Status.LOADING == Status.LOADING ||
+                        constructorViewModel.driversOfConstructorRequest.value?.status?: Status.LOADING == Status.LOADING
+            )
+        })
+
+        constructorViewModel.driversOfConstructorRequest.observe(viewLifecycleOwner, { response ->
+            if(response.status == Status.SUCCESS) {
+                response.data?.data?.raceTable?.drivers?.let {
+                    adapter.submitList(it)
+                }
+            }
+            showLoading(
+                constructorViewModel.totalGPWinnedRequest.value?.status?: Status.LOADING == Status.LOADING ||
+                        constructorViewModel.totalGPChampionshipsRequest.value?.status?: Status.LOADING == Status.LOADING ||
+                        constructorViewModel.driversOfConstructorRequest.value?.status?: Status.LOADING == Status.LOADING
             )
         })
     }
@@ -67,9 +88,18 @@ class ConstructorDetailFragment : BaseFragment<ConstructorDetailDriversAdapter, 
         binding.apply {
             viewModel = constructorViewModel
             adapter = ConstructorDetailDriversAdapter(dataBindingComponent, appExecutors) {
-
+                driverViewModel.driver.value = it
+                findNavController().navigate(R.id.action_constructorDetailFragment_to_driverDetailFragment)
             }
-            rvConstructors.adapter = adapter
+            rvDrivers.adapter = adapter
+            constructorViewModel.constructor.value?.let {
+                ConstructorsColors.getConstructorColorSaved(it.constructorId)?.let {
+                    binding.clConstructorDetail.setBackgroundResource(it)
+                }?: run {
+                    val color = ConstructorsColors.getConstructorColorProvisional(it.constructorId)
+                    binding.clConstructorDetail.setBackgroundColor(color)
+                }
+            }
         }
     }
 }

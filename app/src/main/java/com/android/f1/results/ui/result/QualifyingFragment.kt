@@ -2,6 +2,7 @@ package com.android.f1.results.ui.result
 
 import android.os.Bundle
 import android.view.View
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingComponent
 import androidx.fragment.app.viewModels
 import com.android.f1.results.R
@@ -75,13 +76,19 @@ class QualifyingFragment : BaseFragment<QualifyingAdapter, QualifyingFragmentBin
             DriversImages.DRIVERS_IMAGES.get(qualifyingRow.firstPosition.driver.driverId)?.let {
                 ivDriver1.setImageResource(it)
             }?: run {
-                ivDriver1.setImageResource(R.drawable.alonso)
+                ivDriver1.setImageResource(R.drawable.ic_silueta2)
+                context?.let {
+                    ivDriver1.setColorFilter(ContextCompat.getColor(it, R.color.colorPrimary))
+                }
             }
 
             DriversImages.DRIVERS_IMAGES.get(qualifyingRow.secondPosition?.driver?.driverId?: "")?.let {
                 ivDriver2.setImageResource(it)
             }?: run {
-                ivDriver2.setImageResource(R.drawable.alonso)
+                ivDriver2.setImageResource(R.drawable.ic_silueta2)
+                context?.let {
+                    ivDriver2.setColorFilter(ContextCompat.getColor(it, R.color.colorPrimary))
+                }
             }
             adapter.setSelectedRow(qualifyingRow)
         }

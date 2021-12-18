@@ -13,6 +13,7 @@ import com.android.f1.results.AppExecutors
 import com.android.f1.results.R
 import com.android.f1.results.ui.common.DataBoundListAdapter
 import com.android.f1.results.util.ConstructorsColors
+import com.android.f1.results.util.DriversImages
 
 class DriverStandingAdapter(
     private val dataBindingComponent: DataBindingComponent,
@@ -64,11 +65,21 @@ class DriverStandingAdapter(
                 binding.llConstructorColor.setBackgroundResource(it)
                 binding.llConstructorColorBottom.setBackgroundResource(it)
                 binding.tvTeamMateGap.setTextColor(ContextCompat.getColor(context, it))
+                if(DriversImages.DRIVERS_IMAGES.get(item.driver.driverId) == null) {
+                    binding.ivDriver.setColorFilter(ContextCompat.getColor(context, it))
+                } else {
+                    binding.ivDriver.colorFilter = null
+                }
             }?: run {
                 val color = ConstructorsColors.getConstructorColorProvisional(item.constructors.last().constructorId)
                 binding.llConstructorColor.setBackgroundColor(color)
                 binding.llConstructorColorBottom.setBackgroundColor(color)
                 binding.tvTeamMateGap.setTextColor(color)
+                if(DriversImages.DRIVERS_IMAGES.get(item.driver.driverId) == null) {
+                    binding.ivDriver.setColorFilter(color)
+                } else {
+                    binding.ivDriver.colorFilter = null
+                }
             }
         }
     }

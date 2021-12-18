@@ -27,7 +27,7 @@ data class Driver(
         DriversImages.DRIVERS_IMAGES.get(driverId)?.let {
             return it
         }?: run {
-            return R.drawable.alonso
+            return R.drawable.ic_silueta2
         }
     }
 

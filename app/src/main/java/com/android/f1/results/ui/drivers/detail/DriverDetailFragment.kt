@@ -18,6 +18,8 @@ import com.google.mlkit.nl.translate.TranslatorOptions
 import java.util.*
 import android.content.Intent
 import android.net.Uri
+import androidx.navigation.fragment.findNavController
+import com.android.f1.results.ui.constructors.ConstructorsViewModel
 import com.android.f1.results.util.ConstructorsColors
 import com.android.f1.results.vo.Status
 
@@ -30,6 +32,10 @@ class DriverDetailFragment : BaseFragment<DriverDetailConstructorsAdapter, Drive
     var dataBindingComponent: DataBindingComponent = FragmentDataBindingComponent(this)
 
     private val driversViewModel: DriversViewModel by viewModels {
+        viewModelFactory
+    }
+
+    private val constructorsViewModel: ConstructorsViewModel by viewModels {
         viewModelFactory
     }
 
@@ -131,7 +137,8 @@ class DriverDetailFragment : BaseFragment<DriverDetailConstructorsAdapter, Drive
             viewModel = driversViewModel
             cvWikipedia.setOnClickListener { openWikipedia(driversViewModel.driver.value?.url) }
             adapter = DriverDetailConstructorsAdapter(dataBindingComponent, appExecutors) {
-
+                constructorsViewModel.constructor.value = it
+                findNavController().navigate(R.id.action_DriverDetailFragment_to_constructorDetailFragment)
             }
             rvConstructors.adapter = adapter
         }

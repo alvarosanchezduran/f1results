@@ -24,8 +24,7 @@ class ConstructorsViewModel
     val year = MutableLiveData<String?>()
 
     private val getConstructors: MutableLiveData<Event<Unit>> = MutableLiveData()
-    private val getConstructorsDrivers: MutableLiveData<Event<Unit>> = MutableLiveData()
-    private val getConstructorTotalGP: MutableLiveData<Event<Unit>> = MutableLiveData()
+    private val getConstructorInfo: MutableLiveData<Event<Unit>> = MutableLiveData()
 
     var constructorsRequest: LiveData<Resource<F1Response<ConstructorsTableResponse>>> = Transformations
         .switchMap(getConstructors) {
@@ -33,21 +32,26 @@ class ConstructorsViewModel
         }
 
     var totalGPWinnedRequest: LiveData<Resource<F1Response<TotalResponse>>> = Transformations
-        .switchMap(getConstructorTotalGP) {
+        .switchMap(getConstructorInfo) {
             constructorsRepository.getConstructorsGPWinned(constructor.value?.constructorId?: "")
         }
 
     var totalGPChampionshipsRequest: LiveData<Resource<F1Response<TotalResponse>>> = Transformations
-        .switchMap(getConstructorTotalGP) {
+        .switchMap(getConstructorInfo) {
             constructorsRepository.getConstructorsChampionshipsWinned(constructor.value?.constructorId?: "")
+        }
+
+    var driversOfConstructorRequest: LiveData<Resource<F1Response<DriversTableResponse>>> = Transformations
+        .switchMap(getConstructorInfo) {
+            constructorsRepository.getConstructorsDrivers(constructor.value?.constructorId?: "")
         }
 
     fun getConstructorsInfo() {
         getConstructors.value = Event(Unit)
     }
 
-    fun getConstructorTotalGP() {
-        getConstructorTotalGP.value = Event(Unit)
+    fun getConstructorInfo() {
+        getConstructorInfo.value = Event(Unit)
     }
     fun getYearSelected(): String {
         return year.value?: Constants.CURRENT_YEAR

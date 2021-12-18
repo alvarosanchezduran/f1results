@@ -8,37 +8,39 @@ import androidx.recyclerview.widget.DiffUtil
 import com.android.f1.results.AppExecutors
 import com.android.f1.results.R
 import com.android.f1.results.databinding.ConstructorDetailItemBinding
+import com.android.f1.results.databinding.DriverDetailItemBinding
 import com.android.f1.results.ui.common.DataBoundListAdapter
 import com.android.f1.results.util.ConstructorsColors
 import com.android.f1.results.vo.Constructor
+import com.android.f1.results.vo.Driver
 
 class ConstructorDetailDriversAdapter(
     private val dataBindingComponent: DataBindingComponent,
     appExecutors: AppExecutors,
-    private val onClickCallback: ((Constructor) -> Unit)?,
-) : DataBoundListAdapter<Constructor, ConstructorDetailItemBinding>(
+    private val onClickCallback: ((Driver) -> Unit)?,
+) : DataBoundListAdapter<Driver, DriverDetailItemBinding>(
     appExecutors = appExecutors,
-    diffCallback = object : DiffUtil.ItemCallback<Constructor>() {
-        override fun areItemsTheSame(oldItem: Constructor, newItem: Constructor): Boolean {
+    diffCallback = object : DiffUtil.ItemCallback<Driver>() {
+        override fun areItemsTheSame(oldItem: Driver, newItem: Driver): Boolean {
             return false
         }
 
-        override fun areContentsTheSame(oldItem: Constructor, newItem: Constructor): Boolean {
+        override fun areContentsTheSame(oldItem: Driver, newItem: Driver): Boolean {
             return false
         }
     }
 ) {
 
-    override fun createBinding(parent: ViewGroup): ConstructorDetailItemBinding {
-        val binding = DataBindingUtil.inflate<ConstructorDetailItemBinding>(
+    override fun createBinding(parent: ViewGroup): DriverDetailItemBinding {
+        val binding = DataBindingUtil.inflate<DriverDetailItemBinding>(
             LayoutInflater.from(parent.context),
-            R.layout.constructor_detail_item,
+            R.layout.driver_detail_item,
             parent,
             false,
             dataBindingComponent
         )
         binding.root.setOnClickListener {
-            binding.constructor?.let {
+            binding.driver?.let {
                 onClickCallback?.invoke(it)
             }
         }
@@ -46,16 +48,7 @@ class ConstructorDetailDriversAdapter(
         return binding
     }
 
-    override fun bind(binding: ConstructorDetailItemBinding, item: Constructor) {
-        binding.constructor = item
-
-        ConstructorsColors.getConstructorColorSaved(item.constructorId)?.let {
-            binding.clDriverConstructorContainer.setBackgroundResource(it)
-            binding.clDriverConstructorContainer.setBackgroundResource(it)
-        }?: run {
-            val color = ConstructorsColors.getConstructorColorProvisional(item.constructorId)
-            binding.clDriverConstructorContainer.setBackgroundColor(color)
-            binding.clDriverConstructorContainer.setBackgroundColor(color)
-        }
+    override fun bind(binding: DriverDetailItemBinding, item: Driver) {
+        binding.driver = item
     }
 }

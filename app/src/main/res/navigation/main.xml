@@ -58,6 +58,10 @@
         android:id="@+id/driverDetailFragment"
         android:name="com.android.f1.results.ui.drivers.detail.DriverDetailFragment"
         android:label="DriverDetailFragment" >
+
+        <action
+            android:id="@+id/action_DriverDetailFragment_to_constructorDetailFragment"
+            app:destination="@id/constructorDetailFragment" />
     </fragment>
 
     <fragment
@@ -73,5 +77,8 @@
         android:id="@+id/constructorDetailFragment"
         android:name="com.android.f1.results.ui.constructors.detail.ConstructorDetailFragment"
         android:label="ConstructorDetailFragment" >
+        <action
+            android:id="@+id/action_constructorDetailFragment_to_driverDetailFragment"
+            app:destination="@id/driverDetailFragment" />
     </fragment>
 </navigation>

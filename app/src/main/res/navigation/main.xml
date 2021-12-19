@@ -96,4 +96,10 @@
         android:name="com.android.f1.results.ui.circuits.detail.CircuitDetailFragment"
         android:label="CircuitDetailFragment" >
     </fragment>
+
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.android.f1.results.ui.LoginFragment"
+        android:label="LoginFragment" >
+    </fragment>
 </navigation>

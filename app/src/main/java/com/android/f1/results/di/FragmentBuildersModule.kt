@@ -1,5 +1,6 @@
 package com.android.f1.results.di
 
+import com.android.f1.results.ui.LoginFragment
 import com.android.f1.results.ui.circuits.CircuitsFragment
 import com.android.f1.results.ui.circuits.detail.CircuitDetailFragment
 import com.android.f1.results.ui.constructors.ConstructorsFragment
@@ -66,4 +67,7 @@ abstract class FragmentBuildersModule {
 
     @ContributesAndroidInjector
     abstract fun contributeCircuitDetailFragment(): CircuitDetailFragment
+
+    @ContributesAndroidInjector
+    abstract fun contributeLoginFragment(): LoginFragment
 }

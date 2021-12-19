@@ -1,5 +1,6 @@
 package com.android.f1.results
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
@@ -21,6 +22,13 @@ import com.android.f1.results.util.Constants.Companion.CURRENT_YEAR
 import com.android.f1.results.util.SpinnerManager
 import android.widget.AdapterView
 import android.widget.AdapterView.OnItemSelectedListener
+import android.widget.TextView
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.gms.common.api.ApiException
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.GoogleAuthProvider
 
 
 class MainActivity : AppCompatActivity(), HasSupportFragmentInjector, SupportActionManager, NavigationView.OnNavigationItemSelectedListener {
@@ -33,6 +41,16 @@ class MainActivity : AppCompatActivity(), HasSupportFragmentInjector, SupportAct
         super.onCreate(savedInstanceState)
         setUpDatabinding()
         setUpMenu()
+        FirebaseAuth.getInstance().currentUser?.let {
+            showLoginItem(false)
+        }?: run {
+            showLoginItem(true)
+        }
+    }
+
+    private fun showLoginItem(show: Boolean) {
+        binding.navigationView.menu.findItem(R.id.nav_login).setVisible(show)
+        binding.navigationView.menu.findItem(R.id.nav_logout).setVisible(!show)
     }
 
     private fun setUpSpinner(showCurrentYear: Boolean) {
@@ -56,6 +74,8 @@ class MainActivity : AppCompatActivity(), HasSupportFragmentInjector, SupportAct
             R.id.nav_drivers -> redirectTo(R.id.driversFragment)
             R.id.nav_constructors -> redirectTo(R.id.constructorsFragment)
             R.id.nav_circuits -> redirectTo(R.id.circuitsFragment)
+            R.id.nav_login -> redirectTo(R.id.loginFragment)
+            R.id.nav_logout -> logout()
         }
 
         return true
@@ -145,5 +165,55 @@ class MainActivity : AppCompatActivity(), HasSupportFragmentInjector, SupportAct
 
     fun loading(status: Boolean) {
         binding.progressBar.setProgressBarVisibility(status)
+    }
+
+    fun signInGoogle() {
+        val conf = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestIdToken(getString(R.string.default_web_client_id))
+            .requestEmail()
+            .build()
+
+        val client: GoogleSignInClient = GoogleSignIn.getClient(this, conf)
+        client.signOut()
+        val signInIntent = client.signInIntent
+        startActivityForResult(signInIntent, 1)
+    }
+
+    fun logout() {
+        FirebaseAuth.getInstance().signOut()
+        showLoginItem(true)
+        redirectTo(R.id.homeFragment)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if(requestCode == 1) {
+            val task = GoogleSignIn.getSignedInAccountFromIntent(data)
+            try {
+                loading(true)
+                val account = task.getResult(ApiException::class.java)
+                if (account != null) {
+                    val credential = GoogleAuthProvider.getCredential(account.idToken, null)
+                    FirebaseAuth.getInstance().signInWithCredential(credential).addOnCompleteListener {
+                        if(it.isSuccessful) {
+                            showLoginItem(false)
+                            changeHeaderMenuUsername(account.email)
+                            redirectTo(R.id.homeFragment)
+                        } else {}
+                        loading(false)
+                    }
+                }
+            } catch (e: ApiException) {
+                // Google Sign In failed, update UI appropriately
+            }
+        }
+    }
+
+    private fun changeHeaderMenuUsername(text: String?) {
+        text?.let {
+            binding.navigationView.getHeaderView(0).findViewById<TextView>(R.id.tv_user_email).text = text
+        }?: run {
+            binding.navigationView.getHeaderView(0).findViewById<TextView>(R.id.tv_user_email).text = ""
+        }
     }
 }

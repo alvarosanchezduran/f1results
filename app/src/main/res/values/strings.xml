@@ -60,4 +60,7 @@
     <string name="number_races_in_contructor">%1$s GP</string>
     <string name="number_years_in_contructor">%1$s seasons</string>
 
+    <string name="last_winners_label">Last winners</string>
+    <string name="most_wins_label">More wins</string>
+
 </resources>

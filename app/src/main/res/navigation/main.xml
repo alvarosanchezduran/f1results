@@ -81,4 +81,19 @@
             android:id="@+id/action_constructorDetailFragment_to_driverDetailFragment"
             app:destination="@id/driverDetailFragment" />
     </fragment>
+
+    <fragment
+        android:id="@+id/circuitsFragment"
+        android:name="com.android.f1.results.ui.circuits.CircuitsFragment"
+        android:label="CircuitsFragment" >
+        <action
+            android:id="@+id/action_circuitsFragment_to_circuitDetailFragment"
+            app:destination="@id/circuitDetailFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/circuitDetailFragment"
+        android:name="com.android.f1.results.ui.circuits.detail.CircuitDetailFragment"
+        android:label="CircuitDetailFragment" >
+    </fragment>
 </navigation>

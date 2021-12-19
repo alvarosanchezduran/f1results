@@ -61,6 +61,12 @@ class RetrofitModule {
         return getRetrofitAdapter().create(ConstructorServiceApi::class.java)
     }
 
+    @Singleton
+    @Provides
+    fun provideCircuitsService(): CircuitServiceApi {
+        return getRetrofitAdapter().create(CircuitServiceApi::class.java)
+    }
+
     private fun getRetrofitAdapter(): Retrofit {
         val client = OkHttpClient.Builder()
                 .callTimeout(BuildConfig.TIMEOUT, TimeUnit.MILLISECONDS)

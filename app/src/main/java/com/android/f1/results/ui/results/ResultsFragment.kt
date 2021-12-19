@@ -5,6 +5,7 @@ import android.view.View
 import androidx.databinding.DataBindingComponent
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.DividerItemDecoration
 import com.android.f1.results.MainActivity
 import com.android.f1.results.R
 import com.android.f1.results.binding.FragmentDataBindingComponent
@@ -86,6 +87,11 @@ class ResultsFragment : BaseFragment<ResultsAdapter, ResultsFragmentBinding>(R.l
                 findNavController().navigate(R.id.action_ResultsFragment_to_ResultFragment)
             })
             binding.rvRaceResults.adapter = adapter
+            val dividerItemDecoration = DividerItemDecoration(
+                binding.rvRaceResults.getContext(),
+                DividerItemDecoration.VERTICAL
+            )
+            binding.rvRaceResults.addItemDecoration(dividerItemDecoration)
         }
     }
 }

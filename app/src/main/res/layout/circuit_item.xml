@@ -1,0 +1,74 @@
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <import type="android.view.View"/>
+        <variable
+            name="circuit"
+            type="com.android.f1.results.vo.Circuit" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_circuit_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingVertical="25dp"
+        android:paddingHorizontal="20dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            android:translationZ="10dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <TextView
+                android:id="@+id/tv_circuit_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/formula_bold"
+                android:textSize="16sp"
+                android:textColor="@color/black"
+                android:layout_marginStart="@dimen/race_result_item_driver_margin_start"
+                android:text="@{circuit.circuitName}"
+                android:textAlignment="center"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+            <TextView
+                android:id="@+id/tv_circuit_city"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/formula_bold"
+                android:textSize="12sp"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:layout_marginStart="@dimen/race_result_item_driver_margin_start"
+                android:text="@{circuit.location.locality}"
+                app:layout_constraintTop_toBottomOf="@id/tv_circuit_name"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+            <TextView
+                android:id="@+id/tv_circuit_country"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/formula_bold"
+                android:textSize="12sp"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:layout_marginStart="@dimen/race_result_item_driver_margin_start"
+                android:text="@{circuit.location.country}"
+                app:layout_constraintTop_toBottomOf="@id/tv_circuit_city"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

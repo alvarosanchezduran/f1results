@@ -62,4 +62,6 @@
     <string name="number_races_in_contructor">%1$s GP</string>
     <string name="number_years_in_contructor">%1$s temporadas</string>
 
+    <string name="last_winners_label">Últimos ganadores</string>
+    <string name="most_wins_label">Más victorias</string>
 </resources>

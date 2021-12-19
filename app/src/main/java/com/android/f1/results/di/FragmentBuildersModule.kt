@@ -1,5 +1,7 @@
 package com.android.f1.results.di
 
+import com.android.f1.results.ui.circuits.CircuitsFragment
+import com.android.f1.results.ui.circuits.detail.CircuitDetailFragment
 import com.android.f1.results.ui.constructors.ConstructorsFragment
 import com.android.f1.results.ui.constructors.detail.ConstructorDetailFragment
 import com.android.f1.results.ui.standings.ConstructorsStandingFragment
@@ -58,4 +60,10 @@ abstract class FragmentBuildersModule {
 
     @ContributesAndroidInjector
     abstract fun contributeConstructorDetailFragment(): ConstructorDetailFragment
+
+    @ContributesAndroidInjector
+    abstract fun contributeCircuitsFragment(): CircuitsFragment
+
+    @ContributesAndroidInjector
+    abstract fun contributeCircuitDetailFragment(): CircuitDetailFragment
 }

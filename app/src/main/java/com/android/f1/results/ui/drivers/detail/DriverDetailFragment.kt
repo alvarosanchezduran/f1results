@@ -44,7 +44,7 @@ class DriverDetailFragment : BaseFragment<DriverDetailConstructorsAdapter, Drive
         setUpBinding()
         setUpObservers()
         (activity as MainActivity).setToolbarTitle(driversViewModel.driver.value?.getName()?: "")
-        setUpTranslator()
+        //setUpTranslator()
         driversViewModel.getDriverTotalGP()
         driversViewModel.driverConstructors = mutableListOf()
     }

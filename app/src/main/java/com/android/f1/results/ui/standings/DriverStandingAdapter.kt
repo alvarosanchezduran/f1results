@@ -18,6 +18,7 @@ import com.android.f1.results.util.DriversImages
 class DriverStandingAdapter(
     private val dataBindingComponent: DataBindingComponent,
     appExecutors: AppExecutors,
+    val fDriverId: String,
     private val onClickCallback: ((DriverStanding) -> Unit)?,
     private val onLongClickCallback: ((DriverStanding) -> Unit)?
 ) : DataBoundListAdapter<DriverStanding, DriverStandingItemBinding>(
@@ -60,6 +61,11 @@ class DriverStandingAdapter(
 
     override fun bind(binding: DriverStandingItemBinding, item: DriverStanding) {
         binding.standing = item
+        if(item.driver.driverId == fDriverId) {
+            binding.cvPoints.setCardBackgroundColor(ContextCompat.getColor(binding.root.context, R.color.favYellow))
+        } else {
+            binding.cvPoints.setCardBackgroundColor(ContextCompat.getColor(binding.root.context, R.color.f1gray))
+        }
         binding.clStandingContainer.context?.let { context ->
             ConstructorsColors.getConstructorColorSaved(item.constructors.last().constructorId)?.let {
                 binding.llConstructorColor.setBackgroundResource(it)

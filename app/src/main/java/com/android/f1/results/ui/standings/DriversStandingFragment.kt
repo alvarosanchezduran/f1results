@@ -15,6 +15,7 @@ import com.android.f1.results.R
 import com.android.f1.results.binding.FragmentDataBindingComponent
 import com.android.f1.results.databinding.CurrentSeasonFragmentBinding
 import com.android.f1.results.databinding.DriversClasificationFragmentBinding
+import com.android.f1.results.db.preferences.F1ResultsPreferences
 import com.android.f1.results.di.Injectable
 import com.android.f1.results.ui.common.BaseFragment
 import com.android.f1.results.ui.home.HomeViewModel
@@ -24,6 +25,9 @@ import com.android.f1.results.vo.Status
 import javax.inject.Inject
 
 class DriversStandingFragment : BaseFragment<DriverStandingAdapter, DriversClasificationFragmentBinding>(R.layout.drivers_clasification_fragment), Injectable {
+
+    @Inject
+    lateinit var preferences: F1ResultsPreferences
 
     var dataBindingComponent: DataBindingComponent = FragmentDataBindingComponent(this)
 
@@ -39,7 +43,7 @@ class DriversStandingFragment : BaseFragment<DriverStandingAdapter, DriversClasi
 
     override fun setUpBinding() {
         binding.apply {
-            adapter = DriverStandingAdapter(dataBindingComponent, appExecutors, {
+            adapter = DriverStandingAdapter(dataBindingComponent, appExecutors, preferences.getFavoriteDriver() ,{
                 adapter.setSelectedResult(it)
             }, {
                 adapter.setAllSelected()

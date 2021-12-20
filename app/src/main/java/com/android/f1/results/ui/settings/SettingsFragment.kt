@@ -30,11 +30,27 @@ class SettingsFragment : BaseFragment<ResultsAdapter, SettingsFragmentBinding>(R
     @Inject
     lateinit var preferences: F1ResultsPreferences
 
-    val drivers = mutableListOf<SimpleDriver>(
+    val drivers = mutableListOf(
         SimpleDriver("", "Sin favorito"),
         SimpleDriver("alonso", "Fernando Alonso"),
         SimpleDriver("hamilton", "Lewis Hamilton"),
-        SimpleDriver("latifi", "Nicolas Latifi"),
+        SimpleDriver("bottas", "Valtteri Bottas"),
+        SimpleDriver("perez", "Carlos Pérez"),
+        SimpleDriver("leclerc", "Charles Leclerc"),
+        SimpleDriver("ricciardo", "Daniel Ricciardo"),
+        SimpleDriver("norris", "Lando Norris"),
+        SimpleDriver("gasly", "Piere Gasly"),
+        SimpleDriver("tsunoda", "Yuki Tsunoda"),
+        SimpleDriver("ocon", "Esteban Ocon"),
+        SimpleDriver("vettel", "Sebastian Vettel"),
+        SimpleDriver("giovinazzi", "Antonio Giovinazzi"),
+        SimpleDriver("russell", "George Russell"),
+        SimpleDriver("stroll", "Lance Stroll"),
+        SimpleDriver("raikkonen", "Kimi Raikkonen"),
+        SimpleDriver("mazepin", "Nikita Mazepin"),
+        SimpleDriver("mick_schumacher", "Mick Schumacher"),
+        SimpleDriver("max_verstappen", "Max Verstappen"),
+        SimpleDriver("latifi", "Nicholas Latifi"),
         SimpleDriver("sainz", "Carlos Sainz"),
     )
 

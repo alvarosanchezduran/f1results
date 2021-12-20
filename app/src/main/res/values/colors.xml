@@ -11,6 +11,7 @@
     <color name="flPurple">#EB00FD</color>
     <color name="gridGray">#333</color>
     <color name="gridGrayQaulifying">#4D4D57</color>
+    <color name="favYellow">#FFD700</color>
 
     <!-- CONSTRUCTOR COLORS -->
     <color name="alfa_romeo">#990000</color>

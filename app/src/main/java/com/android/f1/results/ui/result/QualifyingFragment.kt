@@ -8,11 +8,13 @@ import androidx.fragment.app.viewModels
 import com.android.f1.results.R
 import com.android.f1.results.binding.FragmentDataBindingComponent
 import com.android.f1.results.databinding.QualifyingFragmentBinding
+import com.android.f1.results.db.preferences.F1ResultsPreferences
 import com.android.f1.results.di.Injectable
 import com.android.f1.results.ui.common.BaseFragment
 import com.android.f1.results.util.DriversImages
 import com.android.f1.results.vo.DriverQualifying
 import com.android.f1.results.vo.QualifyingRow
+import javax.inject.Inject
 
 class QualifyingFragment : BaseFragment<QualifyingAdapter, QualifyingFragmentBinding>(R.layout.qualifying_fragment), Injectable {
 
@@ -21,6 +23,9 @@ class QualifyingFragment : BaseFragment<QualifyingAdapter, QualifyingFragmentBin
     private val resultViewModel: ResultViewModel by viewModels {
         viewModelFactory
     }
+
+    @Inject
+    lateinit var preferences: F1ResultsPreferences
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding.lifecycleOwner = viewLifecycleOwner
@@ -81,6 +86,19 @@ class QualifyingFragment : BaseFragment<QualifyingAdapter, QualifyingFragmentBin
                     ivDriver1.setColorFilter(ContextCompat.getColor(it, R.color.colorPrimary))
                 }
             }
+            context?.let {
+                if (qualifyingRow.firstPosition.driver.driverId == preferences.getFavoriteDriver()) {
+                    tvNameDriver1.setTextColor(ContextCompat.getColor(it, R.color.favYellow))
+                    tvSurnameDriver1.setTextColor(ContextCompat.getColor(it, R.color.favYellow))
+                    tvPosition1.setTextColor(ContextCompat.getColor(it, R.color.favYellow))
+                    tvTime1.setTextColor(ContextCompat.getColor(it, R.color.favYellow))
+                } else {
+                    tvNameDriver1.setTextColor(ContextCompat.getColor(it, R.color.colorPrimary))
+                    tvSurnameDriver1.setTextColor(ContextCompat.getColor(it, R.color.colorPrimary))
+                    tvPosition1.setTextColor(ContextCompat.getColor(it, R.color.colorPrimary))
+                    tvTime1.setTextColor(ContextCompat.getColor(it, R.color.colorPrimary))
+                }
+            }
 
             DriversImages.DRIVERS_IMAGES.get(qualifyingRow.secondPosition?.driver?.driverId?: "")?.let {
                 ivDriver2.setImageResource(it)
@@ -90,6 +108,21 @@ class QualifyingFragment : BaseFragment<QualifyingAdapter, QualifyingFragmentBin
                     ivDriver2.setColorFilter(ContextCompat.getColor(it, R.color.colorPrimary))
                 }
             }
+            context?.let {
+                if(qualifyingRow.secondPosition?.driver?.driverId == preferences.getFavoriteDriver()) {
+                    tvNameDriver2.setTextColor(ContextCompat.getColor(it, R.color.favYellow))
+                    tvSurnameDriver2.setTextColor(ContextCompat.getColor(it, R.color.favYellow))
+                    tvPosition2.setTextColor(ContextCompat.getColor(it, R.color.favYellow))
+                    tvTime2.setTextColor(ContextCompat.getColor(it, R.color.favYellow))
+                } else {
+                    tvNameDriver2.setTextColor(ContextCompat.getColor(it, R.color.colorPrimary))
+                    tvSurnameDriver2.setTextColor(ContextCompat.getColor(it, R.color.colorPrimary))
+                    tvPosition2.setTextColor(ContextCompat.getColor(it, R.color.colorPrimary))
+                    tvTime2.setTextColor(ContextCompat.getColor(it, R.color.colorPrimary))
+                }
+            }
+
+
             adapter.setSelectedRow(qualifyingRow)
         }
 

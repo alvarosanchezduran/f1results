@@ -23,17 +23,26 @@ import com.android.f1.results.util.SpinnerManager
 import android.widget.AdapterView
 import android.widget.AdapterView.OnItemSelectedListener
 import android.widget.TextView
+import com.android.f1.results.db.preferences.F1ResultsPreferences
 import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
+import com.google.firebase.firestore.FirebaseFirestore
 
 
 class MainActivity : AppCompatActivity(), HasSupportFragmentInjector, SupportActionManager, NavigationView.OnNavigationItemSelectedListener {
     @Inject
     lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Fragment>
+
+    @Inject
+    lateinit var f1ResultsPreferences: F1ResultsPreferences
+
+    @Inject
+    lateinit var firestore: FirebaseFirestore
 
     private lateinit var binding: MainActivityBinding
 
@@ -43,6 +52,7 @@ class MainActivity : AppCompatActivity(), HasSupportFragmentInjector, SupportAct
         setUpMenu()
         FirebaseAuth.getInstance().currentUser?.let {
             showLoginItem(false)
+            changeHeaderMenuUsername(it.email)
         }?: run {
             showLoginItem(true)
         }
@@ -76,6 +86,7 @@ class MainActivity : AppCompatActivity(), HasSupportFragmentInjector, SupportAct
             R.id.nav_circuits -> redirectTo(R.id.circuitsFragment)
             R.id.nav_login -> redirectTo(R.id.loginFragment)
             R.id.nav_logout -> logout()
+            R.id.nav_settings -> redirectTo(R.id.settingsFragment)
         }
 
         return true
@@ -180,9 +191,11 @@ class MainActivity : AppCompatActivity(), HasSupportFragmentInjector, SupportAct
     }
 
     fun logout() {
+        f1ResultsPreferences.clean()
         FirebaseAuth.getInstance().signOut()
         showLoginItem(true)
         redirectTo(R.id.homeFragment)
+        changeHeaderMenuUsername("")
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -196,15 +209,24 @@ class MainActivity : AppCompatActivity(), HasSupportFragmentInjector, SupportAct
                     val credential = GoogleAuthProvider.getCredential(account.idToken, null)
                     FirebaseAuth.getInstance().signInWithCredential(credential).addOnCompleteListener {
                         if(it.isSuccessful) {
-                            showLoginItem(false)
-                            changeHeaderMenuUsername(account.email)
-                            redirectTo(R.id.homeFragment)
+                            login(account)
                         } else {}
                         loading(false)
                     }
                 }
             } catch (e: ApiException) {
                 // Google Sign In failed, update UI appropriately
+            }
+        }
+    }
+
+    private fun login(account: GoogleSignInAccount) {
+        showLoginItem(false)
+        changeHeaderMenuUsername(account.email)
+        redirectTo(R.id.homeFragment)
+        account?.email?.let {
+            firestore.collection("users").document(it).get().addOnSuccessListener {
+                f1ResultsPreferences.setFavoriteDriver((it.get("favoriteDriverId") as String?)?: "")
             }
         }
     }

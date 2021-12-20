@@ -9,6 +9,7 @@
     <string name="drivers_title">Pilotos</string>
     <string name="constructors_title">Escuderias</string>
     <string name="circuits_title">Circuitos</string>
+    <string name="settings_title">Ajustes</string>
 
     <string name="next_gp_label">Siguiente GP</string>
     <string name="next_gp_void_title">Ya se han disputado todos los Grandes Premios de esta temporada</string>

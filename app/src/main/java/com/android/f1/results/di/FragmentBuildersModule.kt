@@ -16,6 +16,7 @@ import com.android.f1.results.ui.result.QualifyingFragment
 import com.android.f1.results.ui.result.RaceFragment
 import com.android.f1.results.ui.result.ResultFragment
 import com.android.f1.results.ui.results.ResultsFragment
+import com.android.f1.results.ui.settings.SettingsFragment
 
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
@@ -70,4 +71,7 @@ abstract class FragmentBuildersModule {
 
     @ContributesAndroidInjector
     abstract fun contributeLoginFragment(): LoginFragment
+
+    @ContributesAndroidInjector
+    abstract fun contributeSettingsFragment(): SettingsFragment
 }

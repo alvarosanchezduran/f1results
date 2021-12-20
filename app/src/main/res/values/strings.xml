@@ -8,6 +8,7 @@
     <string name="drivers_title">Drivers</string>
     <string name="constructors_title">Constructors</string>
     <string name="circuits_title">Circuits</string>
+    <string name="settings_title">Settings</string>
 
     <string name="next_gp_label">Next GP</string>
     <string name="next_gp_void_title">All the Grand Prix of this season have already been disputed</string>

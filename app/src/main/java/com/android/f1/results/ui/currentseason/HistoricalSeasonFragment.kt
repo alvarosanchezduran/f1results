@@ -101,7 +101,7 @@ class HistoricalSeasonFragment : BaseFragment<Any, CurrentSeasonFragmentBinding>
 
     override fun setUpObservers() {}
     override fun onSpinnerChangeItem(year: Int) {
-        standingsViewModel.yearSelected = year.toString()
+        standingsViewModel.yearSelected = (year - 1).toString()
         standingsViewModel.getStandings()
     }
 
